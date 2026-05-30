@@ -154,7 +154,7 @@ window._smoothNav = function(url) {
 </div>
 </header>
 <!-- Main Content Canvas -->
-<main class="flex-grow pt-24 pb-32 px-container-margin">
+<main class="flex-grow pt-24 px-container-margin" style="padding-bottom: 190px;">
 <!-- Hero Permission Section -->
 <section class="max-w-md mx-auto text-center space-y-stack-lg">
 <div class="relative inline-block">
@@ -196,30 +196,49 @@ window._smoothNav = function(url) {
 </div>
 </div>
 </div>
-<!-- Visual Concept: Geo-Stamped Evidence -->
-<div class="mt-stack-lg rounded-xl overflow-hidden border border-white/10 bg-surface-container relative">
-<img alt="Geo-stamped city reporting" class="w-full h-48 object-cover opacity-60" data-alt="A cinematic, high-contrast night scene of a modern city street being captured through a smartphone screen. The phone display shows a digital interface with a glowing red crosshair and a floating GPS coordinate tag in vibrant orange. The background city lights are softly blurred into a deep charcoal and blue bokeh, emphasizing a sleek, professional, and urgent civic reporting tool atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaRDUcDo2T2WlYl9GTreUBVdKBIftyd60he2p8Kae1dVL_wtv1HYmyKO7M8zJ-gQkY9eFIMKBO2Htt_2RIf5ROuvQAhSw-9iFc_qvndEyOl65se9_0Kos99-PwDLjYhl7QfdX--U-8eoK04O0Xsa5cmnuPooAAZKIxgwyppa_UaR9M9grgbEDQRzK5_BtwfLRKQlNtMJtMB7h89H6TrABNiYNtQt_SY87UZpjdSKMxyEzXTOepjDixftQDkjPfIXHWxs1CH8j7_Yxn">
-<div class="absolute inset-0 bg-gradient-to-t from-surface-elevated to-transparent"></div>
-<div class="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-highest/80 backdrop-blur-md rounded-full border border-white/10">
-<span class="material-symbols-outlined text-primary text-[14px]" data-icon="location_on" style="font-variation-settings: &quot;FILL&quot; 1;">location_on</span>
-<span class="text-label-sm text-on-surface">34.0522° N, 118.2437° W</span>
-</div>
-<div class="px-3 py-1 bg-success/20 backdrop-blur-md rounded-full border border-success/40">
-<span class="text-label-sm text-success font-bold uppercase tracking-wider">Verified</span>
-</div>
-</div>
+<!-- Visual Concept: Geo-Stamped Evidence (Varthur Bengaluru Ward 142) -->
+<div class="mt-stack-lg rounded-2xl overflow-hidden border border-white/10 bg-surface-container-low relative shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all hover:border-primary/30 duration-300">
+  <!-- Styled Map Image -->
+  <div class="relative h-56 overflow-hidden">
+    <img alt="Geo-stamped city reporting" class="w-full h-full object-cover opacity-75 scale-105" src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?auto=format&fit=crop&q=80&w=600">
+    <div class="absolute inset-0 bg-gradient-to-t from-surface-elevated via-transparent to-black/30"></div>
+    
+    <!-- Pulsating Glowing Radar Sweep -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex items-center justify-center">
+      <div class="absolute w-24 h-24 rounded-full bg-primary-container/20 border border-primary-container/40 animate-ping" style="animation-duration: 2.5s;"></div>
+      <div class="absolute w-12 h-12 rounded-full bg-primary-container/30 border border-primary-container/60 animate-pulse"></div>
+      <span class="material-symbols-outlined text-primary-container text-[36px] drop-shadow-[0_0_12px_rgba(249,115,22,0.8)]" style="font-variation-settings: 'FILL' 1;">location_on</span>
+    </div>
+  </div>
+  
+  <!-- Details Overlay -->
+  <div class="p-5 bg-surface-elevated/95 border-t border-white/5 backdrop-blur-md relative z-20 space-y-3">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2 px-3 py-1 bg-surface-container-highest/80 rounded-full border border-white/10">
+        <span class="material-symbols-outlined text-primary-container text-[14px]" style="font-variation-settings: 'FILL' 1;">location_on</span>
+        <span class="text-label-sm font-semibold text-on-surface">12.9420° N, 77.7440° E</span>
+      </div>
+      <div class="flex items-center gap-1.5 px-3 py-1 bg-success/10 border border-success/30 rounded-full">
+        <span class="h-1.5 w-1.5 bg-success rounded-full animate-pulse"></span>
+        <span class="text-[10px] text-success font-bold uppercase tracking-wider">Geo-Locked</span>
+      </div>
+    </div>
+    <div class="text-left space-y-1">
+      <h4 class="text-label-md font-bold text-on-surface">Ward 142 - Varthur Boundary</h4>
+      <p class="text-label-sm text-slate">Consensus Ledger Sync Active — Mahadevapura constituency zone, Bengaluru.</p>
+    </div>
+  </div>
 </div>
 </section>
 </main>
 <!-- Sticky Bottom Actions -->
-<div class="fixed bottom-0 left-0 w-full p-container-margin bg-background/80 backdrop-blur-lg space-y-stack-sm">
+<div class="fixed bottom-0 left-0 w-full p-container-margin bg-background/90 border-t border-white/10 backdrop-blur-xl space-y-stack-sm z-50">
 <a href="/select_your_ward_updated_logo/code.html" class="block w-full">
     <button class="w-full h-14 bg-gradient-to-r from-action-gradient-start to-action-gradient-end text-white font-display font-bold text-body-md rounded-xl action-glow active:scale-95 transition-all duration-200 uppercase tracking-wide" id="allow-btn">
         Allow Access
     </button>
 </a>
-<button class="w-full h-14 bg-transparent border-1.5 border-slate/30 text-slate font-label-md rounded-xl hover:bg-white/5 active:scale-95 transition-all duration-200">
+<button class="w-full h-14 bg-transparent border border-slate/30 text-slate font-label-md rounded-xl hover:bg-white/5 active:scale-95 transition-all duration-200">
             Maybe Later
         </button>
 </div>
