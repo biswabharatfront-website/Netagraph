@@ -1,0 +1,252 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#93ccff",
+                    "surface": "#0c1321",
+                    "surface-container-high": "#232a39",
+                    "secondary-container": "#a40217",
+                    "on-surface-variant": "#e0c0b1",
+                    "outline": "#a78b7d",
+                    "tertiary-fixed-dim": "#93ccff",
+                    "surface-variant": "#2e3544",
+                    "secondary-fixed-dim": "#ffb3ad",
+                    "on-primary-fixed-variant": "#783200",
+                    "error": "#ffb4ab",
+                    "tertiary-container": "#00a2f4",
+                    "surface-container": "#19202e",
+                    "surface-tint": "#ffb690",
+                    "on-secondary-fixed": "#410004",
+                    "surface-container-low": "#151b2a",
+                    "primary-fixed": "#ffdbca",
+                    "on-primary": "#552100",
+                    "surface-container-lowest": "#070e1c",
+                    "surface-elevated": "#1A2232",
+                    "outline-variant": "#584237",
+                    "on-error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#004b74",
+                    "on-tertiary-container": "#003554",
+                    "tertiary-fixed": "#cde5ff",
+                    "inverse-surface": "#dce2f6",
+                    "inverse-on-surface": "#2a3040",
+                    "slate": "#64748B",
+                    "primary": "#ffb690",
+                    "on-surface": "#dce2f6",
+                    "on-secondary-fixed-variant": "#930013",
+                    "inverse-primary": "#9d4300",
+                    "on-secondary": "#68000a",
+                    "on-primary-fixed": "#341100",
+                    "primary-container": "#f97316",
+                    "primary-fixed-dim": "#ffb690",
+                    "surface-container-highest": "#2e3544",
+                    "on-tertiary-fixed": "#001d32",
+                    "error-container": "#93000a",
+                    "background": "#0c1321",
+                    "success": "#22C55E",
+                    "on-secondary-container": "#ffaea8",
+                    "surface-dim": "#0c1321",
+                    "action-gradient-end": "#F97316",
+                    "on-background": "#dce2f6",
+                    "on-error": "#690005",
+                    "action-gradient-start": "#EF4444",
+                    "secondary": "#ffb3ad",
+                    "on-primary-container": "#582200",
+                    "surface-bright": "#323949",
+                    "secondary-fixed": "#ffdad7",
+                    "on-tertiary": "#003351"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "gutter": "16px",
+                    "container-margin": "20px",
+                    "stack-sm": "8px",
+                    "stack-lg": "32px",
+                    "unit": "8px"
+            },
+            "fontFamily": {
+                    "display": ["Sora"],
+                    "headline-lg-mobile": ["Sora"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Sora"],
+                    "headline-lg": ["Sora"]
+            },
+            "fontSize": {
+                    "display": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .action-glow {
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+        }
+    </style>
+<style>
+/* Premium page transitions */
+@keyframes pageEnter { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pageExit { to { opacity:0; transform:translateY(-16px) scale(0.98); } }
+body { animation: pageEnter 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+body.page-exit { animation: pageExit 0.4s cubic-bezier(0.55,0,1,0.45) forwards; }
+</style>
+<script>
+// Intercept all internal navigation for smooth transitions
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href]');
+  if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes('#')) {
+    e.preventDefault();
+    document.body.classList.add('page-exit');
+    setTimeout(function(){ window.location.href = link.href; }, 350);
+  }
+});
+// Wrap onclick navigations
+const origLocationSet = Object.getOwnPropertyDescriptor(window, 'location');
+window._smoothNav = function(url) {
+  document.body.classList.add('page-exit');
+  setTimeout(function(){ window.location.href = url; }, 350);
+};
+</script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 left-0 w-full z-50 border-b border-white/10 bg-background flex justify-between items-center h-16 px-container-margin">
+<button onclick="window.location.href='/login_sign_up/code.html'" class="text-primary hover:bg-surface-bright/10 transition-colors duration-200 p-2 rounded-full z-10" title="Back">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU7zL1FLU2gaLDgNvmJH0-GcT63ERbixgIBbakgGQ755qhidWfpQm7U2yAYahT0_heB2S2mukSr8sbKX1QJk_1MHOBeKyHOvIpQt4aAc0SaIDKMcJgb8qG8J3z6nsjr706zUpXGQSk5UQXM7lAfDwlA2pQhQkWCukPhTtmAvacmkdGOUP-w55eWQQIcAWB2XfCugxdxT42Azmtz9wxMtKByzic6Y2wHGs6WflB3LgbtmaBuSP_Iul_JadaGKMhyEyRlUSszlcz1Btl" alt="Netagram Logo" class="h-8 absolute left-1/2 -translate-x-1/2">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-white/10 overflow-hidden">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="A professional high-resolution headshot of a person with a friendly expression, set against a clean, minimalist studio background. The lighting is soft and cinematic, following a sophisticated corporate modern aesthetic with deep shadows and clear highlights, consistent with a high-end civic technology platform's user profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRTA1PKzHkRTb7lpW_JkpD-CQwKOQvMzmOqDSYOQRUvgPIOGCFjnqRR01LI-IWIxX6lA86ntPTyBpuwiYS2IuwfUXfx3XQEThb-w7Dxjgu_bAA_l8fX_-aec6oaD0PLloTzRI9YUBWKTI-El2_mLpaixWJaQacyucan-ZTq13V4yHIjEw9G7WwldmK8ZuomH807Oz76jFysxOHqKja_zkRLoz-4HlcwnZWxm70cUKYVas1bKbPUnzgfvJN0Ru9frz_zgNod33j6Pvq">
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-24 pb-32 px-container-margin">
+<!-- Hero Permission Section -->
+<section class="max-w-md mx-auto text-center space-y-stack-lg">
+<div class="relative inline-block">
+<div class="w-24 h-24 rounded-full bg-gradient-to-br from-action-gradient-start to-action-gradient-end flex items-center justify-center action-glow mx-auto">
+<span class="material-symbols-outlined text-white text-[48px]" data-icon="verified_user" style="font-variation-settings: &quot;FILL&quot; 1;">verified_user</span>
+</div>
+<div class="absolute -bottom-2 -right-2 w-10 h-10 rounded-lg bg-surface-elevated border border-white/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="location_on" style="font-variation-settings: &quot;FILL&quot; 1;">location_on</span>
+</div>
+</div>
+<div class="space-y-stack-sm">
+<h1 class="text-headline-lg-mobile font-headline-lg-mobile text-on-background">Secure Civic Reporting</h1>
+<p class="text-body-md text-slate px-4">To ensure your reports are actionable and authoritative, Netagram requires specific device permissions.</p>
+</div>
+<!-- Permission Value Prop Cards -->
+<div class="grid grid-cols-1 gap-gutter text-left">
+<!-- Camera Permission -->
+<div class="bg-surface-elevated p-stack-md rounded-xl border border-white/10 transition-transform active:scale-[0.98]">
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-action-gradient-end" data-icon="photo_camera" style="font-variation-settings: &quot;FILL&quot; 1;">photo_camera</span>
+</div>
+<div class="space-y-1">
+<h3 class="text-label-md font-label-md text-on-surface">Camera for Evidence</h3>
+<p class="text-label-sm text-slate leading-relaxed">Capture clear, high-resolution visual proof of community issues to expedite government response.</p>
+</div>
+</div>
+</div>
+<!-- Location Permission -->
+<div class="bg-surface-elevated p-stack-md rounded-xl border border-white/10 transition-transform active:scale-[0.98]">
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-action-gradient-end" data-icon="explore" style="font-variation-settings: &quot;FILL&quot; 1;">explore</span>
+</div>
+<div class="space-y-1">
+<h3 class="text-label-md font-label-md text-on-surface">Geo-Stamped Authenticity</h3>
+<p class="text-label-sm text-slate leading-relaxed">Automatically tag exact coordinates to your reports. Verified locations increase resolution priority by 40%.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Visual Concept: Geo-Stamped Evidence -->
+<div class="mt-stack-lg rounded-xl overflow-hidden border border-white/10 bg-surface-container relative">
+<img alt="Geo-stamped city reporting" class="w-full h-48 object-cover opacity-60" data-alt="A cinematic, high-contrast night scene of a modern city street being captured through a smartphone screen. The phone display shows a digital interface with a glowing red crosshair and a floating GPS coordinate tag in vibrant orange. The background city lights are softly blurred into a deep charcoal and blue bokeh, emphasizing a sleek, professional, and urgent civic reporting tool atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaRDUcDo2T2WlYl9GTreUBVdKBIftyd60he2p8Kae1dVL_wtv1HYmyKO7M8zJ-gQkY9eFIMKBO2Htt_2RIf5ROuvQAhSw-9iFc_qvndEyOl65se9_0Kos99-PwDLjYhl7QfdX--U-8eoK04O0Xsa5cmnuPooAAZKIxgwyppa_UaR9M9grgbEDQRzK5_BtwfLRKQlNtMJtMB7h89H6TrABNiYNtQt_SY87UZpjdSKMxyEzXTOepjDixftQDkjPfIXHWxs1CH8j7_Yxn">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-elevated to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-highest/80 backdrop-blur-md rounded-full border border-white/10">
+<span class="material-symbols-outlined text-primary text-[14px]" data-icon="location_on" style="font-variation-settings: &quot;FILL&quot; 1;">location_on</span>
+<span class="text-label-sm text-on-surface">34.0522° N, 118.2437° W</span>
+</div>
+<div class="px-3 py-1 bg-success/20 backdrop-blur-md rounded-full border border-success/40">
+<span class="text-label-sm text-success font-bold uppercase tracking-wider">Verified</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Sticky Bottom Actions -->
+<div class="fixed bottom-0 left-0 w-full p-container-margin bg-background/80 backdrop-blur-lg space-y-stack-sm">
+<a href="/select_your_ward_updated_logo/code.html" class="block w-full">
+    <button class="w-full h-14 bg-gradient-to-r from-action-gradient-start to-action-gradient-end text-white font-display font-bold text-body-md rounded-xl action-glow active:scale-95 transition-all duration-200 uppercase tracking-wide" id="allow-btn">
+        Allow Access
+    </button>
+</a>
+<button class="w-full h-14 bg-transparent border-1.5 border-slate/30 text-slate font-label-md rounded-xl hover:bg-white/5 active:scale-95 transition-all duration-200">
+            Maybe Later
+        </button>
+</div>
+<!-- Script for Micro-Interactions -->
+<script>
+        document.getElementById('allow-btn').addEventListener('click', function() {
+            this.innerHTML = '<span class="flex items-center justify-center gap-2"><span class="material-symbols-outlined animate-spin" data-icon="progress_activity">progress_activity</span> Syncing...</span>';
+            setTimeout(() => {
+                this.innerHTML = '<span class="flex items-center justify-center gap-2"><span class="material-symbols-outlined" data-icon="check_circle">check_circle</span> Permissions Granted</span>';
+                this.classList.replace('from-action-gradient-start', 'from-success');
+                this.classList.replace('to-action-gradient-end', 'to-success');
+            }, 1200);
+        });
+
+        // Parallax effect on scroll for the hero image
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroImage = document.querySelector('img[data-alt*="city reporting"]');
+            if(heroImage) {
+                heroImage.style.transform = `translateY(${scrolled * 0.15}px)`;
+            }
+        });
+    </script>
+
+
+
+
+
+
+</body></html>

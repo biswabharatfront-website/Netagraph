@@ -1,0 +1,119 @@
+<!DOCTYPE html><html class="dark" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+    <title>Netagram - Followed Leaders</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ffb690",
+                        "primary-container": "#f97316",
+                        "on-primary-container": "#582200",
+                        "background": "#0c1321",
+                        "on-background": "#dce2f6",
+                        "surface": "#0c1321",
+                        "on-surface": "#dce2f6",
+                        "surface-container": "#19202e",
+                        "surface-container-low": "#151b2a",
+                        "surface-container-high": "#232a39",
+                        "surface-elevated": "#1A2232",
+                        "surface-bright": "#323949",
+                        "slate": "#64748B",
+                        "success": "#22C55E",
+                        "error": "#ffb4ab",
+                        "action-gradient-start": "#EF4444",
+                        "action-gradient-end": "#F97316",
+                    },
+                    fontFamily: {
+                        "display": ["Sora", "sans-serif"],
+                        "body": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-display { font-family: 'Sora', sans-serif; }
+        .glass-card { background: rgba(25, 32, 46, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.05); }
+    </style>
+<style>
+/* Premium page transitions */
+@keyframes pageEnter { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pageExit { to { opacity:0; transform:translateY(-16px) scale(0.98); } }
+body { animation: pageEnter 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+body.page-exit { animation: pageExit 0.4s cubic-bezier(0.55,0,1,0.45) forwards; }
+</style>
+<script>
+// Intercept all internal navigation for smooth transitions
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href]');
+  if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes('#')) {
+    e.preventDefault();
+    document.body.classList.add('page-exit');
+    setTimeout(function(){ window.location.href = link.href; }, 350);
+  }
+});
+// Wrap onclick navigations
+const origLocationSet = Object.getOwnPropertyDescriptor(window, 'location');
+window._smoothNav = function(url) {
+  document.body.classList.add('page-exit');
+  setTimeout(function(){ window.location.href = url; }, 350);
+};
+</script>
+</head>
+<body class="bg-background text-on-background min-h-screen overflow-x-hidden">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full z-50 border-b border-white/10 bg-background/80 backdrop-blur-md flex justify-between items-center h-16 px-4">
+        <button onclick="window.location.href='/user_profile/code.html'" class="p-2 hover:bg-white/5 rounded-full transition-colors active:scale-95 duration-200">
+            <span class="material-symbols-outlined text-primary">arrow_back</span>
+        </button>
+        <h1 class="text-lg font-display font-bold">Followed Leaders</h1>
+        <a class="w-8 h-8 rounded-full bg-surface-bright border border-white/10 flex items-center justify-center overflow-hidden active:scale-95 duration-200" href="/user_profile/code.html">
+          <span class="material-symbols-outlined text-primary text-[20px]" data-icon="person">person</span>
+        </a>
+    </header>
+
+    <main class="pt-20 pb-24 px-4 max-w-2xl mx-auto space-y-4">
+        <!-- Politician Card 1 -->
+        <div class="glass-card rounded-2xl p-5 flex flex-col group cursor-pointer border border-white/10 hover:border-action-gradient-end/50 transition-all duration-300" onclick="window.location.href='/politician_profile_rajesh_varma/code.html'">
+            <div class="flex justify-between items-start mb-4">
+                <div class="flex gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-surface-container overflow-hidden border border-white/10 relative">
+                        <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClojMauebOGzj6-oP1GZiZWJAopGZ6lVNbqbwxhpA8llJR_3eTj9g0ch1pjhjQIUnyNOjeGZqBxwGtjcysp9qDb1O8IHU8sPEyw5qge6qI4xyObjByf6efutRyJuW0vsMBqhlm9MB54FaIqyYPhrgzbUoTxUbYvV_k-WwoSf6cbOYSA9CHGAFXCi-AbJlGOZt3JHZ0MO7A8o_hfsm1PMFSqy7PFLPytCCUXMTx-2WbpwwTCxa02f6hPd_aVfUePJbyeOvkUvMtwPZn">
+                        <div class="absolute bottom-0 right-0 bg-success p-1 rounded-tl-lg">
+                            <span class="material-symbols-outlined text-[12px] text-white" style="font-variation-settings: 'FILL' 1;">verified</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-base text-on-surface">Rajesh Varma</h3>
+                        <span class="text-[10px] text-slate uppercase tracking-wider block mb-1">MLA - Varthur Constituency (Ward 142)</span>
+                        <span class="px-2 py-0.5 rounded bg-success/10 text-success text-[10px] font-bold uppercase">68% Fulfillment</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex items-start gap-2 text-xs text-slate bg-surface-container-low p-3 rounded-xl border border-white/5 mb-4">
+                <span class="material-symbols-outlined text-[16px] text-primary mt-0.5">campaign</span>
+                <p>Recent: Varthur Lake walkway revamp has been delivered successfully.</p>
+            </div>
+            
+            <!-- Actions -->
+            <div class="flex gap-2">
+                <button class="flex-[2] border border-white/20 h-10 rounded-lg font-display text-xs font-bold text-on-surface flex items-center justify-center hover:bg-white/5 transition-colors active:scale-95 duration-200" onclick="event.stopPropagation()">
+                    Following
+                </button>
+                <button class="flex-1 bg-surface-elevated h-10 rounded-lg flex items-center justify-center hover:bg-white/5 transition-colors active:scale-95 duration-200" onclick="event.stopPropagation()">
+                    <span class="material-symbols-outlined text-sm">forum</span>
+                </button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

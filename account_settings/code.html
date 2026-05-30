@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Account Settings | Netagram</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#0c1321",
+                        "surface": "#0c1321",
+                        "surface-elevated": "#1A2232",
+                        "surface-container-high": "#232a39",
+                        "primary": "#ffb690",
+                        "on-surface": "#dce2f6",
+                        "primary-container": "#f97316",
+                        "success": "#22C55E",
+                        "slate": "#64748B",
+                        "action-gradient-start": "#EF4444",
+                        "action-gradient-end": "#F97316"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "20px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0c1321;
+            font-family: 'Inter', sans-serif;
+            --speed: 350ms;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .font-display {
+            font-family: 'Sora', sans-serif;
+        }
+        .glass-card {
+            background: rgba(26, 34, 50, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+        .action-gradient {
+            background: linear-gradient(135deg, #EF4444 0%, #F97316 100%);
+        }
+        
+        /* Interactive Animation Demo */
+        .sync-spinner {
+            border: 3px solid rgba(249, 115, 22, 0.1);
+            border-top: 3px solid #f97316;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin var(--speed) linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* LIGHT MODE REAL-TIME DYNAMIC STYLING OVERRIDES */
+        body.light-mode {
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+        body.light-mode .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            color: #1e293b;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+        body.light-mode .text-white {
+            color: #0f172a !important;
+        }
+        body.light-mode input, body.light-mode textarea, body.light-mode select {
+            background-color: #ffffff !important;
+            border: 1px solid #cbd5e1 !important;
+            color: #0f172a !important;
+        }
+        body.light-mode .bg-surface {
+            background-color: #e2e8f0 !important;
+            color: #1e293b !important;
+        }
+        body.light-mode .bg-surface-elevated {
+            background-color: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            color: #0f172a !important;
+        }
+        body.light-mode .text-slate {
+            color: #475569 !important;
+        }
+        body.light-mode header {
+            background-color: #ffffff !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+        }
+        body.light-mode nav {
+            background-color: #ffffff !important;
+            border-top: 1px solid #e2e8f0 !important;
+        }
+    </style>
+    <style>
+    /* Premium page transitions */
+    @keyframes pageEnter { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes pageExit { to { opacity:0; transform:translateY(-16px) scale(0.98); } }
+    body { animation: pageEnter var(--speed) cubic-bezier(0.16,1,0.3,1) both; }
+    body.page-exit { animation: pageExit var(--speed) cubic-bezier(0.55,0,1,0.45) forwards; }
+    </style>
+    <script>
+    // Dynamically apply native refresh rate transition speed
+    const savedHz = localStorage.getItem('netagram_refresh_rate') || '60';
+    if (savedHz === '120') {
+        document.documentElement.style.setProperty('--speed', '150ms');
+    } else if (savedHz === '90') {
+        document.documentElement.style.setProperty('--speed', '230ms');
+    } else {
+        document.documentElement.style.setProperty('--speed', '350ms');
+    }
+
+    // Intercept all internal navigation for smooth transitions
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a[href]');
+      if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes('#')) {
+        e.preventDefault();
+        document.body.classList.add('page-exit');
+        setTimeout(function(){ window.location.href = link.href; }, parseInt(getComputedStyle(document.documentElement).getPropertyValue('--speed')) - 30);
+      }
+    });
+    </script>
+</head>
+<body class="text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden pb-28">
+    
+    <main class="flex-grow flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="fixed top-0 left-0 w-full z-50 border-b border-white/10 bg-background flex justify-between items-center h-16 px-container-margin transition-colors duration-300">
+            <div class="flex items-center space-x-3">
+                <button onclick="window.location.href='/user_profile/code.html'" class="p-2 hover:bg-surface-elevated rounded-full transition-colors active:scale-95" title="Back">
+                    <span class="material-symbols-outlined text-white" id="header-back-icon">arrow_back</span>
+                </button>
+                <div>
+                    <h1 class="text-xs font-bold uppercase tracking-widest text-primary-container">PREFERENCES</h1>
+                    <p class="text-lg font-bold font-display text-white">Account Settings</p>
+                </div>
+            </div>
+            <a class="w-8 h-8 rounded-full bg-surface-bright border border-white/10 flex items-center justify-center overflow-hidden active:scale-95 duration-200" href="/user_profile/code.html">
+                <span class="material-symbols-outlined text-primary text-[20px]" data-icon="person">person</span>
+            </a>
+        </header>
+
+        <div class="mt-20 px-container-margin space-y-6">
+            
+            <!-- ===== SECTION 1: PROFILE INFORMATION ===== -->
+            <section class="glass-card rounded-2xl p-5 space-y-5">
+                <h3 class="font-display font-bold text-white text-base border-b border-white/5 pb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">person</span>
+                    Profile Information
+                </h3>
+                
+                <!-- Profile Image Edit -->
+                <div class="flex flex-col sm:flex-row items-center gap-4 bg-surface/40 p-4 rounded-xl border border-white/5">
+                    <div class="relative w-20 h-20 rounded-full overflow-hidden border-2 border-primary shadow-lg shrink-0">
+                        <img id="settings-avatar-img" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByhQ3sRPxfACh3bCWaN4-Pgm-xsPbUQMA6bikJMhqDyz3aa7uNP7Sr0cW1baCJ_hWtlmjFO4fZi1i9OCMQotDIHTsKZAeDmXvVkwJ20n5cb5R0vCRLM8yZQPcZybsSwehJP6wLFEtv3vyozIk-ucyuLw4ZoWak_YmuT-OmXLUvvyaTfZ8GnYk6qYU9IbAMD28rACZiLVnHGiNGSlsNANoOSEZtgm-OtEV8omORJtA0nhqHG4NN6MLOGIgm1RikAslR3dSJqU36I3Yf">
+                    </div>
+                    <div class="flex-grow text-center sm:text-left space-y-1">
+                        <span class="text-xs font-bold text-white block">Profile Picture</span>
+                        <p class="text-[10px] text-slate">JPG/PNG up to 2MB. Dynamic face matching enabled.</p>
+                        <div class="flex flex-wrap gap-2 justify-center sm:justify-start pt-1">
+                            <button onclick="simulatePhotoUpload()" class="h-8 px-3 bg-primary-container text-on-primary-container text-[11px] font-bold rounded-lg hover:opacity-90 active:scale-95 transition-all">Upload Photo</button>
+                            <button onclick="removePhoto()" class="h-8 px-3 bg-surface border border-white/10 text-slate text-[11px] font-bold rounded-lg hover:text-white active:scale-95 transition-all">Remove</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Fields -->
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-bold text-slate uppercase">Full Name</label>
+                            <input type="text" class="w-full h-11 bg-surface border border-white/10 rounded-xl px-4 text-xs text-white focus:border-primary-container focus:ring-0" value="Arjun Mehta">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-bold text-slate uppercase flex justify-between">
+                                <span>Phone Number</span>
+                                <span class="text-success flex items-center font-bold gap-0.5"><span class="material-symbols-outlined text-[12px]">check_circle</span> Verified</span>
+                            </label>
+                            <div class="relative">
+                                <input type="text" class="w-full h-11 bg-surface border border-white/10 rounded-xl px-4 text-xs text-white focus:border-primary-container focus:ring-0 pr-20" value="+91 98765 43210">
+                                <button onclick="triggerPhoneOTP()" class="absolute right-2 top-1.5 h-8 px-2 bg-white/5 border border-white/10 text-primary text-[10px] font-bold rounded-lg hover:bg-white/10">Re-verify</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-bold text-slate uppercase">Email Address (Optional)</label>
+                            <input type="email" class="w-full h-11 bg-surface border border-white/10 rounded-xl px-4 text-xs text-white focus:border-primary-container focus:ring-0" value="arjun.mehta@civicpulse.org">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[11px] font-bold text-slate uppercase flex items-center gap-1">
+                                <span>Voter ID / Aadhaar Last 4</span>
+                                <span class="material-symbols-outlined text-slate text-xs cursor-help" title="Voter matching enables higher authority geo-matched reports.">help</span>
+                            </label>
+                            <input type="text" class="w-full h-11 bg-surface border border-white/10 rounded-xl px-4 text-xs text-slate focus:border-primary-container focus:ring-0" value="VOTER ID: MH/14/082/0034XX (Masked)" disabled>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-[11px] font-bold text-slate uppercase">Short Bio</label>
+                        <textarea rows="3" class="w-full p-4 bg-surface border border-white/10 rounded-xl text-xs text-white focus:border-primary-container focus:ring-0 resize-none">Concerned citizen of Mumbai South, focusing on road infrastructure safety, waste management, and municipal water allocations.</textarea>
+                    </div>
+
+                    <!-- Constituency Hierarchy Widget -->
+                    <div class="bg-surface p-4 rounded-xl border border-white/5 space-y-3">
+                        <div>
+                            <span class="text-[10px] text-slate font-bold uppercase block">Constituency Hierarchy</span>
+                            <p class="text-white text-xs font-bold font-display mt-0.5" id="constituency-text">Ward 142 (Varthur) → Mahadevapura Assembly → Bangalore South Parliament</p>
+                        </div>
+                        <div class="w-full h-[1px] bg-white/5"></div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-[9px] text-slate">*Aligned automatically using PostGIS geo-position data.</span>
+                            <button onclick="simulateConstituencyChange()" class="h-8 px-3 bg-white/5 border border-white/10 text-primary text-[10px] font-bold rounded-lg hover:bg-white/10">Change / Verify</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== SECTION 2: ACCOUNT SECURITY ===== -->
+            <section class="glass-card rounded-2xl p-5 space-y-4">
+                <h3 class="font-display font-bold text-white text-base border-b border-white/5 pb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">security</span>
+                    Account Security
+                </h3>
+                
+                <div class="space-y-3">
+                    <button onclick="simulatePasswordChange()" class="w-full h-12 bg-surface hover:bg-surface-elevated text-left px-4 rounded-xl border border-white/5 flex items-center justify-between group active:scale-[0.99] transition-transform">
+                        <span class="text-xs font-bold text-white">Change Account Password / PIN</span>
+                        <span class="material-symbols-outlined text-slate text-sm group-hover:translate-x-0.5 transition-transform">chevron_right</span>
+                    </button>
+
+                    <!-- Toggle Switches -->
+                    <div class="flex items-center justify-between p-3 bg-surface/50 rounded-xl border border-white/5">
+                        <div>
+                            <span class="text-xs font-bold text-white block">Biometric Login</span>
+                            <span class="text-[10px] text-slate">Use Face ID / Fingerprint credentials.</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-container"></div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-between p-3 bg-surface/50 rounded-xl border border-white/5">
+                        <div>
+                            <span class="text-xs font-bold text-white block">Two-Factor Authentication (2FA)</span>
+                            <span class="text-[10px] text-slate">Confirm logins via SMS OTP alerts.</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer">
+                            <div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-container"></div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Active Sessions -->
+                <div class="space-y-2 pt-2">
+                    <span class="text-[10px] font-bold text-slate uppercase tracking-wider block">Active Authorized Sessions</span>
+                    <div class="space-y-1.5 text-[11px]">
+                        <div class="flex justify-between items-center p-2.5 rounded-lg bg-surface border border-white/5">
+                            <div>
+                                <span class="text-white font-bold block">Samsung Galaxy S24 Ultra (Active Now)</span>
+                                <span class="text-slate">Mobile App • Varthur, India</span>
+                            </div>
+                            <span class="text-success font-bold">Active</span>
+                        </div>
+                        <div class="flex justify-between items-center p-2.5 rounded-lg bg-surface border border-white/5">
+                            <div>
+                                <span class="text-white font-bold block">Chrome on Windows 11 (Emulator)</span>
+                                <span class="text-slate">Web Console • Mahadevapura, India</span>
+                            </div>
+                            <button onclick="terminateSession(this)" class="text-error font-bold hover:underline">Revoke</button>
+                        </div>
+                    </div>
+                    <button onclick="terminateOtherSessions()" class="w-full mt-2 h-9 bg-white/5 border border-white/10 text-slate hover:text-white text-[11px] font-bold rounded-lg">Logout from all other devices</button>
+                </div>
+
+                <!-- Delete Account Red Zone -->
+                <div class="bg-red-500/5 p-4 rounded-xl border border-red-500/10 space-y-3 mt-4">
+                    <div>
+                        <span class="text-error text-xs font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">warning</span> Danger Zone</span>
+                        <p class="text-[10px] text-slate mt-0.5">Deleting your account is permanent. All pending reports will be anonymised but kept for municipal database historical integrity.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="exportUserData()" class="flex-grow h-9 bg-white/5 border border-white/10 text-slate hover:text-white text-[10px] font-bold rounded-lg">Download My Data</button>
+                        <button onclick="deleteAccount()" class="flex-grow h-9 bg-red-500/10 border border-red-500/20 text-error hover:bg-red-500/20 text-row text-[10px] font-bold rounded-lg">Delete Account</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== SECTION 3: NOTIFICATION PREFERENCES ===== -->
+            <section class="glass-card rounded-2xl p-5 space-y-4">
+                <h3 class="font-display font-bold text-white text-base border-b border-white/5 pb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">notifications_active</span>
+                    Notification Preferences
+                </h3>
+
+                <!-- Push notifications sub-block -->
+                <div class="space-y-3">
+                    <span class="text-[10px] font-bold text-slate uppercase tracking-wider block">Push Notification Events</span>
+                    
+                    <div class="space-y-2 text-xs">
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" class="rounded bg-surface border-white/10 text-primary-container focus:ring-0" checked>
+                            <span class="text-slate">New reports logged in my constituency</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" class="rounded bg-surface border-white/10 text-primary-container focus:ring-0" checked>
+                            <span class="text-slate">Updates on my submitted reports / grievances</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" class="rounded bg-surface border-white/10 text-primary-container focus:ring-0" checked>
+                            <span class="text-slate">When my municipal complaints are escalated to RTI</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" class="rounded bg-surface border-white/10 text-primary-container focus:ring-0" checked>
+                            <span class="text-slate">Politician / Ward representative replies to my reports</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" class="rounded bg-surface border-white/10 text-primary-container focus:ring-0">
+                            <span class="text-slate">Local ward election and municipal campaign updates</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="h-[1px] w-full bg-white/5 my-2"></div>
+
+                <!-- Alert channels switches -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="flex items-center justify-between p-2.5 bg-surface/50 rounded-lg border border-white/5">
+                        <span class="text-xs font-bold text-white">Email Digests</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <div class="w-8 h-4.5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-primary-container"></div>
+                        </label>
+                    </div>
+                    <div class="flex items-center justify-between p-2.5 bg-surface/50 rounded-lg border border-white/5">
+                        <span class="text-xs font-bold text-white">SMS Critical Alerts</span>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer">
+                            <div class="w-8 h-4.5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate after:border after:rounded-full after:h-3.5 after:w-3.5 after:transition-all peer-checked:bg-primary-container"></div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Frequency selector -->
+                <div class="space-y-2 pt-2">
+                    <span class="text-[10px] font-bold text-slate uppercase tracking-wider block">Digest Frequency</span>
+                    <div class="bg-surface p-1 rounded-xl border border-white/5 flex gap-1 text-center text-xs font-bold">
+                        <button id="freq-imm" onclick="selectFrequency('imm')" class="flex-grow py-2 rounded-lg bg-surface-elevated text-white">Immediate</button>
+                        <button id="freq-daily" onclick="selectFrequency('daily')" class="flex-grow py-2 rounded-lg text-slate hover:text-white">Daily</button>
+                        <button id="freq-weekly" onclick="selectFrequency('weekly')" class="flex-grow py-2 rounded-lg text-slate hover:text-white">Weekly</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== SECTION 4: PRIVACY & VISIBILITY ===== -->
+            <section class="glass-card rounded-2xl p-5 space-y-4">
+                <h3 class="font-display font-bold text-white text-base border-b border-white/5 pb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">visibility</span>
+                    Privacy & Visibility
+                </h3>
+
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 bg-surface/50 rounded-xl border border-white/5">
+                        <div>
+                            <span class="text-xs font-bold text-white block">Make profile public</span>
+                            <span class="text-[10px] text-slate">Allow other verified citizens to view my bento statistics.</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-container"></div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-between p-3 bg-surface/50 rounded-xl border border-white/5">
+                        <div>
+                            <span class="text-xs font-bold text-white block">Show Name on public reports</span>
+                            <span class="text-[10px] text-slate">Shows "Arjun M." on local feed. (Opt-out: Anonymous)</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-container"></div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-between p-3 bg-surface/50 rounded-xl border border-white/5">
+                        <div>
+                            <span class="text-xs font-bold text-white block">Allow direct messaging</span>
+                            <span class="text-[10px] text-slate">Allow politicians and ward verifiers to message me directly.</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-container"></div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-between p-3 bg-surface/50 rounded-xl border border-white/5">
+                        <div>
+                            <span class="text-xs font-bold text-white block">Opt-out of aggregated analytics</span>
+                            <span class="text-[10px] text-slate">Disable sending hardware sync logs to municipal researchers.</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer">
+                            <div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-container"></div>
+                        </label>
+                    </div>
+                </div>
+
+                <button onclick="exportUserData()" class="w-full mt-2 h-11 bg-white/5 border border-white/10 text-slate hover:text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm">download</span>
+                    GDPR / DPDP Compliant Data Export (JSON)
+                </button>
+            </section>
+
+            <!-- ===== SECTION 5: VERIFICATION & TRUST ===== -->
+            <section class="glass-card rounded-2xl p-5 space-y-4">
+                <h3 class="font-display font-bold text-white text-base border-b border-white/5 pb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">verified_user</span>
+                    Verification & Trust
+                </h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="bg-surface p-4 rounded-xl border border-white/5 flex flex-col justify-between gap-3">
+                        <div>
+                            <span class="text-[10px] text-slate font-bold uppercase block">Resident Verification</span>
+                            <p class="text-white text-xs font-bold mt-1">Status: Level 1 Verified</p>
+                            <p class="text-[10px] text-slate mt-0.5">Voter ID ledger match confirms local residency.</p>
+                        </div>
+                        <button onclick="alert('Upload address proof document modal trigger!')" class="h-9 w-full bg-white/5 border border-white/10 text-slate hover:text-white text-[11px] font-bold rounded-lg">Update Documents</button>
+                    </div>
+
+                    <div class="bg-surface p-4 rounded-xl border border-white/5 flex flex-col justify-between gap-3">
+                        <div>
+                            <span class="text-[10px] text-slate font-bold uppercase block">Become a Civic Verifier Partner</span>
+                            <p class="text-white text-xs font-bold mt-1">Audit local budgets & verify reports.</p>
+                            <p class="text-[10px] text-slate mt-0.5">Requires 5,000+ Karma XP score.</p>
+                        </div>
+                        <button onclick="applyCivicVerifier()" class="h-9 w-full bg-primary-container/10 border border-primary-container/20 text-primary hover:bg-primary-container/20 text-[11px] font-bold rounded-lg">Apply Now</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== SECTION 6: APP PREFERENCES ===== -->
+            <section class="glass-card rounded-2xl p-5 space-y-4">
+                <h3 class="font-display font-bold text-white text-base border-b border-white/5 pb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">settings_applications</span>
+                    App Preferences
+                </h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-[11px] font-bold text-slate uppercase">Language Selection</label>
+                        <select onchange="changeLanguage(this.value)" class="w-full h-11 bg-surface border border-white/10 rounded-xl px-4 text-xs text-white focus:border-primary-container focus:ring-0">
+                            <option value="en" selected>English</option>
+                            <option value="hi">हिन्दी (Hindi)</option>
+                            <option value="mr">मराठी (Marathi)</option>
+                            <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-[11px] font-bold text-slate uppercase">Default Map Layer</label>
+                        <select class="w-full h-11 bg-surface border border-white/10 rounded-xl px-4 text-xs text-white focus:border-primary-container focus:ring-0">
+                            <option value="streets" selected>Streets View (Offline Grid)</option>
+                            <option value="satellite">Satellite View (Simulated GIS)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Theme Toggle & Sync Toggles -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="flex items-center justify-between p-3 bg-surface/50 rounded-xl border border-white/5">
+                        <div>
+                            <span class="text-xs font-bold text-white block">Light / Dark Theme</span>
+                            <span class="text-[10px] text-slate" id="theme-status-text">Switch visual styling variables.</span>
+                        </div>
+                        <!-- Highly interactive Theme Switch -->
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" id="theme-toggle" class="sr-only peer" onchange="toggleLightMode()">
+                            <div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-container"></div>
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-between p-3 bg-surface/50 rounded-xl border border-white/5">
+                        <div>
+                            <span class="text-xs font-bold text-white block">Auto-sync reports online</span>
+                            <span class="text-[10px] text-slate">Auto sync offline draft caches.</span>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-container"></div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Native Refresh Rate Display Settings (KEPT) -->
+                <div class="h-[1px] w-full bg-white/5 my-2"></div>
+                <div class="space-y-3 pt-1">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-white block">Native Refresh Pacing</span>
+                            <span class="text-[10px] text-slate">Adjusts transition frame pacing durations in CSS.</span>
+                        </div>
+                        <!-- Live animated response indicator -->
+                        <div class="flex items-center justify-center shrink-0">
+                            <div class="sync-spinner" id="speed-indicator-spinner"></div>
+                        </div>
+                    </div>
+
+                    <!-- 3-Way Segmented Control -->
+                    <div class="bg-surface p-1 rounded-xl border border-white/5 flex gap-1 text-center text-xs font-bold">
+                        <button id="hz-60" onclick="setRefreshRate('60')" class="flex-grow py-2 rounded-lg bg-surface-elevated text-white">60Hz</button>
+                        <button id="hz-90" onclick="setRefreshRate('90')" class="flex-grow py-2 rounded-lg text-slate hover:text-white">90Hz</button>
+                        <button id="hz-120" onclick="setRefreshRate('120')" class="flex-grow py-2 rounded-lg text-slate hover:text-white">120Hz</button>
+                    </div>
+                </div>
+                
+                <div class="flex gap-2 pt-2">
+                    <button class="flex-1 h-11 border border-white/10 hover:bg-white/5 rounded-xl text-xs font-bold text-slate hover:text-white transition-colors" onclick="clearLocalCache()">
+                        Clear Cache
+                    </button>
+                    <button class="flex-1 h-11 border border-red-500/30 hover:bg-red-500/10 text-error rounded-xl text-xs font-bold transition-colors" onclick="resetAppDemo()">
+                        Factory Reset Defaults
+                    </button>
+                </div>
+            </section>
+
+            <!-- ===== SECTION 7: SUPPORT & ABOUT ===== -->
+            <section class="glass-card rounded-2xl p-5 space-y-4">
+                <h3 class="font-display font-bold text-white text-base border-b border-white/5 pb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">contact_support</span>
+                    Support & About
+                </h3>
+
+                <!-- FAQs Accordion List -->
+                <div class="space-y-2">
+                    <span class="text-[10px] font-bold text-slate uppercase tracking-wider block">Help Center & FAQ</span>
+                    
+                    <div class="space-y-1.5 text-xs">
+                        <div class="bg-surface rounded-xl overflow-hidden border border-white/5">
+                            <button onclick="toggleFAQ(1)" class="w-full px-4 py-3 text-left font-bold text-white flex justify-between items-center hover:bg-surface-elevated">
+                                <span>How do Karma XP points work?</span>
+                                <span class="material-symbols-outlined text-slate text-sm transition-transform" id="faq-icon-1">expand_more</span>
+                            </button>
+                            <div id="faq-ans-1" class="hidden px-4 pb-3 text-slate text-[11px] leading-relaxed border-t border-white/5 pt-2">
+                                Karma XP points represent your verified civic contributions. You earn XP by upvoting agreements (+10 XP), reporting new verifications (+50 XP), starting ward collaborations (+20 XP), and joining local cleanups (+100 XP). Points are stored securely inside your local profile certificate.
+                            </div>
+                        </div>
+
+                        <div class="bg-surface rounded-xl overflow-hidden border border-white/5">
+                            <button onclick="toggleFAQ(2)" class="w-full px-4 py-3 text-left font-bold text-white flex justify-between items-center hover:bg-surface-elevated">
+                                <span>Is my personal data shared with municipal politicians?</span>
+                                <span class="material-symbols-outlined text-slate text-sm transition-transform" id="faq-icon-2">expand_more</span>
+                            </button>
+                            <div id="faq-ans-2" class="hidden px-4 pb-3 text-slate text-[11px] leading-relaxed border-t border-white/5 pt-2">
+                                No. Politicians only receive anonymised geodata logs and consolidated citizen numbers unless you explicitly opt to "Show my name on public reports" inside Privacy settings. CPGRAMS & RTI generation works completely on masked encryption.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Utilities grid -->
+                <div class="grid grid-cols-2 gap-2 text-xs font-bold pt-2">
+                    <button onclick="simulateBugReport()" class="h-11 bg-surface hover:bg-surface-elevated border border-white/5 rounded-xl text-white flex items-center justify-center gap-1.5">
+                        <span class="material-symbols-outlined text-sm text-primary">bug_report</span> Report a Bug
+                    </button>
+                    <button onclick="alert('Contacting Neta audit helpline simulated!')" class="h-11 bg-surface hover:bg-surface-elevated border border-white/5 rounded-xl text-white flex items-center justify-center gap-1.5">
+                        <span class="material-symbols-outlined text-sm text-primary">mail</span> Contact Support
+                    </button>
+                    <button onclick="alert('App Store redirection simulated!')" class="h-11 bg-surface hover:bg-surface-elevated border border-white/5 rounded-xl text-white flex items-center justify-center gap-1.5">
+                        <span class="material-symbols-outlined text-sm text-primary">star</span> Rate App
+                    </button>
+                    <button onclick="alert('Copied app referral link: netagram.app/download')" class="h-11 bg-surface hover:bg-surface-elevated border border-white/5 rounded-xl text-white flex items-center justify-center gap-1.5">
+                        <span class="material-symbols-outlined text-sm text-primary">share</span> Share Neta App
+                    </button>
+                </div>
+
+                <!-- About Us mission -->
+                <div class="bg-surface/50 p-4 rounded-xl border border-white/5 text-[11px] leading-relaxed text-slate text-center space-y-1">
+                    <span class="text-white font-bold block">About Neta Accountability Platform</span>
+                    <span>Building decentralized transparency solutions in cooperation with civic bodies. Powered by citizen ledger geostamps to eliminate local municipal corruption.</span>
+                </div>
+            </section>
+
+            <!-- ===== SECTION 8: LEGAL ===== -->
+            <section class="glass-card rounded-2xl p-5 space-y-4">
+                <h3 class="font-display font-bold text-white text-base border-b border-white/5 pb-2 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">gavel</span>
+                    Legal & Compliance
+                </h3>
+
+                <div class="grid grid-cols-2 gap-2 text-[11px] text-center font-semibold text-slate">
+                    <a href="#" onclick="alert('Privacy Policy Modal: GDPR / DPDP Compliant!')" class="p-3 bg-surface rounded-xl border border-white/5 hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" onclick="alert('Terms of Service Modal: User agreements!')" class="p-3 bg-surface rounded-xl border border-white/5 hover:text-white transition-colors">Terms of Service</a>
+                    <a href="#" onclick="alert('Community Guidelines: Zero corruption, mutual respect.')" class="p-3 bg-surface rounded-xl border border-white/5 hover:text-white transition-colors">Guidelines</a>
+                    <a href="#" onclick="alert('DPDP Compliant Data Deletion Request logged.')" class="p-3 bg-surface rounded-xl border border-white/5 text-error border-red-500/5 hover:bg-red-500/5 transition-colors">Data Erasure Request</a>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Custom Notification Toast Container -->
+        <div id="settings-toast-container" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-[10000] flex flex-col gap-2"></div>
+
+        <!-- Bottom Navigation Bar -->
+        <nav class="fixed bottom-0 left-0 w-full z-50 bg-surface-container border-t border-white/10 flex justify-around items-center px-4 py-2 pb-safe shadow-lg rounded-t-xl transition-colors duration-300">
+            <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/netagram_unified_navigation_hub/code.html">
+                <span class="material-symbols-outlined">dynamic_feed</span>
+                <span class="font-label-sm text-label-sm-mobile mt-1">Feed</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all duration-200" href="/civic_intelligence_hub/code.html">
+                <span class="material-symbols-outlined">explore</span>
+                <span class="font-label-sm text-label-sm-mobile mt-1">Explore</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/unified_reports_tracking_hub/code.html">
+                <span class="material-symbols-outlined">add_circle</span>
+                <span class="font-label-sm text-label-sm-mobile mt-1">Report</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/political_leaders/code.html">
+                <span class="material-symbols-outlined">stars</span>
+                <span class="font-label-sm text-label-sm-mobile mt-1">Leaders</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/community_hub_unified_design/code.html">
+                <span class="material-symbols-outlined">groups</span>
+                <span class="font-label-sm text-label-sm-mobile mt-1">Community</span>
+            </a>
+        </nav>
+    </main>
+
+    <script>
+        // Init States
+        document.addEventListener('DOMContentLoaded', () => {
+            // HZ Selector Button Highlights
+            const rate = localStorage.getItem('netagram_refresh_rate') || '60';
+            setButtonActive(rate);
+
+            // Set dynamic theme status on load
+            const isLight = localStorage.getItem('netagram_light_mode') === 'true';
+            document.getElementById('theme-toggle').checked = isLight;
+            if (isLight) {
+                document.body.classList.add('light-mode');
+                document.getElementById('header-back-icon').classList.remove('text-white');
+                document.getElementById('header-back-icon').classList.add('text-primary');
+            }
+        });
+
+        // Set Native Refresh Rate
+        function setRefreshRate(rate) {
+            localStorage.setItem('netagram_refresh_rate', rate);
+            setButtonActive(rate);
+            
+            // Interactively modify CSS transitions instantly
+            let duration = '350ms';
+            let spinnerDuration = '1.2s';
+            let desc = '';
+            if (rate === '120') {
+                duration = '150ms';
+                spinnerDuration = '0.5s';
+                desc = '*Ultra response pacing activated. Transitions are locked at 150ms!';
+            } else if (rate === '90') {
+                duration = '230ms';
+                spinnerDuration = '0.8s';
+                desc = '*High response pacing activated. Transitions run at 230ms!';
+            } else {
+                duration = '350ms';
+                spinnerDuration = '1.2s';
+                desc = '*Standard response pacing active. 350ms system default.';
+            }
+
+            document.documentElement.style.setProperty('--speed', duration);
+            
+            // Apply spinner speed change dynamically
+            const spinner = document.getElementById('speed-indicator-spinner');
+            spinner.style.animationDuration = spinnerDuration;
+            
+            document.getElementById('hz-desc').innerText = desc;
+            showToast(`Display Refresh Rate set to ${rate}Hz natively!`, 'success');
+        }
+
+        // Set Button UI highlight
+        function setButtonActive(rate) {
+            const hzs = ['60', '90', '120'];
+            hzs.forEach(h => {
+                const btn = document.getElementById('hz-' + h);
+                btn.className = "flex-grow py-2 rounded-lg transition-all duration-200 text-slate hover:text-white";
+            });
+            const activeBtn = document.getElementById('hz-' + rate);
+            activeBtn.className = "flex-grow py-2 rounded-lg transition-all duration-200 bg-surface-elevated text-white border border-primary/20 shadow-[0_0_10px_rgba(249,115,22,0.15)]";
+        }
+
+        // Real-Time Theme Mode Switcher
+        function toggleLightMode() {
+            const toggle = document.getElementById('theme-toggle');
+            const isLight = toggle.checked;
+            localStorage.setItem('netagram_light_mode', isLight);
+
+            const backIcon = document.getElementById('header-back-icon');
+            if (isLight) {
+                document.body.classList.add('light-mode');
+                if (backIcon) {
+                    backIcon.classList.remove('text-white');
+                    backIcon.classList.add('text-primary');
+                }
+                showToast('Light Theme styling loaded dynamically!', 'success');
+            } else {
+                document.body.classList.remove('light-mode');
+                if (backIcon) {
+                    backIcon.classList.add('text-white');
+                    backIcon.classList.remove('text-primary');
+                }
+                showToast('Sleek dark-mode theme styling restored!', 'primary');
+            }
+        }
+
+        // Dynamic notifications frequency segmented controller
+        function selectFrequency(freq) {
+            const freqs = ['imm', 'daily', 'weekly'];
+            freqs.forEach(f => {
+                const btn = document.getElementById('freq-' + f);
+                btn.className = "flex-grow py-2 rounded-lg text-slate hover:text-white";
+            });
+            
+            const activeBtn = document.getElementById('freq-' + freq);
+            activeBtn.className = "flex-grow py-2 rounded-lg bg-surface-elevated text-white border border-primary/20";
+            
+            const label = freq === 'imm' ? 'Immediate Alerts' : freq === 'daily' ? 'Daily Digests' : 'Weekly Summaries';
+            showToast(`Digest Frequency updated to: ${label}!`, 'primary');
+        }
+
+        // Phone OTP verification simulation
+        function triggerPhoneOTP() {
+            showToast('Sending OTP verification code to +91 98765 43210...', 'primary');
+            setTimeout(() => {
+                const otp = prompt("Enter the 6-digit OTP code sent to your phone (Enter 481920 to verify):");
+                if (otp === "481920" || otp) {
+                    showToast("Phone number verified successfully on central ledger!", "success");
+                }
+            }, 1000);
+        }
+
+        // Upload Profile Photo Simulation
+        function simulatePhotoUpload() {
+            showToast('Opening native file camera upload selection...', 'primary');
+            setTimeout(() => {
+                const url = prompt("Enter online image URL to set as profile photo (Leave empty for default):");
+                if (url) {
+                    document.getElementById('settings-avatar-img').src = url;
+                    showToast('Profile image updated successfully!', 'success');
+                }
+            }, 1000);
+        }
+
+        function removePhoto() {
+            document.getElementById('settings-avatar-img').src = "https://lh3.googleusercontent.com/aida-public/AB6AXuDSBjQvfjEvb5bHNt6kO9tRMwrtkNFKrQmbM1jHPx0rmO7HKAwCDqoon9wanP2jyEYY1DzzoSnOuPAFMNAppGnIcNnV591NuRN6W75fGOZO29T2stJYlQjNuSQToHPuBc9Povs3KuuOx3EYb-sDWPP50yOEuYuk0Ip6lZWL2AuUOBbf5eqbGizpZhtPx3fRlRPUw2WPTnWP3ocfwJWMIEdI8G19q3HjsS_ihgznWlS14OsywptM8JSHbfxf9YBwybTxvszB5OrwsABtZUU";
+            showToast('Custom profile picture removed. Defaults restored.', 'primary');
+        }
+
+        // Simulated actions
+        function simulateConstituencyChange() {
+            const ward = prompt("Enter your new Ward number (e.g. Ward 15, PIN 560001):");
+            if (ward) {
+                document.getElementById('constituency-text').innerText = `${ward} → Mumbai South Assembly → Mumbai Parliament`;
+                showToast(`Constituency geo-matching database locks updated to: ${ward}!`, 'success');
+            }
+        }
+
+        function simulatePasswordChange() {
+            const pin = prompt("Enter your new 4-digit Account Security PIN:");
+            if (pin) {
+                showToast("Account security PIN updated successfully!", "success");
+            }
+        }
+
+        function terminateSession(btn) {
+            btn.parentNode.style.opacity = '0.4';
+            btn.parentNode.querySelector('span').innerText += " (Revoking...)";
+            btn.remove();
+            showToast('Security session token revoked!', 'primary');
+        }
+
+        function terminateOtherSessions() {
+            showToast('Revoking all other active browser session tokens...', 'primary');
+            setTimeout(() => {
+                showToast('Success! Logged out from other devices.', 'success');
+            }, 1000);
+        }
+
+        function exportUserData() {
+            showToast('Compressing public reports timeline logs into GDPR compliant JSON packet...', 'primary');
+            setTimeout(() => {
+                alert('GDPR Compliant DPDP Data Export: \n\n{\n  "user": "Arjun Mehta",\n  "status": "Verified",\n  "ward": 142,\n  "karma_xp": 4820,\n  "reports_submitted": 124,\n  "device_signatures": ["Samsung Galaxy S24 Ultra", "Windows 11 PC"]\n}\n\nDownloaded successfully.');
+            }, 1500);
+        }
+
+        function deleteAccount() {
+            const confirmDel = confirm("WARNING: Deleting your account will wipe all verified profile points, Karma, and private discussions permanently. This cannot be undone. Are you absolutely sure?");
+            if (confirmDel) {
+                showToast('Scheduling account database record deletions (DPDP/GDPR compliant)...', 'error');
+                setTimeout(() => {
+                    localStorage.clear();
+                    window.location.href = '/netagram_unified_navigation_hub/code.html';
+                }, 2000);
+            }
+        }
+
+        function applyCivicVerifier() {
+            const karma = parseInt(localStorage.getItem('netagram_karma') || '4820');
+            if (karma < 5000) {
+                alert(`APPLICATION DENIED: \n\nCivic verifier eligibility requires 5,000+ Karma XP. Your current balance is ${karma.toLocaleString()} XP. Please verify more local potholes or cleanups to reach Tier 5!`);
+            } else {
+                alert("APPLICATION SUBMITTED! Neta Accountability Group will manually audit your verified geostamp history. Results in 5 working days.");
+            }
+        }
+
+        function changeLanguage(lang) {
+            const label = lang === 'en' ? 'English' : lang === 'hi' ? 'Hindi (हिन्दी)' : lang === 'mr' ? 'Marathi (मराठी)' : 'Kannada (ಕನ್ನಡ)';
+            showToast(`Application language changed to ${label}!`, 'success');
+        }
+
+        function toggleFAQ(id) {
+            const ans = document.getElementById('faq-ans-' + id);
+            const icon = document.getElementById('faq-icon-' + id);
+            
+            const isHidden = ans.classList.toggle('hidden');
+            icon.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+
+        function simulateBugReport() {
+            const bug = prompt("Describe the bug details (e.g. Broken map layer in Ward 142):");
+            if (bug) {
+                showToast('Bug ticket successfully reported to developer triage pipeline!', 'success');
+            }
+        }
+
+        // Clear Local Cache
+        function clearLocalCache() {
+            localStorage.removeItem('netagram_offline_drafts');
+            showToast('Local application cache cleared!', 'success');
+        }
+
+        // Factory Reset Demo
+        function resetAppDemo() {
+            localStorage.clear();
+            localStorage.setItem('netagram_karma', '4820');
+            localStorage.setItem('netagram_refresh_rate', '60');
+            setRefreshRate('60');
+            document.getElementById('theme-toggle').checked = false;
+            document.body.classList.remove('light-mode');
+            const backIcon = document.getElementById('header-back-icon');
+            if (backIcon) {
+                backIcon.classList.add('text-white');
+                backIcon.classList.remove('text-primary');
+            }
+            showToast('Platform reset complete! Loaded defaults.', 'error');
+        }
+
+        // Custom Toast Notifications
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('settings-toast-container');
+            const toast = document.createElement('div');
+            toast.className = `px-4 py-2.5 rounded-full shadow-lg text-xs font-bold transition-all text-center flex items-center gap-1.5 ${
+                type === 'error' ? 'bg-error-container text-on-error-container border border-red-500/20' :
+                type === 'primary' ? 'bg-primary-container text-white border border-primary-container/30' :
+                'bg-success text-black'
+            }`;
+            
+            const icon = type === 'error' ? 'error' : type === 'primary' ? 'workspace_premium' : 'verified';
+            toast.innerHTML = `<span class="material-symbols-outlined text-sm font-bold">${icon}</span> ${message}`;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 400);
+            }, 2500);
+        }
+    </script>
+</body>
+</html>

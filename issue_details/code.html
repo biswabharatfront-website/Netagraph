@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Issue Detail | NETAGRAM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0c1321;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2e3544;
+            border-radius: 10px;
+        }
+        .glass-panel {
+            background: rgba(26, 34, 50, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .active-severity {
+            opacity: 1 !important;
+            border-color: rgba(249, 115, 22, 0.6) !important;
+            box-shadow: 0 0 12px rgba(249, 115, 22, 0.2);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#00a2f4",
+                        "primary-container": "#f97316",
+                        "on-surface": "#dce2f6",
+                        "on-primary": "#552100",
+                        "on-tertiary-fixed-variant": "#004b74",
+                        "on-secondary-container": "#ffaea8",
+                        "on-tertiary-fixed": "#001d32",
+                        "outline-variant": "#584237",
+                        "on-error": "#690005",
+                        "surface-container": "#19202e",
+                        "primary": "#ffb690",
+                        "on-primary-fixed": "#341100",
+                        "on-tertiary-container": "#003554",
+                        "surface": "#0c1321",
+                        "surface-bright": "#323949",
+                        "on-secondary-fixed": "#410004",
+                        "inverse-surface": "#dce2f6",
+                        "slate": "#64748B",
+                        "inverse-on-surface": "#2a3040",
+                        "surface-variant": "#2e3544",
+                        "primary-fixed": "#ffdbca",
+                        "success": "#22C55E",
+                        "surface-elevated": "#1A2232",
+                        "primary-fixed-dim": "#ffb690",
+                        "on-tertiary": "#003351",
+                        "on-error-container": "#ffdad6",
+                        "surface-dim": "#0c1321",
+                        "action-gradient-start": "#EF4444",
+                        "on-secondary": "#68000a",
+                        "secondary": "#ffb3ad",
+                        "surface-container-highest": "#2e3544",
+                        "on-primary-container": "#582200",
+                        "tertiary-fixed-dim": "#93ccff",
+                        "surface-container-high": "#232a39",
+                        "background": "#0c1321",
+                        "on-primary-fixed-variant": "#783200",
+                        "error-container": "#93000a",
+                        "tertiary": "#93ccff",
+                        "action-gradient-end": "#F97316",
+                        "outline": "#a78b7d",
+                        "surface-container-low": "#151b2a",
+                        "inverse-primary": "#9d4300",
+                        "on-secondary-fixed-variant": "#930013",
+                        "tertiary-fixed": "#cde5ff",
+                        "secondary-container": "#a40217",
+                        "on-surface-variant": "#e0c0b1",
+                        "error": "#ffb4ab",
+                        "surface-tint": "#ffb690",
+                        "secondary-fixed": "#ffdad7",
+                        "secondary-fixed-dim": "#ffb3ad",
+                        "surface-container-lowest": "#070e1c",
+                        "on-background": "#dce2f6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "container-margin": "20px",
+                        "unit": "8px",
+                        "stack-lg": "32px",
+                        "stack-sm": "8px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Sora"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Sora"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Sora"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display": ["Sora"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+/* Premium page transitions */
+@keyframes pageEnter { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pageExit { to { opacity:0; transform:translateY(-16px) scale(0.98); } }
+body { animation: pageEnter 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+body.page-exit { animation: pageExit 0.4s cubic-bezier(0.55,0,1,0.45) forwards; }
+</style>
+<script>
+// Intercept all internal navigation for smooth transitions
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href]');
+  if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes('#')) {
+    e.preventDefault();
+    document.body.classList.add('page-exit');
+    setTimeout(function(){ window.location.href = link.href; }, 350);
+  }
+});
+// Wrap onclick navigations
+const origLocationSet = Object.getOwnPropertyDescriptor(window, 'location');
+window._smoothNav = function(url) {
+  document.body.classList.add('page-exit');
+  setTimeout(function(){ window.location.href = url; }, 350);
+};
+</script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md selection:bg-primary/30 custom-scrollbar">
+<!-- Top AppBar (JSON Driven) -->
+<header class="fixed top-0 w-full z-50 bg-surface-container-low border-b border-white/10 flex justify-between items-center px-container-margin h-16">
+<button onclick="window.location.href='/civic_intelligence_hub/code.html'" class="text-primary hover:bg-surface-bright/10 transition-colors duration-200 p-2 rounded-full" title="Back">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<div class="flex items-center gap-2">
+<img alt="NETAGRAM Logo" class="h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrHJkUnxcim8p5fMw4Jdr9MfMydfBBUaepue-An4p4arocNCsGL7bBWY8XhrXx03GTZzjNdeize__ADv_vqOlQwZitMUHKn7I0IFVDFDFxV3OJGzrSGR82B5NsTRNwJipYhxbyGEKCyX1xwlcAKi4rRPXZRFd01mb4-QStCe9qQL_BJ9ZS06T6nr8q8JH4baomTdZ_YRpPEHNlnaMO0VUpUbS6CtxCBDZKb9xIBfla-ZXCGwSeiOg3Hny3FLsNdGY63o7J55Le9qkW"/>
+</div>
+<div class="flex items-center gap-2">
+<button onclick="openFlagModal()" class="text-error hover:bg-error/10 transition-colors duration-200 p-2 rounded-full" title="Flag Suspicious Activity">
+<span class="material-symbols-outlined text-error">flag</span>
+</button>
+<button class="text-primary hover:bg-surface-bright/10 transition-colors duration-200 p-2 rounded-full relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-action-gradient-start rounded-full"></span>
+</button>
+<a class="w-8 h-8 rounded-full bg-surface-bright border border-white/10 flex items-center justify-center overflow-hidden active:scale-95 duration-200" href="/user_profile/code.html">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="person">person</span>
+</a>
+</div>
+</header>
+<main class="pt-16 pb-32">
+<!-- Hero Section: Swipeable Before/After Pothole View -->
+<section class="relative w-full h-[45vh] md:h-[500px] overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10 pointer-events-none"></div>
+
+<!-- Before/After Image Slider -->
+<div class="relative w-full h-full overflow-hidden select-none" id="before-after-slider">
+  <!-- After Image (Repaired) -->
+  <img class="absolute inset-0 w-full h-full object-cover pointer-events-none" src="/issue_details/after.png" alt="Repaired Road (After)" />
+  
+  <!-- Before Image (Pothole Overlay) -->
+  <div class="absolute inset-0 w-1/2 overflow-hidden pointer-events-none z-20" id="before-overlay" style="width: 50%;">
+    <img class="absolute top-0 left-0 h-full object-cover max-w-none pointer-events-none" id="before-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxwIcRT57D5jkV_JhmGO9jwn_L0Gmlou-y1v6xq0S8NSyyejVvQcI3Dv_-MmKmXthwUwojXbjBaDTExEdBL0exG-3qUU_Viy01H1DkT7FS7qb4MdmuYRKo8cFkz8iQ7lv5gUpkmKeIJHdrxscygBhszs7AHjxgC0Qcu1etSYY4i1MF6V8nHFJcgQvQ7D305tjBu5ZHtqX2ISHWjj9YjTKoXcPPff7Scm5mt2BQkMipolxYjif6IglrYD2JvedzwouMN5tJeWhLGbzJ" alt="Pothole (Before)" />
+  </div>
+
+  <!-- Swipe Handle Line -->
+  <div class="absolute top-0 bottom-0 w-1 bg-primary cursor-ew-resize z-30" id="slider-handle" style="left: 50%;">
+    <!-- Floating Slider Handle Badge -->
+    <div class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-primary-container border-2 border-white flex items-center justify-center shadow-lg text-white text-xs">
+      <span class="material-symbols-outlined text-sm font-bold">unfold_more</span>
+    </div>
+  </div>
+
+  <!-- Swipe Labels -->
+  <div class="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded text-[10px] text-white font-bold tracking-wider z-20 pointer-events-none">BEFORE (POTHOLE)</div>
+  <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-2 py-0.5 rounded text-[10px] text-white font-bold tracking-wider z-20 pointer-events-none">AFTER (REPAIRED)</div>
+</div>
+
+<div class="absolute bottom-6 left-container-margin z-20 flex flex-wrap gap-2 items-center">
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full font-label-md text-label-md-mobile flex items-center gap-1 shadow-lg">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">error</span>
+                    IN PROGRESS
+                </span>
+<span class="bg-surface-elevated/80 backdrop-blur-md text-on-surface px-3 py-1 rounded-full font-label-md text-label-md-mobile flex items-center gap-1 border border-white/10">
+<span class="material-symbols-outlined text-[18px]">map</span>
+                    Sector 4 Main Road
+                </span>
+</div>
+</section>
+<!-- Content Body -->
+<div class="px-container-margin -mt-4 relative z-20">
+<!-- Header Info -->
+<div class="space-y-stack-sm">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface tracking-tight leading-tight">
+                    Major Pothole on Sector 4 Main Road
+                </h1>
+<div class="flex flex-wrap items-center gap-stack-md text-slate font-label-md text-label-md">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                        Reported 2h ago
+                    </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">category</span>
+                        Category: Roads
+                    </span>
+</div>
+<div class="flex flex-wrap items-center gap-2 mt-2">
+  <span class="flex items-center gap-1 bg-success/15 border border-success/30 px-2 py-0.5 rounded text-[10px] text-success font-bold font-label-sm">
+    <span class="material-symbols-outlined text-[12px] font-bold">gps_fixed</span> GPS BOUNDARY MATCHED
+  </span>
+  <span class="flex items-center gap-1 bg-success/15 border border-success/30 px-2 py-0.5 rounded text-[10px] text-success font-bold font-label-sm">
+    <span class="material-symbols-outlined text-[12px] font-bold">photo_camera</span> EXIF METADATA VERIFIED
+  </span>
+</div>
+</div>
+<!-- Description -->
+<div class="mt-stack-lg p-stack-md bg-surface-container rounded-xl border border-white/5">
+<p class="text-on-surface-variant leading-relaxed">
+                    A deep pothole has appeared near the entrance of Block A. It is hazardous for two-wheelers at night as the streetlight is also broken. Several vehicles have had close calls in the last 24 hours.
+                </p>
+</div>
+<!-- Bento Stats -->
+<div class="grid grid-cols-2 gap-gutter mt-stack-md">
+<div class="bg-surface-elevated p-stack-md rounded-xl border border-white/10 flex flex-col items-center justify-center text-center">
+<span class="text-primary font-display text-headline-md">124</span>
+<span class="text-slate font-label-sm text-label-sm uppercase tracking-wider">Verifications</span>
+</div>
+<div class="bg-surface-elevated p-stack-md rounded-xl border border-white/10 flex flex-col items-center justify-center text-center">
+<span class="text-tertiary font-display text-headline-md">12</span>
+<span class="text-slate font-label-sm text-label-sm uppercase tracking-wider">Comments</span>
+</div>
+</div>
+<!-- Official Update Card -->
+<div class="mt-stack-lg bg-gradient-to-br from-surface-elevated to-surface-container rounded-xl border border-white/10 overflow-hidden">
+<div class="p-stack-md flex gap-stack-md">
+<div class="flex-shrink-0">
+<div class="w-12 h-12 rounded-full bg-primary-fixed-dim/20 flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary">account_balance</span>
+</div>
+</div>
+<div class="flex-grow">
+<h3 class="font-label-md text-label-md text-primary-fixed uppercase tracking-widest mb-1">Official Update</h3>
+<p class="font-headline-md text-on-surface text-[18px] mb-2">Ward Councillor Anjali Menon</p>
+<div class="bg-black/20 p-stack-md rounded-lg italic text-on-surface-variant border-l-2 border-primary">
+                            "Assigned to the road maintenance team for repair within 48 hours."
+                        </div>
+<p class="mt-3 text-slate font-label-sm text-label-sm text-right">Updated 45m ago</p>
+</div>
+</div>
+</div>
+
+<!-- Civic Escalation Engine Panel -->
+<div class="mt-stack-lg p-stack-md bg-gradient-to-br from-surface-elevated to-surface-container rounded-xl border border-white/10 space-y-4">
+  <div class="flex items-center gap-3">
+    <div class="w-10 h-10 rounded-xl bg-primary-container/10 border border-primary-container/30 flex items-center justify-center text-primary-container">
+      <span class="material-symbols-outlined text-primary">gavel</span>
+    </div>
+    <div>
+      <h3 class="font-headline-md text-sm text-white">Civic Escalation Engine</h3>
+      <p class="text-[10px] text-slate uppercase tracking-wider">CPGRAMS & RTI Autogen System</p>
+    </div>
+  </div>
+  <p class="text-xs text-on-surface-variant leading-relaxed">
+    Generate certified draft filings pre-filled with PostGIS geodata, citizen verification logs, and timeline signatures.
+  </p>
+  <div class="grid grid-cols-2 gap-3 pt-1">
+    <button onclick="openEscalationModal('cpg')" class="py-2.5 px-3 bg-surface-bright border border-white/5 rounded-xl text-xs font-bold text-white hover:bg-white/15 transition-all flex items-center justify-center gap-1.5 active:scale-95 duration-200">
+      <span class="material-symbols-outlined text-sm text-primary">description</span>
+      CPGRAMS Draft
+    </button>
+    <button onclick="openEscalationModal('rti')" class="py-2.5 px-3 bg-surface-bright border border-white/5 rounded-xl text-xs font-bold text-white hover:bg-white/15 transition-all flex items-center justify-center gap-1.5 active:scale-95 duration-200">
+      <span class="material-symbols-outlined text-sm text-tertiary">article</span>
+      RTI Template
+    </button>
+  </div>
+</div>
+
+<!-- Moderator Toolkit Panel -->
+<div class="mt-stack-lg p-stack-md bg-gradient-to-br from-error-container/10 to-surface-container rounded-xl border border-error/20 space-y-3 animate-pulse-slow">
+  <div class="flex items-center gap-3">
+    <div class="w-10 h-10 rounded-xl bg-error/10 border border-error/30 flex items-center justify-center text-error">
+      <span class="material-symbols-outlined text-error text-[20px]">security</span>
+    </div>
+    <div>
+      <h3 class="font-headline-md text-sm text-error font-bold">Moderator Toolkit</h3>
+      <p class="text-[10px] text-slate uppercase tracking-wider">Coordinated Spam Detection</p>
+    </div>
+  </div>
+  <p class="text-xs text-on-surface-variant leading-relaxed">
+    If you suspect this report is part of a coordinated campaign, duplicate spam, or contains suspicious upvoting bursts, flag it for immediate audit.
+  </p>
+  <button onclick="openFlagModal()" class="w-full py-2.5 px-4 bg-error/15 hover:bg-error/25 border border-error/30 rounded-xl text-xs font-bold text-error transition-all flex items-center justify-center gap-1.5 active:scale-95 duration-200 shadow-[0_0_15px_rgba(239,68,68,0.1)]">
+    <span class="material-symbols-outlined text-sm">flag</span>
+    Flag Suspicious Activity
+  </button>
+</div>
+
+<!-- Timeline Section -->
+<div class="mt-stack-lg">
+<h2 class="font-headline-md text-headline-md-mobile text-on-surface mb-stack-md">Status Timeline</h2>
+<div class="relative pl-8 space-y-stack-lg before:content-[''] before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-surface-variant">
+<!-- Step 1 -->
+<div class="relative">
+<div class="absolute -left-8 top-1 w-6 h-6 bg-success rounded-full flex items-center justify-center z-10 shadow-[0_0_12px_rgba(34,197,94,0.3)]">
+<span class="material-symbols-outlined text-[16px] text-black font-bold">check</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Reported</h4>
+<p class="text-slate font-label-sm text-label-sm">Submitted by Resident</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative">
+<div class="absolute -left-8 top-1 w-6 h-6 bg-success rounded-full flex items-center justify-center z-10 shadow-[0_0_12px_rgba(34,197,94,0.3)]">
+<span class="material-symbols-outlined text-[16px] text-black font-bold">check</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Verified by Community</h4>
+<p class="text-slate font-label-sm text-label-sm">Passed 100+ Threshold</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative">
+<div class="absolute -left-8 top-1 w-6 h-6 bg-success rounded-full flex items-center justify-center z-10 shadow-[0_0_12px_rgba(34,197,94,0.3)]">
+<span class="material-symbols-outlined text-[16px] text-black font-bold">check</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Official Acknowledged</h4>
+<p class="text-slate font-label-sm text-label-sm">Assigned Ticket #ROAD-782</p>
+</div>
+</div>
+<!-- Step 4 Active -->
+<div class="relative">
+<div class="absolute -left-8 top-1 w-6 h-6 bg-primary-container rounded-full flex items-center justify-center z-10 animate-pulse shadow-[0_0_20px_rgba(249,115,22,0.5)]">
+<span class="material-symbols-outlined text-[16px] text-on-primary-container font-bold">trending_up</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-primary font-bold">Escalated to RTI</h4>
+<p class="text-slate font-label-sm text-label-sm">Awaiting field inspection report</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Community Discussion Section -->
+<div class="mt-stack-lg pb-10">
+<div class="flex justify-between items-end mb-stack-md">
+<h2 class="font-headline-md text-headline-md-mobile text-on-surface">Community Discussion</h2>
+<button onclick="openCommunityFlagModal()" class="flex items-center gap-1 bg-amber-500/10 border border-amber-500/30 px-2.5 py-1 rounded-lg text-[10px] text-amber-400 font-bold hover:bg-amber-500/20 active:scale-95 transition-all">
+  <span class="material-symbols-outlined text-[13px]">report_problem</span> Report Suspicious
+</button>
+</div>
+<div class="space-y-stack-md">
+<!-- Comment 1 -->
+<div class="bg-surface-elevated/50 p-stack-md rounded-xl border border-white/5">
+<div class="flex items-center gap-stack-sm mb-2">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-white font-bold text-xs">RK</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Rahul K. <span class="ml-1 text-[10px] bg-success/20 text-success px-1 rounded">VERIFIED</span></p>
+<p class="text-slate text-[10px]">1h ago</p>
+</div>
+</div>
+<p class="text-on-surface-variant text-body-md">Almost fell off my bike here yesterday. Thanks for reporting this, hope it gets fixed soon!</p>
+</div>
+<!-- Comment 2 -->
+<div class="bg-surface-elevated/50 p-stack-md rounded-xl border border-white/5">
+<div class="flex items-center gap-stack-sm mb-2">
+<div class="w-8 h-8 rounded-full bg-tertiary-container flex items-center justify-center text-white font-bold text-xs">SM</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Sana M. <span class="ml-1 text-[10px] bg-success/20 text-success px-1 rounded">VERIFIED</span></p>
+<p class="text-slate text-[10px]">45m ago</p>
+</div>
+</div>
+<p class="text-on-surface-variant text-body-md">The streetlight is also out, making it twice as dangerous at night.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Interactive Footer -->
+<footer class="fixed bottom-0 w-full z-[60] bg-surface-container-high border-t border-white/10 px-container-margin py-4 flex flex-col gap-3 shadow-2xl">
+<div class="flex items-center gap-3">
+<div class="flex-grow bg-surface-variant rounded-full px-4 py-3 border border-white/10 flex items-center">
+<input id="comment-input" class="bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-slate w-full text-body-md outline-none" placeholder="Add a verified comment..." type="text" onkeypress="handleKeyPress(event)"/>
+</div>
+<button onclick="addComment()" class="bg-surface-bright p-3 rounded-full text-primary hover:bg-primary/20 transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+<button class="w-full bg-gradient-to-r from-action-gradient-start to-action-gradient-end h-[56px] rounded-xl text-white font-headline-md text-[18px] flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(239,68,68,0.3)] active:scale-95 transition-transform">
+<span class="material-symbols-outlined active-fill" style="font-variation-settings: 'FILL' 1;">verified</span>
+            VERIFY ISSUE
+        </button>
+</footer>
+
+<!-- Upvote Bot CAPTCHA Modal -->
+<div id="captcha-modal" class="fixed inset-0 bg-background/95 z-[1000] hidden flex items-center justify-center p-6 backdrop-blur-md">
+  <div class="bg-surface-elevated border border-primary/30 rounded-2xl p-6 w-full max-w-sm flex flex-col shadow-2xl relative overflow-hidden text-center">
+    <span class="material-symbols-outlined text-[48px] text-primary mb-3 mx-auto animate-bounce">security</span>
+    <h3 class="font-headline-md text-base text-white font-bold mb-2">Bot Detection CAPTCHA</h3>
+    <p class="text-xs text-slate mb-5">
+      High-velocity upvote pattern matching bot signature. Slide verification slider to unlock upvoting features.
+    </p>
+    
+    <!-- Slide Captcha track -->
+    <div class="relative w-full bg-white/5 border border-white/10 h-12 rounded-xl flex items-center justify-center mb-6 overflow-hidden select-none" id="captcha-slider-track">
+      <span class="text-xs text-slate uppercase tracking-wider font-bold" id="captcha-slider-text">Slide to Verify</span>
+      <div id="captcha-slider-handle" class="absolute left-0 top-0 bottom-0 w-12 bg-primary rounded-xl flex items-center justify-center cursor-ew-resize hover:bg-primary-container transition-colors shadow-lg">
+        <span class="material-symbols-outlined text-white text-[20px]">chevron_right</span>
+      </div>
+    </div>
+    
+    <button onclick="closeCaptchaModal()" class="w-full h-11 border border-white/15 rounded-xl text-xs font-bold text-slate hover:text-white active:scale-95 duration-150">
+      Cancel
+    </button>
+  </div>
+</div>
+
+<!-- Community Flagging Modal Overlay -->
+<div id="community-flag-modal" class="fixed inset-0 bg-background/95 z-[999] hidden flex items-center justify-center p-6 backdrop-blur-md">
+  <div class="bg-surface-elevated border border-amber-500/30 rounded-2xl p-6 w-full max-w-md flex flex-col max-h-[85vh] shadow-2xl relative overflow-hidden">
+    
+    <div class="flex justify-between items-center mb-4 shrink-0 relative z-10">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-amber-400 text-xl">report_problem</span>
+        <h3 class="font-headline-md text-base text-white font-bold">Community Suspicious Report</h3>
+      </div>
+      <button onclick="closeCommunityFlagModal()" class="text-slate hover:text-white p-2 rounded-full hover:bg-white/5 transition-colors active:scale-90 duration-150">
+        <span class="material-symbols-outlined text-base">close</span>
+      </button>
+    </div>
+    
+    <div class="flex-grow overflow-y-auto custom-scrollbar pr-1 mb-6 space-y-5 relative z-10">
+      <p class="text-xs text-on-surface-variant leading-relaxed">
+        Let the community safety team know why this report seems suspicious, duplicate, or contains coordinated votings.
+      </p>
+      
+      <!-- Flag Type Selector -->
+      <div class="space-y-2">
+        <label class="text-[11px] text-slate font-bold uppercase tracking-wider block">REPORT REASON</label>
+        <div class="grid grid-cols-2 gap-2">
+          <button id="comm-type-coordinated" onclick="setCommFlagType('coordinated')" class="comm-type-btn text-left p-3 border border-primary bg-primary/25 text-primary rounded-xl text-xs font-semibold hover:bg-white/5 transition-all">
+            <div class="font-bold text-xs">Voter Astroturfing</div>
+            <div class="text-[9px] opacity-75 mt-0.5">Coordinated upvoting campaign</div>
+          </button>
+          <button id="comm-type-text_similarity" onclick="setCommFlagType('text_similarity')" class="comm-type-btn text-left p-3 border border-white/10 bg-white/5 text-on-surface rounded-xl text-xs font-semibold hover:bg-white/5 transition-all">
+            <div class="font-bold text-xs">Duplicate Spam</div>
+            <div class="text-[9px] opacity-75 mt-0.5">Copy-paste reports</div>
+          </button>
+          <button id="comm-type-geo_burst" onclick="setCommFlagType('geo_burst')" class="comm-type-btn text-left p-3 border border-white/10 bg-white/5 text-on-surface rounded-xl text-xs font-semibold hover:bg-white/5 transition-all">
+            <div class="font-bold text-xs">Location Spoofing</div>
+            <div class="text-[9px] opacity-75 mt-0.5">Incorrect boundary geotags</div>
+          </button>
+          <button id="comm-type-other" onclick="setCommFlagType('other')" class="comm-type-btn text-left p-3 border border-white/10 bg-white/5 text-on-surface rounded-xl text-xs font-semibold hover:bg-white/5 transition-all">
+            <div class="font-bold text-xs">Other Violations</div>
+            <div class="text-[9px] opacity-75 mt-0.5">Inappropriate description</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Reason Textarea -->
+      <div class="space-y-2">
+        <label class="text-[11px] text-slate font-bold uppercase tracking-wider block">REASON DETAILS</label>
+        <textarea id="comm-flag-reason" rows="3" class="w-full bg-surface-container border border-white/10 rounded-xl p-3 text-xs text-white placeholder:text-slate focus:border-amber-500/50 focus:ring-0 outline-none resize-none" placeholder="Provide detailed reasoning for community audit review..."></textarea>
+      </div>
+    </div>
+    
+    <div class="flex gap-3 shrink-0 relative z-10">
+      <button onclick="submitCommunityFlag()" class="flex-grow h-12 bg-gradient-to-r from-amber-600 to-amber-400 hover:opacity-90 text-black font-bold rounded-xl active:scale-[0.98] transition-all text-xs flex items-center justify-center gap-1.5 shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+        <span class="material-symbols-outlined text-sm">report</span>
+        <span>Submit Audit Alert</span>
+      </button>
+      <button onclick="closeCommunityFlagModal()" class="h-12 px-5 border border-white/15 rounded-xl text-xs font-bold text-white hover:bg-white/5 transition-all active:scale-95 duration-150">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Flag Suspicious Activity Modal Overlay -->
+<div id="flag-modal" class="fixed inset-0 bg-background/95 z-[999] hidden flex items-center justify-center p-6 backdrop-blur-md">
+  <div class="bg-surface-elevated border border-error/20 rounded-2xl p-6 w-full max-w-md flex flex-col max-h-[85vh] shadow-2xl relative overflow-hidden">
+    <!-- Backing glow -->
+    <div class="absolute -top-12 -right-12 w-32 h-32 bg-error/10 rounded-full blur-3xl pointer-events-none"></div>
+    
+    <div class="flex justify-between items-center mb-4 shrink-0 relative z-10">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-error text-xl">security</span>
+        <h3 class="font-headline-md text-base text-white font-bold">Flag Coordinated Activity</h3>
+      </div>
+      <button onclick="closeFlagModal()" class="text-slate hover:text-white p-2 rounded-full hover:bg-white/5 transition-colors active:scale-90 duration-150">
+        <span class="material-symbols-outlined text-base">close</span>
+      </button>
+    </div>
+    
+    <div class="flex-grow overflow-y-auto custom-scrollbar pr-1 mb-6 space-y-5 relative z-10">
+      <p class="text-xs text-on-surface-variant leading-relaxed">
+        Flag this report if you believe it is fake, part of a coordinated campaign, or has mass artificial voting. This alert goes straight to the Moderator Queue.
+      </p>
+      
+      <!-- Flag Type Selector -->
+      <div class="space-y-2">
+        <label class="text-[11px] text-slate font-bold uppercase tracking-wider block">ALERT TYPE</label>
+        <div class="grid grid-cols-2 gap-2">
+          <button id="flag-type-ip_burst" onclick="setFlagType('ip_burst')" class="flag-type-btn text-left p-3 border border-primary bg-primary/25 text-primary rounded-xl text-xs font-semibold hover:bg-white/5 transition-all">
+            <div class="font-bold text-xs">IP Burst</div>
+            <div class="text-[9px] opacity-75 mt-0.5">Multiple IPs/accounts</div>
+          </button>
+          <button id="flag-type-text_similarity" onclick="setFlagType('text_similarity')" class="flag-type-btn text-left p-3 border border-white/10 bg-white/5 text-on-surface rounded-xl text-xs font-semibold hover:bg-white/5 transition-all">
+            <div class="font-bold text-xs">Text Similarity</div>
+            <div class="text-[9px] opacity-75 mt-0.5">Duplicate/copied text</div>
+          </button>
+          <button id="flag-type-geo_burst" onclick="setFlagType('geo_burst')" class="flag-type-btn text-left p-3 border border-white/10 bg-white/5 text-on-surface rounded-xl text-xs font-semibold hover:bg-white/5 transition-all">
+            <div class="font-bold text-xs">Geo-Burst Anomaly</div>
+            <div class="text-[9px] opacity-75 mt-0.5">Spike in localized location</div>
+          </button>
+          <button id="flag-type-coordinated" onclick="setFlagType('coordinated')" class="flag-type-btn text-left p-3 border border-white/10 bg-white/5 text-on-surface rounded-xl text-xs font-semibold hover:bg-white/5 transition-all">
+            <div class="font-bold text-xs">Coordinated Attack</div>
+            <div class="text-[9px] opacity-75 mt-0.5">Mass worker upvoting</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Severity Selection -->
+      <div class="space-y-2">
+        <label class="text-[11px] text-slate font-bold uppercase tracking-wider block">SEVERITY LEVEL</label>
+        <div class="flex gap-2">
+          <button id="sev-1" onclick="setSeverity(1)" class="severity-btn flex-1 py-2 rounded-xl text-xs font-bold bg-[#EAB308]/15 border border-[#EAB308]/30 text-[#EAB308] opacity-65 hover:opacity-100 transition-all">
+            Low
+          </button>
+          <button id="sev-2" onclick="setSeverity(2)" class="severity-btn flex-1 py-2 rounded-xl text-xs font-bold bg-primary/25 border border-primary text-primary active-severity hover:opacity-100 transition-all">
+            Medium
+          </button>
+          <button id="sev-3" onclick="setSeverity(3)" class="severity-btn flex-1 py-2 rounded-xl text-xs font-bold bg-error/15 border border-error/30 text-error opacity-65 hover:opacity-100 transition-all">
+            High
+          </button>
+        </div>
+      </div>
+
+      <!-- Reason Textarea -->
+      <div class="space-y-2">
+        <label class="text-[11px] text-slate font-bold uppercase tracking-wider block">REASON / OBSERVATIONS</label>
+        <textarea id="flag-reason" rows="3" class="w-full bg-surface-container border border-white/10 rounded-xl p-3 text-xs text-white placeholder:text-slate focus:border-error/50 focus:ring-0 outline-none resize-none" placeholder="Provide detailed reasoning for flags system audit (e.g. duplicate titles, coordinated local IT cell campaign)..."></textarea>
+      </div>
+    </div>
+    
+    <div class="flex gap-3 shrink-0 relative z-10">
+      <button onclick="submitFlag()" class="flex-grow h-12 bg-gradient-to-r from-error-container to-error hover:opacity-90 text-white font-bold rounded-xl active:scale-[0.98] transition-all text-xs flex items-center justify-center gap-1.5 shadow-[0_0_20px_rgba(239,68,68,0.2)]">
+        <span class="material-symbols-outlined text-sm">flag</span>
+        <span>Submit Flag Audit</span>
+      </button>
+      <button onclick="closeFlagModal()" class="h-12 px-5 border border-white/15 rounded-xl text-xs font-bold text-white hover:bg-white/5 transition-all active:scale-95 duration-150">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Escalation Modal Overlay -->
+<div id="escalation-modal" class="fixed inset-0 bg-background/95 z-[999] hidden flex items-center justify-center p-6">
+  <div class="bg-surface-elevated border border-white/10 rounded-2xl p-6 w-full max-w-md flex flex-col max-h-[85vh] shadow-2xl">
+    <div class="flex justify-between items-center mb-4 shrink-0">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-xl" id="modal-icon">description</span>
+        <h3 class="font-headline-md text-base text-white font-bold" id="modal-title">CPGRAMS Escalation Draft</h3>
+      </div>
+      <button onclick="closeEscalationModal()" class="text-slate hover:text-white p-2 rounded-full hover:bg-white/5 transition-colors active:scale-90 duration-150">
+        <span class="material-symbols-outlined text-base">close</span>
+      </button>
+    </div>
+    
+    <div class="flex-grow overflow-y-auto custom-scrollbar pr-1 mb-6 space-y-4">
+      <p class="text-xs text-slate" id="modal-desc">Copy this certified public grievance text to submit directly into the CPGRAMS central portal.</p>
+      <div class="bg-black/40 p-4 rounded-xl border border-white/5 font-mono text-[11px] leading-relaxed text-white whitespace-pre-wrap select-all cursor-text h-64 overflow-y-auto custom-scrollbar" id="modal-content-box">
+      </div>
+    </div>
+    
+    <div class="flex gap-3 shrink-0">
+      <button onclick="copyModalContent()" class="flex-1 h-12 bg-primary-container hover:opacity-90 text-on-primary-container font-bold rounded-xl active:scale-[0.98] transition-all text-xs flex items-center justify-center gap-1">
+        <span class="material-symbols-outlined text-sm">content_copy</span>
+        <span>Copy Draft</span>
+      </button>
+      <button onclick="closeEscalationModal()" class="h-12 px-5 border border-white/15 rounded-xl text-xs font-bold text-white hover:bg-white/5 transition-all active:scale-95 duration-150">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+        // Before/After Image Slider Drag/Swipe Logic
+        const slider = document.getElementById('before-after-slider');
+        const beforeImage = document.getElementById('before-image');
+        const beforeOverlay = document.getElementById('before-overlay');
+        const handle = document.getElementById('slider-handle');
+
+        let isDragging = false;
+
+        function updateSliderWidth() {
+            if (slider && beforeImage) {
+                const sliderWidth = slider.offsetWidth;
+                beforeImage.style.width = sliderWidth + 'px';
+            }
+        }
+
+        // Initialize slider width on load and resize
+        window.addEventListener('load', updateSliderWidth);
+        window.addEventListener('resize', updateSliderWidth);
+        // Periodic safety check to cover dynamic rendering
+        setTimeout(updateSliderWidth, 500);
+
+        function setSplit(x) {
+            if (!slider || !beforeOverlay || !handle) return;
+            const rect = slider.getBoundingClientRect();
+            let offsetX = x - rect.left;
+            if (offsetX < 0) offsetX = 0;
+            if (offsetX > rect.width) offsetX = rect.width;
+            
+            const percent = (offsetX / rect.width) * 100;
+            beforeOverlay.style.width = percent + '%';
+            handle.style.left = percent + '%';
+        }
+
+        if (slider) {
+            slider.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                setSplit(e.clientX);
+            });
+
+            window.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                setSplit(e.clientX);
+            });
+
+            // Touch support
+            slider.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                setSplit(e.touches[0].clientX);
+            });
+
+            window.addEventListener('touchend', () => {
+                isDragging = false;
+            });
+
+            window.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                setSplit(e.touches[0].clientX);
+            });
+        }
+
+        // Civic Escalation Modal Logic
+        const modal = document.getElementById('escalation-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalIcon = document.getElementById('modal-icon');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalContentBox = document.getElementById('modal-content-box');
+
+        const templates = {
+            cpg: {
+                title: "CPGRAMS Escalation Draft",
+                icon: "description",
+                desc: "Copy this pre-formatted public grievance draft to submit directly into the CPGRAMS central portal (pgportal.gov.in) under the Ministry of Public Grievances.",
+                content: `PUBLIC GRIEVANCE SUBMISSION DRAFT (NETAGRAM AUDIT REPORT)
+============================================================
+Grievance ID: BBMP-WARD-142-ROAD-782
+Location Name: Sector 4 Main Road, Varthur, Bengaluru 560087
+PostGIS Geo-Stamping: Lat 12.9423, Lon 77.7445 (Validated hardware stamp)
+Status: ESCALATED TO PUBLIC DISCLOSURE
+
+SUBJECT: Failure of Municipal Maintenance & Severe Pothole Hazards on Key Sector 4 Corridor
+
+DESCRIPTION OF GRIEVANCE:
+A crater-sized road cavity measuring approximately 1.4 meters in diameter has severely degraded the public right-of-way near the Block A intersection of Sector 4. The hazard has been active for more than 14 days without remedial response from the local BBMP engineers. 
+
+During pre-monsoon precipitation, this cavity fills completely, rendering the hazard invisible to two-wheeler riders, posing extreme risk to life and property. Streetlight pole #SL-142-A directly adjacent is also broken, compounding hazard visibility issues at night.
+
+CITIZEN ENDORSEMENT DATA:
+- Total Citizen Verifications: 124 Unique verified residents (OTP authenticated)
+- Local Community Upvotes: 247 Escalation agreements registered on blockchain ledger
+- MLA Representation: Rajesh Varma (Official notified: May 26, 2026)
+
+DEMAND FOR RELIEF:
+1. Immediate emergency resurfacing and asphalt patch-fill of the reported cavity on Sector 4 Main Road.
+2. Restoring functionality of adjacent streetlight poles #SL-142-A.
+3. Publication of the BBMP repair work contract ledger for Ward 142 including contractor identity and warranty duration.
+
+COORDINATES SECURED VIA NETAGRAM GEOSPATIAL TRUST STAMP v1.0`
+            },
+            rti: {
+                title: "RTI Application Template",
+                icon: "article",
+                desc: "Copy this formatted Right to Information (RTI) application to submit to the Public Information Officer (PIO) of the local municipal body under Section 6(1) of the RTI Act 2005.",
+                content: `FORM A - APPLICATION FOR OBTAINING INFORMATION UNDER SECTION 6(1) OF RTI ACT 2005
+==================================================================================
+To,
+The Public Information Officer (PIO),
+Bruhat Bengaluru Mahanagara Palike (BBMP)
+Mahadevapura Zone Office, Bengaluru, Karnataka
+
+1. Full Name of the Applicant: Arjun Mehta
+2. Address: Resident of Ward 142, Varthur Constituency, Bengaluru
+3. Specific Information Required:
+   Concerning the repair, resurfacing, and maintenance of the "Sector 4 Main Road, Varthur" (specifically the stretch adjacent to Block A Entrance):
+
+   A. Please provide the certified copies of the work order, budget estimation sheet, and contract agreement approved for the asphalt paving/maintenance of the aforementioned road stretch in the financial years 2024-25 and 2025-26.
+   
+   B. Please provide the name, contractor registration ID, and official address of the construction agency/contractor to whom the road paving contract was awarded.
+   
+   C. What is the defect liability period (DLP) or warranty period specified in the contract agreement for this road resurfacing work during which the contractor is legally liable to repair cavities free of cost?
+   
+   D. Please provide the copies of the inspection logs and progress ledger reports filed by the BBMP Assistant Executive Engineer (AEE) for Ward 142 regarding the quality clearance of this road in the last 12 months.
+   
+   E. Please provide the total expenditure logged and billed to date for the repair of the pothole identified at coordinates Lat 12.9423, Lon 77.7445.
+
+4. The information requested does not fall within the exemptions contained in Section 8 or 9 of the RTI Act 2005 and to the best of my knowledge it pertains to your office.
+5. I state that I am a citizen of India.
+6. Details of Application Fee: Rs. 10 paid via Indian Postal Order / E-RTI Portal.
+
+Date: May 27, 2026
+Signature of Applicant: Arjun Mehta (Netagram Cryptographic OTP Certificate: E-SIGN-4819)`
+            }
+        };
+
+        function openEscalationModal(type) {
+            const data = templates[type];
+            if (!data || !modal) return;
+
+            modalTitle.textContent = data.title;
+            modalIcon.textContent = data.icon;
+            modalDesc.textContent = data.desc;
+            modalContentBox.textContent = data.content;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEscalationModal() {
+            if (!modal) return;
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function copyModalContent() {
+            if (!modalContentBox) return;
+            navigator.clipboard.writeText(modalContentBox.textContent).then(() => {
+                // Show standard verification toast
+                const toast = document.createElement('div');
+                toast.className = "fixed top-5 left-1/2 transform -translate-x-1/2 bg-success text-black text-xs font-bold px-4 py-2.5 rounded-full shadow-lg z-[10000] flex items-center gap-1.5";
+                toast.innerHTML = `<span class="material-symbols-outlined text-sm font-bold">check_circle</span> Copied to clipboard! Ready to paste on government portals.`;
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 2500);
+            }).catch(err => {
+                alert("Failed to copy: " + err);
+            });
+        }
+
+        // Interactive Comment Posting
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') {
+                addComment();
+            }
+        }
+
+        function addComment() {
+            const input = document.getElementById('comment-input');
+            const commentText = input.value.trim();
+            if (!commentText) return;
+
+            const commentsList = document.querySelector('.space-y-stack-md');
+            
+            // Generate comment bubble
+            const newComment = document.createElement('div');
+            newComment.className = "bg-surface-elevated/50 p-stack-md rounded-xl border border-white/5 new-message";
+            newComment.innerHTML = `
+                <div class="flex items-center gap-stack-sm mb-2">
+                    <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-xs">AM</div>
+                    <div>
+                        <p class="font-label-md text-label-md text-on-surface">Arjun Mehta (You) <span class="ml-1 text-[10px] bg-success/20 text-success px-1 rounded">VERIFIED</span></p>
+                        <p class="text-slate text-[10px]">Just now</p>
+                    </div>
+                </div>
+                <p class="text-on-surface-variant text-body-md">${commentText}</p>
+            `;
+
+            commentsList.appendChild(newComment);
+            input.value = '';
+            
+            // Scroll list to bottom
+            commentsList.scrollTop = commentsList.scrollHeight;
+
+            // Increment comment count box
+            const countBox = document.getElementById('detail-comment-count');
+            if (countBox) {
+                let currentCount = parseInt(countBox.innerText);
+                countBox.innerText = currentCount + 1;
+            }
+
+            // Show confirmation toast
+            const toast = document.createElement('div');
+            toast.className = "fixed top-5 left-1/2 transform -translate-x-1/2 bg-success text-black text-xs font-bold px-4 py-2.5 rounded-full shadow-lg z-[10000] flex items-center gap-1.5";
+            toast.innerHTML = `<span class="material-symbols-outlined text-sm font-bold">verified</span> Comment posted with OTP Verification!`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+
+        // Micro-interaction for the Verify button
+        let upvoteClickCount = 0;
+        let lastUpvoteClickTime = 0;
+
+        const verifyBtn = document.querySelector('button.bg-gradient-to-r.from-action-gradient-start');
+        if (verifyBtn) {
+            verifyBtn.addEventListener('click', function() {
+                // 1. Bot prevention CAPTCHA trigger
+                const now = Date.now();
+                if (lastUpvoteClickTime && (now - lastUpvoteClickTime < 2000)) {
+                    upvoteClickCount++;
+                    if (upvoteClickCount >= 3) {
+                        openCaptchaModal();
+                        return; // Halt vote
+                    }
+                } else {
+                    upvoteClickCount = 0;
+                }
+                lastUpvoteClickTime = now;
+
+                const icon = this.querySelector('.material-symbols-outlined');
+                icon.style.transform = 'scale(1.4) rotate(15deg)';
+                setTimeout(() => {
+                    icon.style.transform = 'scale(1) rotate(0deg)';
+                    
+                    // 2. 3x weight for verified resident!
+                    const isResident = localStorage.getItem('netagram_resident_verified') === 'true';
+                    const weight = isResident ? 3 : 1;
+                    
+                    // Upvote verifications bento box increment
+                    const verifyBento = document.querySelector('.bg-surface-elevated .text-primary');
+                    if (verifyBento) {
+                        let verCount = parseInt(verifyBento.innerText);
+                        verifyBento.innerText = verCount + weight;
+                    }
+
+                    // Brigading trigger warning! If score exceeds a limit
+                    const finalCount = verifyBento ? parseInt(verifyBento.innerText) : 124;
+                    if (finalCount > 135) {
+                        triggerAstroturfingWarning();
+                    }
+
+                    // Show visual feedback toast
+                    const toast = document.createElement('div');
+                    toast.className = "fixed top-5 left-1/2 transform -translate-x-1/2 bg-success text-black text-xs font-bold px-4 py-2.5 rounded-full shadow-lg z-[10000] flex items-center gap-1.5";
+                    toast.innerHTML = isResident
+                        ? `<span class="material-symbols-outlined text-sm font-bold">bolt</span> 3x Resident Voting Power Applied! +${weight} verifications.`
+                        : `<span class="material-symbols-outlined text-sm font-bold">check_circle</span> Verification logged! Address stamps matched.`;
+                    document.body.appendChild(toast);
+                    setTimeout(() => toast.remove(), 3000);
+
+                }, 300);
+            });
+        }
+
+        // Horizontal scroll animation for Bento items
+        const bentoItems = document.querySelectorAll('.bg-surface-elevated');
+        bentoItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                item.style.transition = 'all 0.5s ease-out';
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, 100 * index);
+        });
+
+        // Flag Suspect Activity Logic
+        function openFlagModal() {
+            const modal = document.getElementById('flag-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeFlagModal() {
+            const modal = document.getElementById('flag-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+
+        let selectedFlagType = 'ip_burst';
+        let selectedSeverity = 2;
+
+        function setFlagType(type) {
+            selectedFlagType = type;
+            document.querySelectorAll('.flag-type-btn').forEach(btn => {
+                btn.classList.remove('bg-primary/25', 'border-primary', 'text-primary');
+                btn.classList.add('bg-white/5', 'border-white/10', 'text-on-surface');
+            });
+            const activeBtn = document.getElementById(`flag-type-${type}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-primary/25', 'border-primary', 'text-primary');
+                activeBtn.classList.remove('bg-white/5', 'border-white/10', 'text-on-surface');
+            }
+        }
+
+        function setSeverity(sev) {
+            selectedSeverity = sev;
+            document.querySelectorAll('.severity-btn').forEach(btn => {
+                btn.classList.remove('active-severity');
+                btn.classList.add('opacity-65');
+            });
+            const activeBtn = document.getElementById(`sev-${sev}`);
+            if (activeBtn) {
+                activeBtn.classList.add('active-severity');
+                activeBtn.classList.remove('opacity-65');
+            }
+        }
+
+        function submitFlag() {
+            const reasonInput = document.getElementById('flag-reason');
+            const reason = reasonInput ? reasonInput.value.trim() : '';
+            if (!reason) {
+                alert('Please provide a reason for flagging this report.');
+                return;
+            }
+
+            // Hydrate standard flags if not exists
+            const defaultFlags = [
+              {
+                id: "flag_001",
+                reportId: "issue_001",
+                reportTitle: "Severe Potholes & Waterlogging on Varthur Main Rd",
+                flagType: "ip_burst",
+                reason: "Coordinated IP Burst detected. 6 reports submitted from the same hashed IP address in the last 2 hours.",
+                severity: 3,
+                status: "Pending",
+                notes: "System Auto-Trigger: High frequency IP correlation.",
+                ipHash: "f5a709b110de7c68832a8ba76eef5a0928ba7f96cfb2ba73ee6f1c7d2c3be992",
+                deviceFingerprint: "device_fingerprint_7f8ba39a",
+                createdAt: "Just now"
+              },
+              {
+                id: "flag_002",
+                reportId: "issue_002",
+                reportTitle: "Broken Streetlight Junction near Vinayaka Layout",
+                flagType: "text_similarity",
+                reason: "Text Similarity Alert: Found recent duplicate report matching title/description with >82% similarity index.",
+                severity: 1,
+                status: "Pending",
+                notes: "System Auto-Trigger: Word similarity matches resolved issue 003.",
+                ipHash: "7c68832a8ba76eef5a0928ba7f96cfb2ba73ee6f1c7d2c3be992a7f5a709b110",
+                deviceFingerprint: "device_fingerprint_990a42f1",
+                createdAt: "1 hour ago"
+              }
+            ];
+
+            let flags = JSON.parse(localStorage.getItem('suspicious_flags'));
+            if (!flags) {
+                flags = defaultFlags;
+            }
+            
+            const newFlag = {
+                id: "flag_" + Date.now(),
+                reportId: "issue_003",
+                reportTitle: document.querySelector('h1').innerText.trim(),
+                flagType: selectedFlagType,
+                reason: reason,
+                severity: selectedSeverity,
+                status: "Pending",
+                notes: "Manual Moderator Submission",
+                ipHash: "ea8ba76eef5a0928ba7f96cfb2ba73ee6f1c7d2c3be992f5a709b110de7c68",
+                deviceFingerprint: "device_fingerprint_" + Math.random().toString(36).substring(2, 10),
+                createdAt: "Just now"
+            };
+
+            flags.unshift(newFlag);
+            localStorage.setItem('suspicious_flags', JSON.stringify(flags));
+
+            closeFlagModal();
+
+            // Clear input
+            if (reasonInput) reasonInput.value = '';
+
+            // Show confirmation toast and then redirect to Admin dashboard after 1.5s
+            const toast = document.createElement('div');
+            toast.className = "fixed top-5 left-1/2 transform -translate-x-1/2 bg-error text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-lg z-[10000] flex items-center gap-1.5 border border-error/30";
+            toast.innerHTML = `<span class="material-symbols-outlined text-sm font-bold">flag</span> Report successfully flagged! Redirecting to Flags Console...`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+                window._smoothNav ? window._smoothNav('/admin/flags/code.html') : window.location.href = '/admin/flags/code.html';
+            }, 1800);
+        }
+
+        // Phase 4 Community Flagging, CAPTCHA, and 3x weight logic
+        function openCommunityFlagModal() {
+            const modal = document.getElementById('community-flag-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function closeCommunityFlagModal() {
+            const modal = document.getElementById('community-flag-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+        
+        let activeCommFlagType = 'coordinated';
+        
+        function setCommFlagType(type) {
+            activeCommFlagType = type;
+            document.querySelectorAll('.comm-type-btn').forEach(btn => {
+                btn.classList.remove('bg-primary/25', 'border-primary', 'text-primary');
+                btn.classList.add('bg-white/5', 'border-white/10', 'text-on-surface');
+            });
+            const activeBtn = document.getElementById(`comm-type-${type}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-primary/25', 'border-primary', 'text-primary');
+                activeBtn.classList.remove('bg-white/5', 'border-white/10', 'text-on-surface');
+            }
+        }
+        
+        function submitCommunityFlag() {
+            const reason = document.getElementById('comm-flag-reason').value.trim();
+            if (!reason) {
+                alert('Please state a reason for community auditing.');
+                return;
+            }
+            
+            const flags = JSON.parse(localStorage.getItem('suspicious_flags')) || [];
+            
+            const newFlag = {
+                id: "flag_comm_" + Date.now(),
+                reportId: "issue_003",
+                reportTitle: document.querySelector('h1').innerText.trim(),
+                flagType: activeCommFlagType,
+                reason: "Community Flagged: " + reason,
+                severity: 2,
+                status: "Pending",
+                notes: "Manual community report submission",
+                ipHash: "7c68832a8ba76eef5a0928ba7f96cfb2ba7f96cfb2ba73ee6f1c7d2c3be992",
+                deviceFingerprint: "device_fingerprint_990a42f1",
+                createdAt: "Just now"
+            };
+            
+            flags.unshift(newFlag);
+            localStorage.setItem('suspicious_flags', JSON.stringify(flags));
+            
+            closeCommunityFlagModal();
+            document.getElementById('comm-flag-reason').value = '';
+            
+            showToastAlert("Community flag filed successfully! Admin queue updated.", "report", "bg-amber-500 text-black border border-amber-500/20");
+            
+            setTimeout(() => {
+                window._smoothNav ? window._smoothNav('/admin/flags/code.html') : window.location.href = '/admin/flags/code.html';
+            }, 1800);
+        }
+
+        function openCaptchaModal() {
+            const modal = document.getElementById('captcha-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                initCaptchaSlider();
+            }
+        }
+        
+        function closeCaptchaModal() {
+            const modal = document.getElementById('captcha-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+            upvoteClickCount = 0;
+        }
+        
+        function initCaptchaSlider() {
+            const handle = document.getElementById('captcha-slider-handle');
+            const track = document.getElementById('captcha-slider-track');
+            const txt = document.getElementById('captcha-slider-text');
+            if (!handle || !track) return;
+            
+            handle.style.left = '0px';
+            txt.innerText = "Slide to Verify";
+            txt.style.color = '#64748B';
+            
+            let isSliding = false;
+            let startX = 0;
+            const maxSlide = track.offsetWidth - handle.offsetWidth;
+            
+            function onStart(e) {
+                isSliding = true;
+                startX = (e.touches ? e.touches[0].clientX : e.clientX) - handle.offsetLeft;
+            }
+            
+            function onMove(e) {
+                if (!isSliding) return;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                let left = clientX - startX;
+                if (left < 0) left = 0;
+                if (left > maxSlide) left = maxSlide;
+                handle.style.left = left + 'px';
+                
+                const progress = left / maxSlide;
+                if (progress > 0.9) {
+                    txt.innerText = "Release to Unlock";
+                    txt.style.color = '#ffb690';
+                } else {
+                    txt.innerText = "Slide to Verify";
+                    txt.style.color = '#64748B';
+                }
+            }
+            
+            function onEnd() {
+                if (!isSliding) return;
+                isSliding = false;
+                const currentLeft = parseInt(handle.style.left || '0');
+                if (currentLeft >= maxSlide * 0.95) {
+                    handle.style.left = maxSlide + 'px';
+                    txt.innerText = "VERIFIED CITIZEN";
+                    txt.style.color = '#22C55E';
+                    setTimeout(() => {
+                        closeCaptchaModal();
+                        showToastAlert("Bot protection check cleared successfully!", "verified", "bg-success text-black");
+                    }, 800);
+                } else {
+                    handle.style.left = '0px';
+                    txt.innerText = "Slide to Verify";
+                }
+            }
+            
+            handle.addEventListener('mousedown', onStart);
+            window.addEventListener('mousemove', onMove);
+            window.addEventListener('mouseup', onEnd);
+            
+            handle.addEventListener('touchstart', onStart);
+            window.addEventListener('touchmove', onMove);
+            window.addEventListener('touchend', onEnd);
+        }
+        
+        function showToastAlert(msg, icon, classes) {
+            const toast = document.createElement('div');
+            toast.className = `fixed top-5 left-1/2 transform -translate-x-1/2 z-[10000] px-4 py-2.5 rounded-full shadow-lg text-xs font-bold flex items-center gap-1.5 ${classes}`;
+            toast.innerHTML = `<span class="material-symbols-outlined text-sm font-bold">${icon}</span> ${msg}`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+
+        function triggerAstroturfingWarning() {
+            const flags = JSON.parse(localStorage.getItem('suspicious_flags')) || [];
+            const hasCIB = flags.some(f => f.flagType === 'coordinated' && f.reportId === 'issue_003');
+            if (hasCIB) return;
+            
+            const newFlag = {
+                id: "flag_auto_cib_" + Date.now(),
+                reportId: "issue_003",
+                reportTitle: document.querySelector('h1').innerText.trim(),
+                flagType: "coordinated",
+                reason: "CIB Alert: High-velocity upvote burst matching coordinated worker brigading anomaly signature (>15 upvotes in 5 min).",
+                severity: 3,
+                status: "Pending",
+                notes: "Automated Astroturfing Burst Monitor Triggered",
+                ipHash: "928ba7f96cfb2ba73ee6f1c7d2c3be992f5a709b110de7c68832a8ba76eef5a0",
+                deviceFingerprint: "device_fingerprint_astroturf_cib",
+                createdAt: "Just now"
+            };
+            
+            flags.unshift(newFlag);
+            localStorage.setItem('suspicious_flags', JSON.stringify(flags));
+            
+            const panel = document.querySelector('.mt-stack-lg.p-stack-md.bg-gradient-to-br.from-error-container');
+            if (panel) {
+                const warn = document.createElement('div');
+                warn.className = "bg-error/15 border border-error/30 p-2.5 rounded-xl text-[10.5px] text-error font-bold flex items-center gap-1.5 mt-2 animate-pulse";
+                warn.innerHTML = `<span class="material-symbols-outlined text-sm">warning</span> WARNING: Coordinated astroturfing signature detected on this report!`;
+                panel.appendChild(warn);
+            }
+        }
+    </script>
+</body></html>

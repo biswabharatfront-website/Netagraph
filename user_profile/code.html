@@ -1,0 +1,743 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>Netagram - User Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "success": "#22C55E",
+                    "secondary-fixed-dim": "#ffb3ad",
+                    "surface-container-high": "#232a39",
+                    "on-error-container": "#ffdad6",
+                    "slate": "#64748B",
+                    "on-primary-fixed-variant": "#783200",
+                    "surface-container-low": "#151b2a",
+                    "primary-container": "#f97316",
+                    "error-container": "#93000a",
+                    "on-primary": "#552100",
+                    "on-tertiary-fixed-variant": "#004b74",
+                    "surface-tint": "#ffb690",
+                    "primary": "#ffb690",
+                    "on-surface-variant": "#e0c0b1",
+                    "surface-variant": "#2e3544",
+                    "action-gradient-start": "#EF4444",
+                    "surface-container-highest": "#2e3544",
+                    "on-secondary-fixed": "#410004",
+                    "tertiary-container": "#00a2f4",
+                    "on-background": "#dce2f6",
+                    "on-tertiary": "#003351",
+                    "inverse-surface": "#dce2f6",
+                    "primary-fixed": "#ffdbca",
+                    "inverse-primary": "#9d4300",
+                    "surface-container": "#19202e",
+                    "tertiary-fixed": "#cde5ff",
+                    "outline": "#a78b7d",
+                    "on-tertiary-container": "#003554",
+                    "on-surface": "#dce2f6",
+                    "on-primary-fixed": "#341100",
+                    "on-primary-container": "#582200",
+                    "secondary-fixed": "#ffdad7",
+                    "surface-dim": "#0c1321",
+                    "secondary": "#ffb3ad",
+                    "on-secondary-container": "#ffaea8",
+                    "on-secondary": "#68000a",
+                    "error": "#ffb4ab",
+                    "surface": "#0c1321",
+                    "inverse-on-surface": "#2a3040",
+                    "surface-elevated": "#1A2232",
+                    "on-secondary-fixed-variant": "#930013",
+                    "tertiary-fixed-dim": "#93ccff",
+                    "surface-bright": "#323949",
+                    "outline-variant": "#584237",
+                    "on-tertiary-fixed": "#001d32",
+                    "secondary-container": "#a40217",
+                    "primary-fixed-dim": "#ffb690",
+                    "surface-container-lowest": "#070e1c",
+                    "on-error": "#690005",
+                    "action-gradient-end": "#F97316",
+                    "background": "#0c1321",
+                    "tertiary": "#93ccff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-margin": "20px",
+                    "stack-md": "16px",
+                    "stack-lg": "32px",
+                    "stack-sm": "8px",
+                    "unit": "8px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Sora"],
+                    "display": ["Sora"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Sora"],
+                    "headline-lg": ["Sora"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0c1321;
+            color: #dce2f6;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .action-gradient {
+            background: linear-gradient(135deg, #EF4444 0%, #F97316 100%);
+        }
+        .glass-card {
+            background: rgba(26, 34, 50, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+    </style>
+<style>
+/* Premium page transitions */
+@keyframes pageEnter { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pageExit { to { opacity:0; transform:translateY(-16px) scale(0.98); } }
+body { animation: pageEnter 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+body.page-exit { animation: pageExit 0.4s cubic-bezier(0.55,0,1,0.45) forwards; }
+</style>
+<script>
+// Intercept all internal navigation for smooth transitions
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href]');
+  if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes('#')) {
+    e.preventDefault();
+    document.body.classList.add('page-exit');
+    setTimeout(function(){ window.location.href = link.href; }, 350);
+  }
+});
+// Wrap onclick navigations
+const origLocationSet = Object.getOwnPropertyDescriptor(window, 'location');
+window._smoothNav = function(url) {
+  document.body.classList.add('page-exit');
+  setTimeout(function(){ window.location.href = url; }, 350);
+};
+</script>
+</head>
+<body class="pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-background border-b border-white/10 flex justify-between items-center h-16 px-container-margin w-full">
+<div class="flex items-center">
+<button onclick="window.location.href='/netagram_unified_navigation_hub/code.html'" class="p-2 hover:bg-white/5 rounded-full transition-colors active:scale-95 duration-200" title="Back">
+  <span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+</div>
+<div class="absolute left-1/2 -translate-x-1/2">
+<img alt="Netagraph Logo" class="h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmYpqlTWyKUY8KBCC30ThoDnOGazxhn4m4ADHmWGvgjAehW1_Ge4INTYvmVh79I-Mt4y8WKzfKY7UX5ekzt1_Y7o8DYwTf6s3Nln5uSLztkCnTu8eYt2f-ffDFXssJ_g3w9Kxo-gCfrBGwdUbY0kmS_J8Zt4VliW5Cg8CPm_7iGQgwDhvOScLY8kvyBcGNl7ULPPkbTXpk3PQvgtoSVMk7kdaNRhWRLRK0X3revhDczxTCJU3cmRNmbBqJzisUwlqDMlvOQ-BCAfgJ">
+</div>
+<div class="flex items-center">
+<div class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden hover:opacity-80 transition-opacity active:scale-95 duration-200">
+<img class="w-full h-full object-cover" data-alt="A professional close-up portrait of Arjun Mehta, a confident middle-aged man with sharp features and a welcoming smile. He is set against a blurred urban sunset background with deep orange and charcoal tones. The lighting is dramatic and cinematic, highlighting his facial features with a warm glow. The overall aesthetic is authoritative and polished, fitting a civic engagement platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD641rzSL81RuPUYkYa6vnYE9n1PX2x2kPLpY-NNHcrj3ddY91941XtgXwhia7V4CiSsEOSyoQycWqfLSVNtVACT34rQhVl7HSQK5B2utc8Mro2cPsJaqQkBGL8pX_1OhEL8shKK3MwUb3bEzPQiXdleC_Q4DOR_vAKpNWE5f86ZKpCszmMeUeNEavWNlknkF5BQbaVfI2gj5FHbAbB4kXMrZn9etdYMnaYKvl9MixiZK5l29sd-4joADy2dZOE1lIdImZyLIebYxV0">
+</div>
+</div>
+</header>
+<main class="mt-20 px-container-margin max-w-2xl mx-auto space-y-gutter">
+<!-- Profile Header -->
+<section class="flex flex-col items-center text-center pt-stack-md">
+<div class="relative mb-stack-md">
+<div class="w-32 h-32 rounded-full border-4 border-action-gradient-end overflow-hidden shadow-[0_0_20px_rgba(249,115,22,0.3)]">
+<img class="w-full h-full object-cover" data-alt="A high-quality studio portrait of Arjun Mehta, an Indian man in his late 30s with short dark hair and a neatly trimmed beard. He wears a dark charcoal professional shirt. The background is a clean, dark gradient of deep blue to black, matching the UI palette. Warm rim lighting accents his profile, creating a sense of urgency and leadership." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByhQ3sRPxfACh3bCWaN4-Pgm-xsPbUQMA6bikJMhqDyz3aa7uNP7Sr0cW1baCJ_hWtlmjFO4fZi1i9OCMQotDIHTsKZAeDmXvVkwJ20n5cb5R0vCRLM8yZQPcZybsSwehJP6wLFEtv3vyozIk-ucyuLw4ZoWak_YmuT-OmXLUvvyaTfZ8GnYk6qYU9IbAMD28rACZiLVnHGiNGSlsNANoOSEZtgm-OtEV8omORJtA0nhqHG4NN6MLOGIgm1RikAslR3dSJqU36I3Yf">
+</div>
+<div class="absolute bottom-1 right-1 action-gradient w-8 h-8 rounded-full flex items-center justify-center border-2 border-background">
+<span class="material-symbols-outlined text-[16px] text-white" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<h1 class="font-headline-md text-headline-md text-on-surface">Arjun Mehta</h1>
+<div class="mt-1 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-success/10 border border-success/20">
+<span class="material-symbols-outlined text-[14px] text-success" data-icon="shield_person" style="font-variation-settings: 'FILL' 1;">shield_person</span>
+<span class="text-label-sm font-label-sm text-success">Verified Citizen</span>
+</div>
+</section>
+<!-- Stats Section (Bento Style) -->
+<section class="grid grid-cols-3 gap-3">
+<div class="glass-card p-4 rounded-xl flex flex-col items-center justify-center text-center">
+<span class="text-primary font-headline-md text-[20px]">124</span>
+<span class="text-slate text-[10px] font-label-sm uppercase tracking-wider">Reports</span>
+</div>
+<div class="glass-card p-4 rounded-xl flex flex-col items-center justify-center text-center border-primary/20">
+<span class="text-success font-headline-md text-[20px]">98</span>
+<span class="text-slate text-[10px] font-label-sm uppercase tracking-wider">Resolved</span>
+</div>
+<button onclick="openKarmaModal()" class="glass-card p-4 rounded-xl flex flex-col items-center justify-center text-center hover:bg-white/5 active:scale-95 transition-all w-full">
+<span class="text-tertiary font-headline-md text-[20px]" id="karma-stat-count">4.8k</span>
+<span class="text-slate text-[10px] font-label-sm uppercase tracking-wider">Karma</span>
+</button>
+</section>
+<!-- Reputation & Resident Verification Bento Block -->
+<section class="glass-card p-5 rounded-xl border border-white/5 space-y-4" id="verification-panel">
+  <div class="flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-success/10 border border-success/30 flex items-center justify-center text-success">
+        <span class="material-symbols-outlined text-success">verified_user</span>
+      </div>
+      <div>
+        <h3 class="font-headline-md text-sm text-white font-bold">Reputation Scorecard</h3>
+        <p class="text-[10px] text-slate uppercase tracking-wider font-semibold" id="reputation-label">Trusted Sentinel • 98.4% Score</p>
+      </div>
+    </div>
+    <div id="voter-badge" class="px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 font-bold text-[9px] uppercase tracking-wider">
+      UNVERIFIED
+    </div>
+  </div>
+  
+  <p class="text-xs text-on-surface-variant leading-relaxed" id="rep-instructions">
+    Upload your Voter ID or Ration Card to prove residency in Ward 142. Verified residents receive 3x voting power and priority municipal review.
+  </p>
+
+  <!-- Upload ID Section -->
+  <div id="upload-doc-area" class="space-y-3">
+    <!-- Choice Box -->
+    <div class="flex gap-2">
+      <button onclick="selectDocType('voter')" id="doc-btn-voter" class="flex-grow py-2 rounded-xl text-xs font-bold bg-primary/25 border border-primary text-primary transition-all">
+        Voter ID
+      </button>
+      <button onclick="selectDocType('ration')" id="doc-btn-ration" class="flex-grow py-2 rounded-xl text-xs font-bold bg-white/5 border border-white/10 text-on-surface hover:bg-white/10 transition-all">
+        Ration Card
+      </button>
+    </div>
+    
+    <!-- Drag mock box -->
+    <div onclick="startMockScan()" class="bg-black/20 border-2 border-dashed border-white/10 hover:border-primary/40 rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 relative overflow-hidden" id="scan-container">
+      <div id="scanning-laser" class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0"></div>
+      <span class="material-symbols-outlined text-[32px] text-primary mb-2" id="upload-icon">cloud_upload</span>
+      <p class="text-[11.5px] text-white font-bold" id="upload-main-text">Upload address credential image</p>
+      <p class="text-[9.5px] text-slate mt-0.5" id="upload-sub-text">Click to browse or drop document</p>
+    </div>
+  </div>
+</section>
+
+<!-- Navigation List -->
+<section class="space-y-3">
+<div class="glass-card rounded-xl overflow-hidden">
+<button class="w-full px-5 py-4 flex items-center justify-between hover:bg-white/5 transition-colors group" onclick="window.location.href='/my_reports/code.html'">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-bright flex items-center justify-center">
+<span class="material-symbols-outlined text-slate" data-icon="campaign">campaign</span>
+</div>
+<span class="font-label-md text-body-md text-on-surface">My Reports</span>
+</div>
+<span class="material-symbols-outlined text-slate group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</button>
+<div class="h-[1px] w-full bg-white/5 mx-5"></div>
+<button class="w-full px-5 py-4 flex items-center justify-between hover:bg-white/5 transition-colors group" onclick="window.location.href='/followed_leaders/code.html'">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-bright flex items-center justify-center">
+<span class="material-symbols-outlined text-slate" data-icon="account_balance">account_balance</span>
+</div>
+<span class="font-label-md text-body-md text-on-surface">Followed Leaders</span>
+</div>
+<span class="material-symbols-outlined text-slate group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</button>
+<div class="h-[1px] w-full bg-white/5 mx-5"></div>
+<button class="w-full px-5 py-4 flex items-center justify-between hover:bg-white/5 transition-colors group" onclick="window.location.href='/rti_status/code.html'">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-bright flex items-center justify-center">
+<span class="material-symbols-outlined text-slate" data-icon="description">description</span>
+</div>
+<span class="font-label-md text-body-md text-on-surface">RTI Status</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="material-symbols-outlined text-slate group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</div>
+</button>
+</div>
+<div class="glass-card rounded-xl overflow-hidden mt-stack-lg">
+<button class="w-full px-5 py-4 flex items-center justify-between hover:bg-white/5 transition-colors group" onclick="window.location.href='/account_settings/code.html'">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-bright flex items-center justify-center">
+<span class="material-symbols-outlined text-slate" data-icon="settings">settings</span>
+</div>
+<span class="font-label-md text-body-md text-on-surface">Account Settings</span>
+</div>
+<span class="material-symbols-outlined text-slate group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</button>
+<div class="h-[1px] w-full bg-white/5 mx-5"></div>
+<button class="w-full px-5 py-4 flex items-center justify-between hover:bg-red-500/10 transition-colors group" onclick="window.location.href='/civic_intelligence_hub/code.html'">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-error" data-icon="logout">logout</span>
+</div>
+<span class="font-label-md text-body-md text-error">Logout</span>
+</div>
+</button>
+</div>
+</section>
+</main>
+<!-- Floating Action Button - Only rendered on primary screens as per mandate, though usually hidden on details, we include for reporting capability -->
+<button onclick="_smoothNav('/unified_reports_tracking_hub/code.html')" class="fixed bottom-24 right-container-margin w-14 h-14 rounded-full action-gradient flex items-center justify-center shadow-[0_8px_24px_rgba(239,68,68,0.4)] active:scale-90 transition-transform z-40">
+<span class="material-symbols-outlined text-white text-[32px]" data-icon="campaign">campaign</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface-container border-t border-white/10 flex justify-around items-center px-4 py-2 pb-safe shadow-lg rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/netagram_unified_navigation_hub/code.html">
+<span class="material-symbols-outlined">dynamic_feed</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Feed</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all duration-200" href="/civic_intelligence_hub/code.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/unified_reports_tracking_hub/code.html">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Report</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/political_leaders/code.html">
+<span class="material-symbols-outlined">stars</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Leaders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/community_hub_unified_design/code.html">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Community</span>
+</a>
+</nav>
+<script>
+        // Load dynamic Karma
+        document.addEventListener('DOMContentLoaded', () => {
+            const karma = parseInt(localStorage.getItem('netagram_karma') || '4820');
+            const karmaStat = document.getElementById('karma-stat-count');
+            if (karmaStat) {
+                karmaStat.innerText = karma >= 1000 ? (karma/1000).toFixed(1) + 'k' : karma;
+                karmaStat.title = karma.toLocaleString() + ' XP points';
+            }
+
+            // Check resident verification state on load
+            const isVerified = localStorage.getItem('netagram_resident_verified') === 'true';
+            if (isVerified) {
+                const badge = document.getElementById('voter-badge');
+                if (badge) {
+                    badge.innerText = "VERIFIED RESIDENT";
+                    badge.className = "px-2.5 py-1 rounded-full bg-success/15 border border-success/30 text-success font-bold text-[9px] uppercase tracking-wider";
+                }
+                const repLabel = document.getElementById('reputation-label');
+                if (repLabel) repLabel.innerText = "Civic Elder • 99.8% Score";
+                
+                const repInstr = document.getElementById('rep-instructions');
+                if (repInstr) {
+                    repInstr.innerHTML = `
+                      <div class="flex items-center gap-1.5 text-success font-bold text-xs mt-1">
+                        <span class="material-symbols-outlined text-sm">bolt</span>
+                        <span>3x Voting Power Active! Your upvotes automatically accelerate BBMP reviews.</span>
+                      </div>
+                    `;
+                }
+                
+                const scanContainer = document.getElementById('scan-container');
+                if (scanContainer) {
+                    scanContainer.style.borderColor = "#22C55E";
+                    scanContainer.style.background = "rgba(34, 197, 94, 0.05)";
+                    document.getElementById('upload-icon').innerText = "verified";
+                    document.getElementById('upload-icon').className = "material-symbols-outlined text-[36px] text-success mb-2";
+                    document.getElementById('upload-main-text').innerHTML = `<span class="text-success">Credential Verified successfully!</span>`;
+                    document.getElementById('upload-sub-text').innerText = "Voter ID address matches Ward 142 - Varthur boundary.";
+                }
+            }
+        });
+
+        let activeDocType = 'Voter ID';
+        
+        function selectDocType(type) {
+            const vBtn = document.getElementById('doc-btn-voter');
+            const rBtn = document.getElementById('doc-btn-ration');
+            if (type === 'voter') {
+                activeDocType = 'Voter ID';
+                vBtn.className = "flex-grow py-2 rounded-xl text-xs font-bold bg-primary/25 border border-primary text-primary transition-all";
+                rBtn.className = "flex-grow py-2 rounded-xl text-xs font-bold bg-white/5 border border-white/10 text-on-surface hover:bg-white/10 transition-all";
+            } else {
+                activeDocType = 'Ration Card';
+                rBtn.className = "flex-grow py-2 rounded-xl text-xs font-bold bg-primary/25 border border-primary text-primary transition-all";
+                vBtn.className = "flex-grow py-2 rounded-xl text-xs font-bold bg-white/5 border border-white/10 text-on-surface hover:bg-white/10 transition-all";
+            }
+        }
+        
+        function startMockScan() {
+            const laser = document.getElementById('scanning-laser');
+            const container = document.getElementById('scan-container');
+            const mainTxt = document.getElementById('upload-main-text');
+            const subTxt = document.getElementById('upload-sub-text');
+            const icon = document.getElementById('upload-icon');
+            
+            // Start scanning laser animation
+            laser.style.opacity = '1';
+            laser.style.animation = 'laserSweep 2s ease-in-out infinite';
+            
+            // Add custom style for sweep if not present
+            if (!document.getElementById('laser-style')) {
+                const s = document.createElement('style');
+                s.id = 'laser-style';
+                s.textContent = `
+                    @keyframes laserSweep {
+                        0% { top: 0%; opacity: 0; }
+                        10% { opacity: 1; }
+                        90% { opacity: 1; }
+                        100% { top: 100%; opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(s);
+            }
+            
+            mainTxt.innerText = "Scanning document security signatures...";
+            subTxt.innerText = "Extracting address EXIF coordinates metadata...";
+            icon.innerText = "document_scanner";
+            icon.className = "material-symbols-outlined text-[32px] text-primary mb-2 animate-pulse";
+            container.style.borderColor = "#f97316";
+            
+            setTimeout(() => {
+                // Done scanning! Award verification
+                laser.style.animation = 'none';
+                laser.style.opacity = '0';
+                
+                icon.innerText = "verified";
+                icon.className = "material-symbols-outlined text-[36px] text-success mb-2";
+                mainTxt.innerHTML = `<span class="text-success">Credential Verified successfully!</span>`;
+                subTxt.innerText = `${activeDocType} address matches Ward 142 - Varthur boundary.`;
+                container.style.borderColor = "#22C55E";
+                container.style.background = "rgba(34, 197, 94, 0.05)";
+                
+                // Update badge and instructions
+                const badge = document.getElementById('voter-badge');
+                badge.innerText = "VERIFIED RESIDENT";
+                badge.className = "px-2.5 py-1 rounded-full bg-success/15 border border-success/30 text-success font-bold text-[9px] uppercase tracking-wider";
+                
+                document.getElementById('reputation-label').innerText = "Civic Elder • 99.8% Score";
+                document.getElementById('rep-instructions').innerHTML = `
+                  <div class="flex items-center gap-1.5 text-success font-bold text-xs mt-1">
+                    <span class="material-symbols-outlined text-sm">bolt</span>
+                    <span>3x Voting Power Active! Your upvotes automatically accelerate BBMP reviews.</span>
+                  </div>
+                `;
+                
+                // Save to localStorage so it syncs across mockup pages!
+                localStorage.setItem('netagram_resident_verified', 'true');
+                localStorage.setItem('netagram_karma', '4920'); // award bonus XP
+                
+                // Play dynamic toast
+                showKarmaToast(`Verified Resident Status Activated! +100 Karma XP 🎉`, 'success');
+                
+            }, 2500);
+        }
+
+        // Micro-interaction for buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('touchstart', () => btn.classList.add('opacity-70'));
+            btn.addEventListener('touchend', () => btn.classList.remove('opacity-70'));
+        });
+
+        // Karma Modal Open/Close Toggles
+        function openKarmaModal() {
+            const modal = document.getElementById('karma-modal');
+            modal.classList.remove('hidden');
+            updateDrawerUI();
+        }
+
+        function closeKarmaModal() {
+            const modal = document.getElementById('karma-modal');
+            modal.classList.add('hidden');
+        }
+
+        // Real-time XP awarding logic
+        function awardXP(amount, actionName) {
+            let karma = parseInt(localStorage.getItem('netagram_karma') || '4820');
+            karma += amount;
+            localStorage.setItem('netagram_karma', karma);
+            
+            // Instantly update background stats and drawer UI
+            const karmaStat = document.getElementById('karma-stat-count');
+            if (karmaStat) {
+                karmaStat.innerText = karma >= 1000 ? (karma/1000).toFixed(1) + 'k' : karma;
+                karmaStat.title = karma.toLocaleString() + ' XP points';
+            }
+
+            updateDrawerUI();
+            showKarmaToast(`+${amount} Karma! Action: ${actionName} 🎉`, 'success');
+        }
+
+        // Update drawer visual states
+        function updateDrawerUI() {
+            const karma = parseInt(localStorage.getItem('netagram_karma') || '4820');
+            document.getElementById('drawer-karma-balance').innerText = karma.toLocaleString() + " XP";
+            
+            // Tier thresholds
+            // Tier 1: 0-999, Tier 2: 1000-1999, Tier 3: 2000-3999, Tier 4: 4000-4999, Tier 5: 5000+
+            let tier = 'Tier 1: Volunteer';
+            let nextMilestone = 1000;
+            let currentTierBase = 0;
+
+            if (karma >= 5000) {
+                tier = 'Tier 5: Civic Elder';
+                nextMilestone = 10000; // max limit for progress
+                currentTierBase = 5000;
+            } else if (karma >= 4000) {
+                tier = 'Tier 4: High Guardian';
+                nextMilestone = 5000;
+                currentTierBase = 4000;
+            } else if (karma >= 2000) {
+                tier = 'Tier 3: Sentinel';
+                nextMilestone = 4000;
+                currentTierBase = 2000;
+            } else if (karma >= 1000) {
+                tier = 'Tier 2: Advocate';
+                nextMilestone = 2000;
+                currentTierBase = 1000;
+            }
+
+            document.getElementById('drawer-karma-tier').innerText = tier;
+
+            // Animate progress bar to next tier
+            const percent = Math.min(100, Math.floor(((karma - currentTierBase) / (nextMilestone - currentTierBase)) * 100));
+            document.getElementById('drawer-progress-percent').innerText = `${percent}%`;
+            document.getElementById('drawer-progress-bar').style.width = `${percent}%`;
+
+            // Reset checklist visual checkmarks for milestone Tiers
+            const milestones = [
+                { id: 1, max: 999 },
+                { id: 2, max: 1999 },
+                { id: 3, max: 3999 },
+                { id: 4, max: 4999 },
+                { id: 5, max: 99999 }
+            ];
+
+            milestones.forEach(m => {
+                const checkEl = document.getElementById('tier-check-' + m.id);
+                const blockEl = document.getElementById('tier-milestone-' + m.id);
+                
+                // If user is currently above or inside this tier, highlight it
+                if (karma >= (m.id === 1 ? 0 : m.id === 2 ? 1000 : m.id === 3 ? 2000 : m.id === 4 ? 4000 : 5000)) {
+                    checkEl.innerText = 'check_circle';
+                    checkEl.className = "material-symbols-outlined text-success text-sm";
+                    blockEl.className = "flex items-center justify-between p-2.5 rounded-lg bg-success/5 border border-success/20";
+                } else {
+                    checkEl.innerText = 'circle';
+                    checkEl.className = "material-symbols-outlined text-slate text-sm";
+                    blockEl.className = "flex items-center justify-between p-2.5 rounded-lg bg-surface border border-white/5";
+                }
+            });
+        }
+
+        // Reset points for demo debugging
+        function resetKarmaDemo() {
+            localStorage.setItem('netagram_karma', '4820');
+            const karmaStat = document.getElementById('karma-stat-count');
+            if (karmaStat) {
+                karmaStat.innerText = '4.8k';
+                karmaStat.title = '4,820 XP points';
+            }
+            updateDrawerUI();
+            showKarmaToast('Karma XP balance reset to 4,820!', 'info');
+        }
+
+        // Custom Dynamic Toasts inside profile screen
+        function showKarmaToast(message, type = 'success') {
+            const container = document.getElementById('karma-toast-container');
+            const toast = document.createElement('div');
+            toast.className = `px-4 py-2.5 rounded-full shadow-lg text-xs font-bold transition-all text-center flex items-center gap-1.5 ${
+                type === 'info' ? 'bg-primary-container text-white border border-primary-container/30' : 'bg-success text-black'
+            }`;
+            
+            const icon = type === 'info' ? 'info' : 'verified';
+            toast.innerHTML = `<span class="material-symbols-outlined text-sm font-bold">${icon}</span> ${message}`;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 400);
+            }, 2500);
+        }
+    </script>
+
+<!-- Karma Gamification Bottom Drawer Modal -->
+<div id="karma-modal" class="fixed inset-0 bg-background/90 z-[999] hidden flex items-end sm:items-center justify-center p-0 sm:p-6 transition-all duration-300">
+  <div class="bg-surface-elevated border-t sm:border border-white/10 rounded-t-3xl sm:rounded-2xl p-6 w-full max-w-md flex flex-col max-h-[85vh] shadow-2xl animate-in slide-in-from-bottom duration-300">
+    <!-- Close & Header -->
+    <div class="flex justify-between items-center mb-4 shrink-0">
+      <div class="flex items-center gap-2">
+        <div class="w-10 h-10 rounded-xl bg-primary-container/10 border border-primary-container/30 flex items-center justify-center text-primary-container">
+          <span class="material-symbols-outlined text-[24px]">workspace_premium</span>
+        </div>
+        <div>
+          <h3 class="font-headline-md text-sm text-white font-bold">Karma Gamification</h3>
+          <p class="text-[10px] text-slate uppercase tracking-wider font-semibold">Level & Progression Ledger</p>
+        </div>
+      </div>
+      <button onclick="closeKarmaModal()" class="text-slate hover:text-white p-2 rounded-full hover:bg-white/5 transition-colors active:scale-90 duration-150">
+        <span class="material-symbols-outlined text-base">close</span>
+      </button>
+    </div>
+    
+    <!-- Modal Content (Scrollable) -->
+    <div class="flex-grow overflow-y-auto custom-scrollbar pr-1 mb-6 space-y-5 text-xs">
+      
+      <!-- XP Progress Card -->
+      <div class="bg-surface p-4 rounded-xl border border-white/5 space-y-3">
+        <div class="flex justify-between items-center">
+          <div>
+            <span class="text-slate text-[10px] uppercase font-bold block">Current Tier Level</span>
+            <span class="text-white text-sm font-display font-bold" id="drawer-karma-tier">Tier 4: High Guardian</span>
+          </div>
+          <div class="text-right">
+            <span class="text-slate text-[10px] uppercase font-bold block">XP Balance</span>
+            <span class="text-primary text-sm font-display font-bold" id="drawer-karma-balance">4,820 XP</span>
+          </div>
+        </div>
+        
+        <!-- Live Progress Bar -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between text-[10px] text-slate font-bold">
+            <span>Progress to Tier 5 (Civic Elder)</span>
+            <span id="drawer-progress-percent">82%</span>
+          </div>
+          <div class="w-full bg-surface-bright h-2.5 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-primary-container to-action-gradient-start h-full rounded-full transition-all duration-500" id="drawer-progress-bar" style="width: 82%;"></div>
+          </div>
+          <div class="flex justify-between text-[9px] text-slate/50">
+            <span>4,000 XP</span>
+            <span>5,000 XP</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action point simulation (Simulate citizen actions to gain XP in real-time!) -->
+      <div class="space-y-3">
+        <h4 class="font-bold text-slate uppercase text-[10px] tracking-wider">Simulate Citizen Actions (Earn XP)</h4>
+        <div class="grid grid-cols-2 gap-2">
+          <button onclick="awardXP(10, 'Verify Local Pothole')" class="p-3 bg-surface border border-white/5 rounded-xl hover:border-primary/30 text-left active:scale-[0.98] transition-all flex flex-col gap-1">
+            <span class="text-success font-bold text-[10px] flex items-center gap-1">
+              <span class="material-symbols-outlined text-xs">add</span> +10 XP
+            </span>
+            <span class="text-white font-bold text-[11px]">Verify Complaint</span>
+            <span class="text-[9px] text-slate">Agree with a grievance</span>
+          </button>
+          
+          <button onclick="awardXP(50, 'Draft CPGRAMS Filing')" class="p-3 bg-surface border border-white/5 rounded-xl hover:border-primary/30 text-left active:scale-[0.98] transition-all flex flex-col gap-1">
+            <span class="text-success font-bold text-[10px] flex items-center gap-1">
+              <span class="material-symbols-outlined text-xs">add</span> +50 XP
+            </span>
+            <span class="text-white font-bold text-[11px]">Draft CPGRAMS</span>
+            <span class="text-[9px] text-slate">Generate escalation templates</span>
+          </button>
+
+          <button onclick="awardXP(20, 'Post Ward Discussion')" class="p-3 bg-surface border border-white/5 rounded-xl hover:border-primary/30 text-left active:scale-[0.98] transition-all flex flex-col gap-1">
+            <span class="text-success font-bold text-[10px] flex items-center gap-1">
+              <span class="material-symbols-outlined text-xs">add</span> +20 XP
+            </span>
+            <span class="text-white font-bold text-[11px]">Ward Discussion</span>
+            <span class="text-[9px] text-slate">Start collaboration thread</span>
+          </button>
+
+          <button onclick="awardXP(100, 'Attend Ward Cleanup')" class="p-3 bg-surface border border-white/5 rounded-xl hover:border-primary/30 text-left active:scale-[0.98] transition-all flex flex-col gap-1">
+            <span class="text-success font-bold text-[10px] flex items-center gap-1">
+              <span class="material-symbols-outlined text-xs">add</span> +100 XP
+            </span>
+            <span class="text-white font-bold text-[11px]">Attend Cleanup</span>
+            <span class="text-[9px] text-slate">Join community cleanup drive</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tiers milestones listing -->
+      <div class="space-y-3">
+        <h4 class="font-bold text-slate uppercase text-[10px] tracking-wider">Milestone Tier Levels</h4>
+        <div class="space-y-2">
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface border border-white/5" id="tier-milestone-1">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-slate text-sm" id="tier-check-1">check_circle</span>
+              <span class="font-bold text-white">Tier 1: Volunteer</span>
+            </div>
+            <span class="text-slate font-bold">0 - 999 XP</span>
+          </div>
+
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface border border-white/5" id="tier-milestone-2">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-slate text-sm" id="tier-check-2">check_circle</span>
+              <span class="font-bold text-white">Tier 2: Advocate</span>
+            </div>
+            <span class="text-slate font-bold">1,000 - 1,999 XP</span>
+          </div>
+
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface border border-white/5" id="tier-milestone-3">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-slate text-sm" id="tier-check-3">check_circle</span>
+              <span class="font-bold text-white">Tier 3: Sentinel</span>
+            </div>
+            <span class="text-slate font-bold">2,000 - 3,999 XP</span>
+          </div>
+
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface border border-white/5" id="tier-milestone-4">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-slate text-sm" id="tier-check-4">check_circle</span>
+              <span class="font-bold text-white">Tier 4: High Guardian</span>
+            </div>
+            <span class="text-slate font-bold">4,000 - 4,999 XP</span>
+          </div>
+
+          <div class="flex items-center justify-between p-2.5 rounded-lg bg-surface border border-white/5" id="tier-milestone-5">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-slate text-sm" id="tier-check-5">circle</span>
+              <span class="font-bold text-white">Tier 5: Civic Elder</span>
+            </div>
+            <span class="text-slate font-bold">5,000+ XP</span>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- Action Footer buttons -->
+    <div class="flex gap-3 shrink-0 pt-2">
+      <button onclick="resetKarmaDemo()" class="flex-grow h-12 border border-white/15 rounded-xl text-xs font-bold text-slate hover:text-white active:scale-95 duration-150">
+        Reset Points
+      </button>
+      <button onclick="closeKarmaModal()" class="flex-grow h-12 bg-primary-container hover:opacity-90 text-on-primary-container font-bold rounded-xl active:scale-[0.98] transition-all text-xs flex items-center justify-center">
+        Done
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Custom toast container inside user profile screen -->
+<div id="karma-toast-container" class="fixed top-5 left-1/2 transform -translate-x-1/2 z-[10000] flex flex-col gap-2"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+</body></html>

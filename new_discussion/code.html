@@ -1,0 +1,256 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>New Discussion - CivicPulse</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Sora:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "background": "#0c1321",
+                    "outline-variant": "#584237",
+                    "secondary-fixed-dim": "#ffb3ad",
+                    "tertiary-container": "#00a2f4",
+                    "on-secondary": "#68000a",
+                    "inverse-primary": "#9d4300",
+                    "primary": "#ffb690",
+                    "outline": "#a78b7d",
+                    "on-primary-fixed": "#341100",
+                    "on-background": "#dce2f6",
+                    "surface-tint": "#ffb690",
+                    "tertiary-fixed": "#cde5ff",
+                    "tertiary-fixed-dim": "#93ccff",
+                    "on-tertiary-container": "#003554",
+                    "success": "#22C55E",
+                    "on-tertiary-fixed-variant": "#004b74",
+                    "on-tertiary-fixed": "#001d32",
+                    "tertiary": "#93ccff",
+                    "on-secondary-container": "#ffaea8",
+                    "error-container": "#93000a",
+                    "surface-dim": "#0c1321",
+                    "inverse-surface": "#dce2f6",
+                    "secondary-container": "#a40217",
+                    "on-secondary-fixed-variant": "#930013",
+                    "on-primary-fixed-variant": "#783200",
+                    "surface-container-highest": "#2e3544",
+                    "surface": "#0c1321",
+                    "on-error-container": "#ffdad6",
+                    "surface-variant": "#2e3544",
+                    "on-error": "#690005",
+                    "secondary-fixed": "#ffdad7",
+                    "primary-fixed-dim": "#ffb690",
+                    "on-surface-variant": "#e0c0b1",
+                    "inverse-on-surface": "#2a3040",
+                    "surface-container-lowest": "#070e1c",
+                    "primary-fixed": "#ffdbca",
+                    "on-tertiary": "#003351",
+                    "surface-bright": "#323949",
+                    "on-primary-container": "#582200",
+                    "surface-container-low": "#151b2a",
+                    "surface-elevated": "#1A2232",
+                    "action-gradient-start": "#EF4444",
+                    "action-gradient-end": "#F97316",
+                    "on-secondary-fixed": "#410004",
+                    "on-surface": "#dce2f6",
+                    "on-primary": "#552100",
+                    "primary-container": "#f97316",
+                    "surface-container": "#19202e",
+                    "error": "#ffb4ab",
+                    "secondary": "#ffb3ad",
+                    "surface-container-high": "#232a39",
+                    "slate": "#64748B"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-margin": "20px",
+                    "unit": "8px",
+                    "stack-sm": "8px",
+                    "stack-lg": "32px",
+                    "stack-md": "16px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "display": ["Sora"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Sora"],
+                    "headline-lg-mobile": ["Sora"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Sora"]
+            },
+            "fontSize": {
+                    "display": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0c1321;
+            color: #dce2f6;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .gradient-button {
+            background: linear-gradient(135deg, #EF4444 0%, #F97316 100%);
+            box-shadow: 0 4px 20px -2px rgba(239, 68, 68, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2e3544;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+/* Premium page transitions */
+@keyframes pageEnter { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pageExit { to { opacity:0; transform:translateY(-16px) scale(0.98); } }
+body { animation: pageEnter 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+body.page-exit { animation: pageExit 0.4s cubic-bezier(0.55,0,1,0.45) forwards; }
+</style>
+<script>
+// Intercept all internal navigation for smooth transitions
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href]');
+  if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes('#')) {
+    e.preventDefault();
+    document.body.classList.add('page-exit');
+    setTimeout(function(){ window.location.href = link.href; }, 350);
+  }
+});
+// Wrap onclick navigations
+const origLocationSet = Object.getOwnPropertyDescriptor(window, 'location');
+window._smoothNav = function(url) {
+  document.body.classList.add('page-exit');
+  setTimeout(function(){ window.location.href = url; }, 350);
+};
+</script>
+</head>
+<body class="font-body-md text-body-md overflow-x-hidden min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-background dark:bg-background border-b border-white/10 docked full-width top-0 sticky z-50 flex justify-between items-center w-full px-container-margin h-[56px]">
+<button onclick="window.location.href='/community_hub_unified_design/code.html'" class="hover:bg-surface-variant/20 dark:hover:bg-surface-variant/20 transition-colors p-2 rounded-full active:scale-95 transition-transform duration-200 inline-flex items-center justify-center" title="Close"><span class="material-symbols-outlined text-primary dark:text-primary" data-icon="close">close</span></button>
+<div class="flex items-center justify-center flex-grow">
+<img alt="Netagram Logo" class="h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmYpqlTWyKUY8KBCC30ThoDnOGazxhn4m4ADHmWGvgjAehW1_Ge4INTYvmVh79I-Mt4y8WKzfKY7UX5ekzt1_Y7o8DYwTf6s3Nln5uSLztkCnTu8eYt2f-ffDFXssJ_g3w9Kxo-gCfrBGwdUbY0kmS_J8Zt4VliW5Cg8CPm_7iGQgwDhvOScLY8kvyBcGNl7ULPPkbTXpk3PQvgtoSVMk7kdaNRhWRLRK0X3revhDczxTCJU3cmRNmbBqJzisUwlqDMlvOQ-BCAfgJ">
+</div>
+<a class="w-8 h-8 rounded-full bg-surface-bright border border-white/10 flex items-center justify-center overflow-hidden active:scale-95 duration-200" href="/user_profile/code.html">
+  <span class="material-symbols-outlined text-primary text-[20px]" data-icon="person">person</span>
+</a>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow px-container-margin py-stack-lg max-w-2xl mx-auto w-full">
+<header class="mb-stack-lg">
+<h1 class="font-headline-md text-headline-md-mobile text-on-background mb-unit">Start a Discussion</h1>
+<p class="font-body-md text-outline">Collaborate with your fellow citizens to improve the community.</p>
+</header>
+<form class="space-y-stack-lg">
+<!-- Topic Title -->
+<div class="space-y-unit">
+<label class="font-label-md text-label-md text-on-surface-variant" for="topic-title">Topic Title</label>
+<input class="w-full h-14 px-4 bg-surface-elevated border-white/10 border rounded-xl text-on-surface focus:border-primary-container focus:ring-0 transition-all placeholder:text-outline/50" id="topic-title" placeholder="What's on your mind?" type="text">
+</div>
+<!-- Category Chips -->
+<div class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-on-surface-variant">Category</label>
+<div class="flex flex-wrap gap-2">
+<button class="category-chip px-4 py-2 rounded-full border text-label-md font-label-md hover:border-primary transition-all bg-primary/20 border-primary text-primary" onclick="toggleChip(this)" type="button">Infrastructure</button>
+<button class="category-chip px-4 py-2 rounded-full border border-white/10 bg-surface-elevated text-label-md font-label-md hover:border-primary transition-all text-on-surface-variant" onclick="toggleChip(this)" type="button">Safety</button>
+<button class="category-chip px-4 py-2 rounded-full border border-white/10 bg-surface-elevated text-label-md font-label-md hover:border-primary transition-all text-on-surface-variant" onclick="toggleChip(this)" type="button">Events</button>
+<button class="category-chip px-4 py-2 rounded-full border border-white/10 bg-surface-elevated text-label-md font-label-md hover:border-primary transition-all text-on-surface-variant" onclick="toggleChip(this)" type="button">General</button>
+</div>
+</div>
+<!-- Detailed Description -->
+<div class="space-y-unit">
+<label class="font-label-md text-label-md text-on-surface-variant" for="description">Detailed Description</label>
+<textarea class="w-full p-4 bg-surface-elevated border-white/10 border rounded-xl text-on-surface focus:border-primary-container focus:ring-0 transition-all placeholder:text-outline/50 custom-scrollbar resize-none" id="description" placeholder="Provide more context for the community..." rows="6"></textarea>
+</div>
+<!-- Attachment (Optional Utility) -->
+<div class="flex items-center gap-stack-md pt-stack-sm">
+<button class="flex items-center gap-2 text-primary-fixed-dim hover:text-primary transition-colors font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined" data-icon="add_photo_alternate">add_photo_alternate</span>
+                    Add Photos
+                </button>
+<button class="flex items-center gap-2 text-primary-fixed-dim hover:text-primary transition-colors font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+                    Add Location
+                </button>
+</div>
+</form>
+</main>
+<!-- Sticky Action Button -->
+<div class="px-container-margin pb-stack-lg sticky bottom-24 max-w-2xl mx-auto w-full">
+<button class="gradient-button w-full h-[56px] rounded-xl text-white font-display text-headline-md flex items-center justify-center gap-2 active:scale-[0.98] transition-transform">
+            Post Discussion
+            <span class="material-symbols-outlined" data-icon="send">send</span>
+</button>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface-container border-t border-white/10 flex justify-around items-center px-4 py-2 pb-safe shadow-lg rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/netagram_unified_navigation_hub/code.html">
+<span class="material-symbols-outlined">dynamic_feed</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Feed</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all duration-200" href="/civic_intelligence_hub/code.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/unified_reports_tracking_hub/code.html">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Report</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/political_leaders/code.html">
+<span class="material-symbols-outlined">stars</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Leaders</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1 active:scale-90 transition-all" href="/community_hub_unified_design/code.html">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Community</span>
+</a>
+</nav>
+<script>
+        function toggleChip(chip) {
+            const allChips = document.querySelectorAll('.category-chip');
+            allChips.forEach(c => {
+                c.classList.remove('bg-primary/20', 'border-primary', 'text-primary');
+                c.classList.add('bg-surface-elevated', 'border-white/10', 'text-on-surface-variant');
+            });
+            
+            chip.classList.remove('bg-surface-elevated', 'border-white/10', 'text-on-surface-variant');
+            chip.classList.add('bg-primary/20', 'border-primary', 'text-primary');
+        }
+
+        // Default select the first chip
+        document.addEventListener('DOMContentLoaded', () => {
+            const firstChip = document.querySelector('.category-chip');
+            if (firstChip) toggleChip(firstChip);
+        });
+    </script>
+
+
+</body></html>

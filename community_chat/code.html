@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Chat | Netagram</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "action-gradient-end": "#F97316",
+            "primary-container": "#f97316",
+            "slate": "#64748B",
+            "on-primary": "#552100",
+            "background": "#0c1321",
+            "inverse-surface": "#dce2f6",
+            "secondary-fixed-dim": "#ffb3ad",
+            "error": "#ffb4ab",
+            "on-tertiary-fixed-variant": "#004b74",
+            "action-gradient-start": "#EF4444",
+            "on-tertiary": "#003351",
+            "tertiary-fixed-dim": "#93ccff",
+            "surface-container-highest": "#2e3544",
+            "on-tertiary-container": "#003554",
+            "primary": "#ffb690",
+            "inverse-on-surface": "#2a3040",
+            "outline-variant": "#584237",
+            "on-secondary-container": "#ffaea8",
+            "tertiary-fixed": "#cde5ff",
+            "tertiary": "#93ccff",
+            "on-tertiary-fixed": "#001d32",
+            "outline": "#a78b7d",
+            "surface-variant": "#2e3544",
+            "on-secondary-fixed-variant": "#930013",
+            "surface-elevated": "#1A2232",
+            "surface-bright": "#323949",
+            "on-surface-variant": "#e0c0b1",
+            "surface-dim": "#0c1321",
+            "on-error": "#690005",
+            "primary-fixed": "#ffdbca",
+            "inverse-primary": "#9d4300",
+            "on-secondary": "#68000a",
+            "on-primary-container": "#582200",
+            "surface-container-low": "#151b2a",
+            "primary-fixed-dim": "#ffb690",
+            "on-background": "#dce2f6",
+            "on-surface": "#dce2f6",
+            "surface-container-lowest": "#070e1c",
+            "surface-container-high": "#232a39",
+            "surface-container": "#19202e",
+            "tertiary-container": "#00a2f4",
+            "surface": "#0c1321",
+            "on-primary-fixed": "#341100",
+            "success": "#22C55E",
+            "surface-tint": "#ffb690",
+            "on-primary-fixed-variant": "#783200",
+            "secondary-container": "#a40217",
+            "on-error-container": "#ffdad6",
+            "secondary": "#ffb3ad",
+            "error-container": "#93000a",
+            "on-secondary-fixed": "#410004",
+            "secondary-fixed": "#ffdad7"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "xl2": "1rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "stack-md": "16px",
+            "container-margin": "20px",
+            "stack-sm": "8px",
+            "stack-lg": "32px",
+            "gutter": "16px",
+            "unit": "8px"
+          },
+          "fontFamily": {
+            "body-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "display": ["Sora"],
+            "headline-md": ["Sora"],
+            "headline-lg-mobile": ["Sora"],
+            "body-md": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-lg": ["Sora"]
+          },
+          "fontSize": {
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+            "display": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+            "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+  <style>
+    .glass-card {
+      background: rgba(26, 34, 50, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(249, 115, 22, 0.3);
+      border-radius: 10px;
+    }
+    .chat-bubble-received {
+      background: #1A2232;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom-left-radius: 2px;
+    }
+    .chat-bubble-sent {
+      background: linear-gradient(135deg, #EF4444 0%, #F97316 100%);
+      border-bottom-right-radius: 2px;
+    }
+    @keyframes bubbleUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .new-message {
+      animation: bubbleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+  </style>
+<style>
+/* Premium page transitions */
+@keyframes pageEnter { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pageExit { to { opacity:0; transform:translateY(-16px) scale(0.98); } }
+body { animation: pageEnter 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+body.page-exit { animation: pageExit 0.4s cubic-bezier(0.55,0,1,0.45) forwards; }
+</style>
+<script>
+// Intercept all internal navigation for smooth transitions
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href]');
+  if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes('#')) {
+    e.preventDefault();
+    document.body.classList.add('page-exit');
+    setTimeout(function(){ window.location.href = link.href; }, 350);
+  }
+});
+// Wrap onclick navigations
+const origLocationSet = Object.getOwnPropertyDescriptor(window, 'location');
+window._smoothNav = function(url) {
+  document.body.classList.add('page-exit');
+  setTimeout(function(){ window.location.href = url; }, 350);
+};
+</script>
+</head>
+<body class="bg-background text-on-background font-body-md custom-scrollbar overflow-x-hidden flex flex-col h-screen">
+
+  <!-- Top AppBar -->
+  <header class="fixed top-0 left-0 w-full z-50 border-b border-white/10 bg-background flex justify-between items-center h-16 px-container-margin w-full">
+    <div class="flex items-center w-12">
+      <button onclick="window.location.href='/community_hub_unified_design/code.html'" class="p-2 hover:bg-surface-bright/20 rounded-full transition-colors active:scale-95 duration-200" title="Back">
+        <span class="material-symbols-outlined text-primary">arrow_back</span>
+      </button>
+    </div>
+    <div class="flex-grow flex justify-center items-center">
+      <h1 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">Community Chat</h1>
+    </div>
+    <div class="flex items-center justify-end w-12 gap-2">
+      <a class="w-8 h-8 rounded-full bg-surface-bright border border-white/10 flex items-center justify-center overflow-hidden active:scale-95 duration-200" href="/user_profile/code.html">
+        <span class="material-symbols-outlined text-primary text-[20px]" data-icon="person">person</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Chat Canvas -->
+  <main class="flex-grow pt-16 pb-20 flex overflow-hidden">
+    <!-- Left Pane: Channels & DMs list -->
+    <section class="w-full md:w-80 flex flex-col border-r border-white/10 bg-surface-container-low" id="inbox-pane">
+      <!-- Tabs for Channels / Direct Messages -->
+      <div class="p-3 bg-background border-b border-white/10 flex gap-2">
+        <button onclick="switchInboxTab('channels')" id="tab-channels" class="flex-1 py-2 rounded-xl text-label-md font-bold transition-all bg-primary-container text-on-primary-container active:scale-95 duration-150">
+          Channels
+        </button>
+        <button onclick="switchInboxTab('dms')" id="tab-dms" class="flex-1 py-2 rounded-xl text-label-md font-bold transition-all text-slate hover:text-on-surface active:scale-95 duration-150">
+          Direct
+        </button>
+      </div>
+
+      <!-- Search Inbox -->
+      <div class="p-3 bg-surface-container-low border-b border-white/5">
+        <div class="relative">
+          <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate text-[20px]">search</span>
+          <input type="text" placeholder="Search chats..." class="w-full bg-surface-container-high border-none rounded-xl pl-9 pr-3 py-2 text-xs text-on-surface placeholder:text-slate/50 focus:ring-1 focus:ring-primary-container">
+        </div>
+      </div>
+
+      <!-- Channels List Container -->
+      <div class="flex-grow overflow-y-auto custom-scrollbar p-2 space-y-1" id="channels-list">
+        <!-- Channel 1 -->
+        <button onclick="loadChatThread('channel-general', '#ward-142-general', 'Ward General Chat')" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-surface-elevated/40 transition-colors text-left group border border-transparent hover:border-white/5 active-glow border-primary-container/20 bg-surface-elevated/20" id="btn-channel-general">
+          <div class="w-10 h-10 rounded-xl bg-primary-container/10 border border-primary-container/30 flex items-center justify-center text-primary group-hover:scale-105 duration-200">
+            <span class="material-symbols-outlined text-[20px]">tag</span>
+          </div>
+          <div class="flex-grow min-w-0">
+            <div class="flex justify-between items-center">
+              <h4 class="text-xs font-bold text-on-surface truncate">#ward-142-general</h4>
+              <span class="text-[9px] text-slate font-medium">10m</span>
+            </div>
+            <p class="text-[11px] text-slate truncate">Arjun: The water problem is resolve...</p>
+          </div>
+        </button>
+
+        <!-- Channel 2 -->
+        <button onclick="loadChatThread('channel-waste', '#garbage-clearance', 'Garbage Clearance Drive')" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-surface-elevated/40 transition-colors text-left group border border-transparent hover:border-white/5" id="btn-channel-waste">
+          <div class="w-10 h-10 rounded-xl bg-tertiary-container/10 border border-tertiary-container/30 flex items-center justify-center text-tertiary group-hover:scale-105 duration-200">
+            <span class="material-symbols-outlined text-[20px]">delete_sweep</span>
+          </div>
+          <div class="flex-grow min-w-0">
+            <div class="flex justify-between items-center">
+              <h4 class="text-xs font-bold text-on-surface truncate">#garbage-clearance</h4>
+              <span class="text-[9px] text-slate font-medium">1h</span>
+            </div>
+            <p class="text-[11px] text-slate truncate">Priya: Cleanliness drive RSVP is up...</p>
+          </div>
+        </button>
+
+        <!-- Channel 3 -->
+        <button onclick="loadChatThread('channel-pipeline', '#civic-pipeline', 'Civic Pipeline discussions')" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-surface-elevated/40 transition-colors text-left group border border-transparent hover:border-white/5" id="btn-channel-pipeline">
+          <div class="w-10 h-10 rounded-xl bg-success/10 border border-success/30 flex items-center justify-center text-success group-hover:scale-105 duration-200">
+            <span class="material-symbols-outlined text-[20px]">timeline</span>
+          </div>
+          <div class="flex-grow min-w-0">
+            <div class="flex justify-between items-center">
+              <h4 class="text-xs font-bold text-on-surface truncate">#civic-pipeline</h4>
+              <span class="text-[9px] text-slate font-medium">5h</span>
+            </div>
+            <p class="text-[11px] text-slate truncate">Ramesh: 4 projects synced this week...</p>
+          </div>
+        </button>
+      </div>
+
+      <!-- Direct Messages List Container (hidden by default) -->
+      <div class="flex-grow overflow-y-auto custom-scrollbar p-2 space-y-1 hidden" id="dms-list">
+        <!-- DM 1 -->
+        <button onclick="loadChatThread('dm-rajesh', 'MLA Rajesh Varma', 'Official Representative', 'https://lh3.googleusercontent.com/aida-public/AB6AXuCq2vz7JwYygnfc5rvQjKgxOpaYgt_JFRag1hj06R6AbdcqogMUqHlZga4hCtIPRacT9J1p2tuqj9cL-9QP92qAmUB1qSf5HRevMrlHNE-zQFC2H0rXYNwFHOA7S5IN6HFSNuhCCa_Y2t1yDQcErLDOjICCdSX-gIO6rxI7n0kFUkxqAKdHEciqnX7jMXWbTK-NOsZzz7PHclUSVO-iRHGh871zx7GyfUaJjYvYysLdTPrc4YyDQmGJlCi2uFgRy5TS5rryyXZ-2FPw')" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-surface-elevated/40 transition-colors text-left group border border-transparent hover:border-white/5" id="btn-dm-rajesh">
+          <div class="w-10 h-10 rounded-full border border-primary/20 overflow-hidden relative">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCq2vz7JwYygnfc5rvQjKgxOpaYgt_JFRag1hj06R6AbdcqogMUqHlZga4hCtIPRacT9J1p2tuqj9cL-9QP92qAmUB1qSf5HRevMrlHNE-zQFC2H0rXYNwFHOA7S5IN6HFSNuhCCa_Y2t1yDQcErLDOjICCdSX-gIO6rxI7n0kFUkxqAKdHEciqnX7jMXWbTK-NOsZzz7PHclUSVO-iRHGh871zx7GyfUaJjYvYysLdTPrc4YyDQmGJlCi2uFgRy5TS5rryyXZ-2FPw" class="w-full h-full object-cover">
+            <div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-success border-2 border-background rounded-full"></div>
+          </div>
+          <div class="flex-grow min-w-0">
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-1.5">
+                <h4 class="text-xs font-bold text-on-surface truncate">MLA Rajesh Varma</h4>
+                <span class="material-symbols-outlined text-[12px] text-success" style="font-variation-settings: 'FILL' 1;">verified</span>
+              </div>
+              <span class="text-[9px] text-slate font-medium">Just now</span>
+            </div>
+            <p class="text-[11px] text-slate truncate">Rajesh: I have received your water compla...</p>
+          </div>
+        </button>
+
+        <!-- DM 2 -->
+        <button onclick="loadChatThread('dm-priya', 'Priya Sharma (Mod)', 'Community Manager', 'https://lh3.googleusercontent.com/aida-public/AB6AXuCRTA1PKzHkRTb7lpW_JkpD-CQwKOQvMzmOqDSYOQRUvgPIOGCFjnqRR01LI-IWIxX6lA86ntPTyBpuwiYS2IuwfUXfx3XQEThb-w7Dxjgu_bAA_l8fX_-aec6oaD0PLloTzRI9YUBWKTI-El2_mLpaixWJaQacyucan-ZTq13V4yHIjEw9G7WwldmK8ZuomH807Oz76jFysxOHqKja_zkRLoz-4HlcwnZWxm70cUKYVas1bKbPUnzgfvJN0Ru9frz_zgNod33j6Pvq')" class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-surface-elevated/40 transition-colors text-left group border border-transparent hover:border-white/5" id="btn-dm-priya">
+          <div class="w-10 h-10 rounded-full border border-white/10 overflow-hidden relative">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRTA1PKzHkRTb7lpW_JkpD-CQwKOQvMzmOqDSYOQRUvgPIOGCFjnqRR01LI-IWIxX6lA86ntPTyBpuwiYS2IuwfUXfx3XQEThb-w7Dxjgu_bAA_l8fX_-aec6oaD0PLloTzRI9YUBWKTI-El2_mLpaixWJaQacyucan-ZTq13V4yHIjEw9G7WwldmK8ZuomH807Oz76jFysxOHqKja_zkRLoz-4HlcwnZWxm70cUKYVas1bKbPUnzgfvJN0Ru9frz_zgNod33j6Pvq" class="w-full h-full object-cover">
+            <div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-success border-2 border-background rounded-full"></div>
+          </div>
+          <div class="flex-grow min-w-0">
+            <div class="flex justify-between items-center">
+              <h4 class="text-xs font-bold text-on-surface truncate">Priya Sharma</h4>
+              <span class="text-[9px] text-slate font-medium">3h</span>
+            </div>
+            <p class="text-[11px] text-slate truncate">Priya: Thanks for the feedback, Arjun...</p>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- Right Pane: Active Chat Window -->
+    <section class="flex-grow flex flex-col bg-background relative" id="chat-pane">
+      <!-- Chat Header -->
+      <div class="h-14 border-b border-white/10 px-4 flex justify-between items-center bg-surface-container-low shrink-0 z-20">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-primary-container/10 border border-primary-container/30 flex items-center justify-center text-primary" id="active-chat-avatar-container">
+            <span class="material-symbols-outlined text-[18px]" id="active-chat-avatar-icon">tag</span>
+          </div>
+          <div>
+            <h3 class="text-xs font-bold text-on-surface" id="active-chat-title">#ward-142-general</h3>
+            <p class="text-[10px] text-slate" id="active-chat-subtitle">Ward General Chat</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <button class="p-2 hover:bg-surface-bright/20 rounded-full text-slate transition-colors">
+            <span class="material-symbols-outlined text-[20px]">search</span>
+          </button>
+          <button class="p-2 hover:bg-surface-bright/20 rounded-full text-slate transition-colors">
+            <span class="material-symbols-outlined text-[20px]">info</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages Window -->
+      <div class="flex-grow overflow-y-auto custom-scrollbar p-4 space-y-4" id="messages-box">
+        <!-- Message Bubbles will be injected dynamically -->
+      </div>
+
+      <!-- Typing Indicator -->
+      <div class="px-4 py-1.5 text-[10px] text-slate flex items-center gap-1.5 opacity-0 transition-opacity duration-300 shrink-0" id="typing-indicator">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+        </span>
+        <span id="typing-text">Someone is typing...</span>
+      </div>
+
+      <!-- Chat Input Area -->
+      <div class="p-3 border-t border-white/10 bg-surface-container-low flex items-center gap-2 shrink-0">
+        <button class="p-2 hover:bg-surface-bright/20 rounded-xl text-slate transition-colors active:scale-95 duration-150">
+          <span class="material-symbols-outlined text-[20px]">add_circle</span>
+        </button>
+        <button class="p-2 hover:bg-surface-bright/20 rounded-xl text-slate transition-colors active:scale-95 duration-150">
+          <span class="material-symbols-outlined text-[20px]">photo_camera</span>
+        </button>
+        <div class="flex-grow relative">
+          <input type="text" id="chat-input" placeholder="Type message..." class="w-full bg-surface-container-high border-none rounded-xl px-4 py-3 text-xs text-on-surface placeholder:text-slate/50 focus:ring-1 focus:ring-primary-container pr-10" onkeypress="handleKeyPress(event)">
+          <button onclick="sendMessage()" class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 hover:bg-surface-bright/20 rounded-lg text-primary transition-colors active:scale-95 duration-150">
+            <span class="material-symbols-outlined text-[18px]">send</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Navigation bar will be automatically injected by server.ps1 -->
+
+  
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface-container border-t border-white/10 flex justify-around items-center px-4 py-2 pb-safe shadow-lg rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/netagram_unified_navigation_hub/code.html">
+<span class="material-symbols-outlined">dynamic_feed</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Feed</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all duration-200" href="/civic_intelligence_hub/code.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/unified_reports_tracking_hub/code.html">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Report</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/political_leaders/code.html">
+<span class="material-symbols-outlined">stars</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Leaders</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1 active:scale-90 transition-all" href="/community_hub_unified_design/code.html">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Community</span>
+</a>
+</nav>
+<script>
+    // In-memory mock database of chat threads
+    const chatDatabase = {
+      'channel-general': {
+        title: '#ward-142-general',
+        subtitle: 'Ward General Chat',
+        icon: 'tag',
+        isDm: false,
+        messages: [
+          { sender: 'Priya Sharma', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCRTA1PKzHkRTb7lpW_JkpD-CQwKOQvMzmOqDSYOQRUvgPIOGCFjnqRR01LI-IWIxX6lA86ntPTyBpuwiYS2IuwfUXfx3XQEThb-w7Dxjgu_bAA_l8fX_-aec6oaD0PLloTzRI9YUBWKTI-El2_mLpaixWJaQacyucan-ZTq13V4yHIjEw9G7WwldmK8ZuomH807Oz76jFysxOHqKja_zkRLoz-4HlcwnZWxm70cUKYVas1bKbPUnzgfvJN0Ru9frz_zgNod33j6Pvq', text: 'Hello everyone! MLA Rajesh Varma has just confirmed the new cleanup assembly this weekend!', time: '10:04 AM', incoming: true },
+          { sender: 'Ramesh K.', avatar: '', text: 'That is great news, Priya. Hope we get the garbage dump cleared near Varthur main market.', time: '10:07 AM', incoming: true },
+          { sender: 'Arjun Mehta', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD641rzSL81RuPUYkYa6vnYE9n1PX2x2kPLpY-NNHcrj3ddY91941XtgXwhia7V4CiSsEOSyoQycWqfLSVNtVACT34rQhVl7HSQK5B2utc8Mro2cPsJaqQkBGL8pX_1OhEL8shKK3MwUb3bEzPQiXdleC_Q4DOR_vAKpNWE5f86ZKpCszmMeUeNEavWNlknkF5BQbaVfI2gj5FHbAbB4kXMrZn9etdYMnaYKvl9MixiZK5l29sd-4joADy2dZOE1lIdImZyLIebYxV0', text: 'The water leakage issue near the junction has finally been resolved today. Big thanks to the volunteers!', time: '10:10 AM', incoming: false }
+        ]
+      },
+      'channel-waste': {
+        title: '#garbage-clearance',
+        subtitle: 'Garbage Clearance Drive',
+        icon: 'delete_sweep',
+        isDm: false,
+        messages: [
+          { sender: 'Priya Sharma', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCRTA1PKzHkRTb7lpW_JkpD-CQwKOQvMzmOqDSYOQRUvgPIOGCFjnqRR01LI-IWIxX6lA86ntPTyBpuwiYS2IuwfUXfx3XQEThb-w7Dxjgu_bAA_l8fX_-aec6oaD0PLloTzRI9YUBWKTI-El2_mLpaixWJaQacyucan-ZTq13V4yHIjEw9G7WwldmK8ZuomH807Oz76jFysxOHqKja_zkRLoz-4HlcwnZWxm70cUKYVas1bKbPUnzgfvJN0Ru9frz_zgNod33j6Pvq', text: 'Welcome to the Garbage Clearance channel! We are organizing the drive this Saturday at 8:00 AM.', time: 'Yesterday', incoming: true },
+          { sender: 'Priya Sharma', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCRTA1PKzHkRTb7lpW_JkpD-CQwKOQvMzmOqDSYOQRUvgPIOGCFjnqRR01LI-IWIxX6lA86ntPTyBpuwiYS2IuwfUXfx3XQEThb-w7Dxjgu_bAA_l8fX_-aec6oaD0PLloTzRI9YUBWKTI-El2_mLpaixWJaQacyucan-ZTq13V4yHIjEw9G7WwldmK8ZuomH807Oz76jFysxOHqKja_zkRLoz-4HlcwnZWxm70cUKYVas1bKbPUnzgfvJN0Ru9frz_zgNod33j6Pvq', text: 'Cleanliness drive RSVP is up on the community dashboard. Please invite your neighbors.', time: 'Yesterday', incoming: true }
+        ]
+      },
+      'channel-pipeline': {
+        title: '#civic-pipeline',
+        subtitle: 'Civic Pipeline discussions',
+        icon: 'timeline',
+        isDm: false,
+        messages: [
+          { sender: 'Ramesh K.', avatar: '', text: 'Welcome! In this channel we track promise fulfillment status and civic budget logs.', time: '2 Days ago', incoming: true },
+          { sender: 'Ramesh K.', avatar: '', text: '4 projects synced this week. Let me know if there are discrepancies.', time: '5h ago', incoming: true }
+        ]
+      },
+      'dm-rajesh': {
+        title: 'MLA Rajesh Varma',
+        subtitle: 'Official Representative',
+        isDm: true,
+        avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCq2vz7JwYygnfc5rvQjKgxOpaYgt_JFRag1hj06R6AbdcqogMUqHlZga4hCtIPRacT9J1p2tuqj9cL-9QP92qAmUB1qSf5HRevMrlHNE-zQFC2H0rXYNwFHOA7S5IN6HFSNuhCCa_Y2t1yDQcErLDOjICCdSX-gIO6rxI7n0kFUkxqAKdHEciqnX7jMXWbTK-NOsZzz7PHclUSVO-iRHGh871zx7GyfUaJjYvYysLdTPrc4YyDQmGJlCi2uFgRy5TS5rryyXZ-2FPw',
+        messages: [
+          { sender: 'Arjun Mehta', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD641rzSL81RuPUYkYa6vnYE9n1PX2x2kPLpY-NNHcrj3ddY91941XtgXwhia7V4CiSsEOSyoQycWqfLSVNtVACT34rQhVl7HSQK5B2utc8Mro2cPsJaqQkBGL8pX_1OhEL8shKK3MwUb3bEzPQiXdleC_Q4DOR_vAKpNWE5f86ZKpCszmMeUeNEavWNlknkF5BQbaVfI2gj5FHbAbB4kXMrZn9etdYMnaYKvl9MixiZK5l29sd-4joADy2dZOE1lIdImZyLIebYxV0', text: 'Respected MLA Rajesh Varma, I have filed a water leak report for Ward 142. It has been waterlogged for 3 days.', time: '11:40 AM', incoming: false },
+          { sender: 'MLA Rajesh Varma', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCq2vz7JwYygnfc5rvQjKgxOpaYgt_JFRag1hj06R6AbdcqogMUqHlZga4hCtIPRacT9J1p2tuqj9cL-9QP92qAmUB1qSf5HRevMrlHNE-zQFC2H0rXYNwFHOA7S5IN6HFSNuhCCa_Y2t1yDQcErLDOjICCdSX-gIO6rxI7n0kFUkxqAKdHEciqnX7jMXWbTK-NOsZzz7PHclUSVO-iRHGh871zx7GyfUaJjYvYysLdTPrc4YyDQmGJlCi2uFgRy5TS5rryyXZ-2FPw', text: 'Namaste Arjun, I have received your water complaint. I have instructed the local PWD engineer to visit the site immediately. We are tracking this closely.', time: 'Just now', incoming: true }
+        ]
+      },
+      'dm-priya': {
+        title: 'Priya Sharma',
+        subtitle: 'Community Manager',
+        isDm: true,
+        avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCRTA1PKzHkRTb7lpW_JkpD-CQwKOQvMzmOqDSYOQRUvgPIOGCFjnqRR01LI-IWIxX6lA86ntPTyBpuwiYS2IuwfUXfx3XQEThb-w7Dxjgu_bAA_l8fX_-aec6oaD0PLloTzRI9YUBWKTI-El2_mLpaixWJaQacyucan-ZTq13V4yHIjEw9G7WwldmK8ZuomH807Oz76jFysxOHqKja_zkRLoz-4HlcwnZWxm70cUKYVas1bKbPUnzgfvJN0Ru9frz_zgNod33j6Pvq',
+        messages: [
+          { sender: 'Priya Sharma', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCRTA1PKzHkRTb7lpW_JkpD-CQwKOQvMzmOqDSYOQRUvgPIOGCFjnqRR01LI-IWIxX6lA86ntPTyBpuwiYS2IuwfUXfx3XQEThb-w7Dxjgu_bAA_l8fX_-aec6oaD0PLloTzRI9YUBWKTI-El2_mLpaixWJaQacyucan-ZTq13V4yHIjEw9G7WwldmK8ZuomH807Oz76jFysxOHqKja_zkRLoz-4HlcwnZWxm70cUKYVas1bKbPUnzgfvJN0Ru9frz_zgNod33j6Pvq', text: 'Hi Arjun! Thanks for the feedback on the loading screen flow, it works perfectly now.', time: 'Yesterday', incoming: true },
+          { sender: 'Arjun Mehta', avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD641rzSL81RuPUYkYa6vnYE9n1PX2x2kPLpY-NNHcrj3ddY91941XtgXwhia7V4CiSsEOSyoQycWqfLSVNtVACT34rQhVl7HSQK5B2utc8Mro2cPsJaqQkBGL8pX_1OhEL8shKK3MwUb3bEzPQiXdleC_Q4DOR_vAKpNWE5f86ZKpCszmMeUeNEavWNlknkF5BQbaVfI2gj5FHbAbB4kXMrZn9etdYMnaYKvl9MixiZK5l29sd-4joADy2dZOE1lIdImZyLIebYxV0', text: 'Always happy to support the community, Priya!', time: 'Yesterday', incoming: false }
+        ]
+      }
+    };
+
+    let activeThreadId = 'channel-general';
+
+    // Switch between Channels and Direct Messages in the sidebar
+    function switchInboxTab(tab) {
+      const btnChannels = document.getElementById('tab-channels');
+      const btnDms = document.getElementById('tab-dms');
+      const listChannels = document.getElementById('channels-list');
+      const listDms = document.getElementById('dms-list');
+
+      if (tab === 'channels') {
+        btnChannels.className = "flex-1 py-2 rounded-xl text-label-md font-bold transition-all bg-primary-container text-on-primary-container active:scale-95 duration-150";
+        btnDms.className = "flex-1 py-2 rounded-xl text-label-md font-bold transition-all text-slate hover:text-on-surface active:scale-95 duration-150";
+        listChannels.classList.remove('hidden');
+        listDms.classList.add('hidden');
+      } else {
+        btnDms.className = "flex-1 py-2 rounded-xl text-label-md font-bold transition-all bg-primary-container text-on-primary-container active:scale-95 duration-150";
+        btnChannels.className = "flex-1 py-2 rounded-xl text-label-md font-bold transition-all text-slate hover:text-on-surface active:scale-95 duration-150";
+        listChannels.classList.add('hidden');
+        listDms.classList.remove('hidden');
+      }
+    }
+
+    // Load selected chat thread in the active window
+    function loadChatThread(threadId, title, subtitle, avatarUrl) {
+      activeThreadId = threadId;
+      const thread = chatDatabase[threadId];
+
+      // Highlight active sidebar item
+      document.querySelectorAll('#channels-list button, #dms-list button').forEach(btn => {
+        btn.classList.remove('border-primary-container/20', 'bg-surface-elevated/20', 'active-glow');
+      });
+      document.getElementById('btn-' + threadId).classList.add('border-primary-container/20', 'bg-surface-elevated/20', 'active-glow');
+
+      // Update header
+      document.getElementById('active-chat-title').innerText = title;
+      document.getElementById('active-chat-subtitle').innerText = subtitle;
+
+      const avatarIcon = document.getElementById('active-chat-avatar-icon');
+      const avatarContainer = document.getElementById('active-chat-avatar-container');
+      
+      if (thread.isDm) {
+        avatarIcon.classList.add('hidden');
+        avatarContainer.innerHTML = `<img src="${avatarUrl || thread.avatar}" class="w-full h-full object-cover rounded-xl">`;
+      } else {
+        avatarIcon.classList.remove('hidden');
+        avatarIcon.innerText = thread.icon;
+        avatarContainer.innerHTML = `<span class="material-symbols-outlined text-[18px]" id="active-chat-avatar-icon">${thread.icon}</span>`;
+      }
+
+      renderMessages();
+    }
+
+    // Render messages in the chat box
+    function renderMessages() {
+      const messagesBox = document.getElementById('messages-box');
+      messagesBox.innerHTML = '';
+      const thread = chatDatabase[activeThreadId];
+
+      thread.messages.forEach(msg => {
+        const bubbleDiv = document.createElement('div');
+        bubbleDiv.className = `flex gap-3 max-w-[85%] ${msg.incoming ? 'mr-auto' : 'ml-auto flex-row-reverse text-right'}`;
+
+        let avatarHtml = '';
+        if (msg.incoming) {
+          if (msg.avatar) {
+            avatarHtml = `<img src="${msg.avatar}" class="w-8 h-8 rounded-full object-cover shrink-0">`;
+          } else {
+            avatarHtml = `
+              <div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0 border border-white/10">
+                <span class="text-[10px] font-bold text-slate">${msg.sender.substring(0, 2).toUpperCase()}</span>
+              </div>
+            `;
+          }
+        }
+
+        bubbleDiv.innerHTML = `
+          ${avatarHtml}
+          <div class="flex flex-col gap-1">
+            <span class="text-[10px] text-slate font-bold">${msg.sender} <span class="font-medium ml-1">${msg.time}</span></span>
+            <div class="p-3 rounded-2xl text-xs text-white leading-relaxed ${msg.incoming ? 'chat-bubble-received' : 'chat-bubble-sent'}">
+              ${msg.text}
+            </div>
+          </div>
+        `;
+
+        messagesBox.appendChild(bubbleDiv);
+      });
+
+      // Scroll to bottom
+      messagesBox.scrollTop = messagesBox.scrollHeight;
+    }
+
+    // Handle keypress inside chat input
+    function handleKeyPress(e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    }
+
+    // Send a new message
+    function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const thread = chatDatabase[activeThreadId];
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      // Add to database
+      const newMsg = {
+        sender: 'Arjun Mehta',
+        avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD641rzSL81RuPUYkYa6vnYE9n1PX2x2kPLpY-NNHcrj3ddY91941XtgXwhia7V4CiSsEOSyoQycWqfLSVNtVACT34rQhVl7HSQK5B2utc8Mro2cPsJaqQkBGL8pX_1OhEL8shKK3MwUb3bEzPQiXdleC_Q4DOR_vAKpNWE5f86ZKpCszmMeUeNEavWNlknkF5BQbaVfI2gj5FHbAbB4kXMrZn9etdYMnaYKvl9MixiZK5l29sd-4joADy2dZOE1lIdImZyLIebYxV0',
+        text: text,
+        time: timeStr,
+        incoming: false
+      };
+
+      thread.messages.push(newMsg);
+      input.value = '';
+
+      // Append to DOM immediately with animation
+      const messagesBox = document.getElementById('messages-box');
+      const bubbleDiv = document.createElement('div');
+      bubbleDiv.className = `flex gap-3 max-w-[85%] ml-auto flex-row-reverse text-right new-message`;
+      bubbleDiv.innerHTML = `
+        <div class="flex flex-col gap-1">
+          <span class="text-[10px] text-slate font-bold">Arjun Mehta <span class="font-medium ml-1">${timeStr}</span></span>
+          <div class="p-3 rounded-2xl text-xs text-white leading-relaxed chat-bubble-sent">
+            ${text}
+          </div>
+        </div>
+      `;
+      messagesBox.appendChild(bubbleDiv);
+      messagesBox.scrollTop = messagesBox.scrollHeight;
+
+      // Trigger automatic mock reply after 1.5 seconds
+      triggerAutoMockReply();
+    }
+
+    // Trigger an automatic response to make the app interactive and premium
+    function triggerAutoMockReply() {
+      const typingIndicator = document.getElementById('typing-indicator');
+      const typingText = document.getElementById('typing-text');
+      
+      // Select mock response depending on current chat thread
+      let responderName = "Community Voice";
+      let responderAvatar = "";
+      let responseText = "Thanks for sharing this, Arjun! Let's escalate this together.";
+
+      if (activeThreadId === 'channel-general') {
+        responderName = "Priya Sharma";
+        responderAvatar = "https://lh3.googleusercontent.com/aida-public/AB6AXuCRTA1PKzHkRTb7lpW_JkpD-CQwKOQvMzmOqDSYOQRUvgPIOGCFjnqRR01LI-IWIxX6lA86ntPTyBpuwiYS2IuwfUXfx3XQEThb-w7Dxjgu_bAA_l8fX_-aec6oaD0PLloTzRI9YUBWKTI-El2_mLpaixWJaQacyucan-ZTq13V4yHIjEw9G7WwldmK8ZuomH807Oz76jFysxOHqKja_zkRLoz-4HlcwnZWxm70cUKYVas1bKbPUnzgfvJN0Ru9frz_zgNod33j6Pvq";
+        responseText = "Yes Arjun, absolutely. Let's make sure it gets verified by other ward members too!";
+      } else if (activeThreadId === 'channel-waste') {
+        responderName = "Priya Sharma";
+        responderAvatar = "https://lh3.googleusercontent.com/aida-public/AB6AXuCRTA1PKzHkRTb7lpW_JkpD-CQwKOQvMzmOqDSYOQRUvgPIOGCFjnqRR01LI-IWIxX6lA86ntPTyBpuwiYS2IuwfUXfx3XQEThb-w7Dxjgu_bAA_l8fX_-aec6oaD0PLloTzRI9YUBWKTI-El2_mLpaixWJaQacyucan-ZTq13V4yHIjEw9G7WwldmK8ZuomH807Oz76jFysxOHqKja_zkRLoz-4HlcwnZWxm70cUKYVas1bKbPUnzgfvJN0Ru9frz_zgNod33j6Pvq";
+        responseText = "Perfect! See you at Saturday's drive. Don't forget to RSVP on the Events tab.";
+      } else if (activeThreadId === 'dm-rajesh') {
+        responderName = "MLA Rajesh Varma";
+        responderAvatar = "https://lh3.googleusercontent.com/aida-public/AB6AXuCq2vz7JwYygnfc5rvQjKgxOpaYgt_JFRag1hj06R6AbdcqogMUqHlZga4hCtIPRacT9J1p2tuqj9cL-9QP92qAmUB1qSf5HRevMrlHNE-zQFC2H0rXYNwFHOA7S5IN6HFSNuhCCa_Y2t1yDQcErLDOjICCdSX-gIO6rxI7n0kFUkxqAKdHEciqnX7jMXWbTK-NOsZzz7PHclUSVO-iRHGh871zx7GyfUaJjYvYysLdTPrc4YyDQmGJlCi2uFgRy5TS5rryyXZ-2FPw";
+        responseText = "I will request the municipal commissioner's daily ledger file for Ward 142. We want 100% accountability on water projects.";
+      } else if (activeThreadId === 'dm-priya') {
+        responderName = "Priya Sharma";
+        responderAvatar = "https://lh3.googleusercontent.com/aida-public/AB6AXuCRTA1PKzHkRTb7lpW_JkpD-CQwKOQvMzmOqDSYOQRUvgPIOGCFjnqRR01LI-IWIxX6lA86ntPTyBpuwiYS2IuwfUXfx3XQEThb-w7Dxjgu_bAA_l8fX_-aec6oaD0PLloTzRI9YUBWKTI-El2_mLpaixWJaQacyucan-ZTq13V4yHIjEw9G7WwldmK8ZuomH807Oz76jFysxOHqKja_zkRLoz-4HlcwnZWxm70cUKYVas1bKbPUnzgfvJN0Ru9frz_zgNod33j6Pvq";
+        responseText = "Great! I've pinned the main action checklist items to the explore page.";
+      }
+
+      typingText.innerText = `${responderName} is typing...`;
+      
+      // Simulate typing indicator delay
+      setTimeout(() => {
+        typingIndicator.classList.remove('opacity-0');
+        
+        setTimeout(() => {
+          typingIndicator.classList.add('opacity-0');
+
+          const now = new Date();
+          const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+          const replyMsg = {
+            sender: responderName,
+            avatar: responderAvatar,
+            text: responseText,
+            time: timeStr,
+            incoming: true
+          };
+
+          chatDatabase[activeThreadId].messages.push(replyMsg);
+
+          // Append to box with animation
+          const messagesBox = document.getElementById('messages-box');
+          const bubbleDiv = document.createElement('div');
+          bubbleDiv.className = `flex gap-3 max-w-[85%] mr-auto new-message`;
+
+          let avatarHtml = '';
+          if (responderAvatar) {
+            avatarHtml = `<img src="${responderAvatar}" class="w-8 h-8 rounded-full object-cover shrink-0">`;
+          } else {
+            avatarHtml = `
+              <div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0 border border-white/10">
+                <span class="text-[10px] font-bold text-slate">${responderName.substring(0, 2).toUpperCase()}</span>
+              </div>
+            `;
+          }
+
+          bubbleDiv.innerHTML = `
+            ${avatarHtml}
+            <div class="flex flex-col gap-1">
+              <span class="text-[10px] text-slate font-bold">${responderName} <span class="font-medium ml-1">${timeStr}</span></span>
+              <div class="p-3 rounded-2xl text-xs text-white leading-relaxed chat-bubble-received">
+                ${responseText}
+              </div>
+            </div>
+          `;
+          messagesBox.appendChild(bubbleDiv);
+          messagesBox.scrollTop = messagesBox.scrollHeight;
+
+        }, 1200);
+
+      }, 500);
+    }
+
+    // Initial render
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const tab = urlParams.get('tab');
+      if (tab === 'dms') {
+        switchInboxTab('dms');
+      } else if (tab === 'channels') {
+        switchInboxTab('channels');
+      }
+      renderMessages();
+    });
+  </script>
+</body>
+</html>

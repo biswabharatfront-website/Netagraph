@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>My Reports | Netagram</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#0c1321",
+                        "surface": "#0c1321",
+                        "surface-elevated": "#1A2232",
+                        "surface-container-high": "#232a39",
+                        "primary": "#ffb690",
+                        "on-surface": "#dce2f6",
+                        "primary-container": "#f97316",
+                        "success": "#22C55E",
+                        "slate": "#64748B",
+                        "action-gradient-start": "#EF4444",
+                        "action-gradient-end": "#F97316"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "20px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0c1321;
+            font-family: 'Inter', sans-serif;
+            --speed: 350ms;
+        }
+        .font-display {
+            font-family: 'Sora', sans-serif;
+        }
+        .glass-card {
+            background: rgba(26, 34, 50, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .action-gradient {
+            background: linear-gradient(135deg, #EF4444 0%, #F97316 100%);
+        }
+    </style>
+    <style>
+    /* Premium page transitions */
+    @keyframes pageEnter { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes pageExit { to { opacity:0; transform:translateY(-16px) scale(0.98); } }
+    body { animation: pageEnter var(--speed) cubic-bezier(0.16,1,0.3,1) both; }
+    body.page-exit { animation: pageExit var(--speed) cubic-bezier(0.55,0,1,0.45) forwards; }
+    </style>
+    <script>
+    // Dynamically apply native refresh rate transition speed
+    const savedHz = localStorage.getItem('netagram_refresh_rate') || '60';
+    if (savedHz === '120') {
+        document.documentElement.style.setProperty('--speed', '150ms');
+    } else if (savedHz === '90') {
+        document.documentElement.style.setProperty('--speed', '230ms');
+    } else {
+        document.documentElement.style.setProperty('--speed', '350ms');
+    }
+
+    // Intercept all internal navigation for smooth transitions
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a[href]');
+      if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes('#')) {
+        e.preventDefault();
+        document.body.classList.add('page-exit');
+        setTimeout(function(){ window.location.href = link.href; }, parseInt(getComputedStyle(document.documentElement).getPropertyValue('--speed')) - 30);
+      }
+    });
+    </script>
+</head>
+<body class="text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden pb-24">
+    
+    <main class="flex-grow flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="fixed top-0 left-0 w-full z-50 border-b border-white/10 bg-background flex justify-between items-center h-16 px-container-margin">
+            <div class="flex items-center space-x-3">
+                <button onclick="window.location.href='/user_profile/code.html'" class="p-2 hover:bg-surface-elevated rounded-full transition-colors active:scale-95" title="Back">
+                    <span class="material-symbols-outlined text-white">arrow_back</span>
+                </button>
+                <div>
+                    <h1 class="text-xs font-bold uppercase tracking-widest text-primary-container">CITIZEN PROFILE</h1>
+                    <p class="text-lg font-bold font-display text-white">My Reports</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <button class="p-2 hover:bg-surface-elevated rounded-full text-slate" onclick="toggleFilter()">
+                    <span class="material-symbols-outlined">filter_list</span>
+                </button>
+                <a class="w-8 h-8 rounded-full bg-surface-bright border border-white/10 flex items-center justify-center overflow-hidden active:scale-95 duration-200" href="/user_profile/code.html">
+                    <span class="material-symbols-outlined text-primary text-[20px]" data-icon="person">person</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- Profile Brief Summary Info -->
+        <div class="px-container-margin mt-20 pt-4">
+            <div class="glass-card rounded-2xl p-4 flex justify-between items-center relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-24 h-24 bg-primary/5 rounded-full blur-xl"></div>
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border border-white/10">
+                        <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByhQ3sRPxfACh3bCWaN4-Pgm-xsPbUQMA6bikJMhqDyz3aa7uNP7Sr0cW1baCJ_hWtlmjFO4fZi1i9OCMQotDIHTsKZAeDmXvVkwJ20n5cb5R0vCRLM8yZQPcZybsSwehJP6wLFEtv3vyozIk-ucyuLw4ZoWak_YmuT-OmXLUvvyaTfZ8GnYk6qYU9IbAMD28rACZiLVnHGiNGSlsNANoOSEZtgm-OtEV8omORJtA0nhqHG4NN6MLOGIgm1RikAslR3dSJqU36I3Yf">
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Arjun Mehta</h4>
+                        <p class="text-[10px] text-slate uppercase tracking-wider font-semibold">Ward 142 • Bangalore</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <span class="text-[10px] text-slate font-bold uppercase block">Karma Balance</span>
+                    <span class="text-primary text-sm font-display font-bold" id="karma-display">4,820 🌟</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Segmented Tabs -->
+        <div class="px-container-margin mt-4 flex border-b border-white/5 text-center text-xs font-bold font-display">
+            <span class="flex-1 py-3 border-b-2 border-primary-container text-white cursor-pointer" onclick="filterReports('all', this)">All Filed (4)</span>
+            <span class="flex-1 py-3 text-slate hover:text-white cursor-pointer" onclick="filterReports('active', this)">Active (2)</span>
+            <span class="flex-1 py-3 text-slate hover:text-white cursor-pointer" onclick="filterReports('resolved', this)">Resolved (2)</span>
+        </div>
+
+        <!-- Grievance list cards exclusively by Arjun Mehta -->
+        <div class="px-container-margin mt-4 space-y-4 flex-grow" id="reports-container">
+            
+            <!-- Issue 1: Illegal Garbage Dump -->
+            <div class="bg-surface-elevated border border-white/5 rounded-xl p-4 active:scale-[0.99] transition-transform cursor-pointer report-card" data-status="active" onclick="window.location.href='/issue_details/code.html'">
+                <div class="flex justify-between items-start mb-3">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate px-2 py-0.5 rounded bg-white/5">WASTE MANAGEMENT</span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-primary-container px-2 py-0.5 rounded bg-primary-container/10 border border-primary-container/20">VERIFIED</span>
+                </div>
+                <h3 class="font-display font-bold text-white text-base mb-1">Illegal Garbage Dump at Block 4</h3>
+                <p class="text-xs text-slate mb-3">Indiranagar, near Community Park Entrance</p>
+                <p class="text-xs text-slate/80 leading-relaxed mb-4">Significant medical and plastic waste buildup. Posing hazardous health issues to playing kids.</p>
+                <div class="flex items-center justify-between border-t border-white/5 pt-3">
+                    <span class="text-[10px] text-slate font-semibold">Filed 2 hours ago by You</span>
+                    <button class="flex items-center space-x-1.5 px-3 py-1 rounded bg-action-gradient-start/15 border border-action-gradient-start/30 text-action-gradient-end text-xs font-bold" onclick="event.stopPropagation()">
+                        <span class="material-symbols-outlined text-sm">arrow_upward</span>
+                        <span>24 Agree</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Issue 2: Water Leakage -->
+            <div class="bg-surface-elevated border border-white/5 rounded-xl p-4 active:scale-[0.99] transition-transform cursor-pointer report-card" data-status="active" onclick="window.location.href='/issue_details/code.html'">
+                <div class="flex justify-between items-start mb-3">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate px-2 py-0.5 rounded bg-white/5">WATER SUPPLY</span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-primary px-2 py-0.5 rounded bg-primary/10 border border-primary/20">SUBMITTED</span>
+                </div>
+                <h3 class="font-display font-bold text-white text-base mb-1">Water Main Pipeline Leakage</h3>
+                <p class="text-xs text-slate mb-3">Varthur Ward 142, near Shell Petrol Bunk</p>
+                <p class="text-xs text-slate/80 leading-relaxed mb-4">Clean drinking water is bursting out on the main highway, causing high pressure low flow and local waterlogging.</p>
+                <div class="flex items-center justify-between border-t border-white/5 pt-3">
+                    <span class="text-[10px] text-slate font-semibold">Filed 1 day ago by You</span>
+                    <button class="flex items-center space-x-1.5 px-3 py-1 rounded bg-white/5 border border-white/10 text-slate text-xs font-bold" onclick="event.stopPropagation()">
+                        <span class="material-symbols-outlined text-sm">arrow_upward</span>
+                        <span>18 Agree</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Issue 3: Pothole Resolved -->
+            <div class="bg-surface-elevated/40 border border-white/5 rounded-xl p-4 grayscale-[0.4] report-card" data-status="resolved">
+                <div class="flex justify-between items-start mb-3">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate px-2 py-0.5 rounded bg-white/5">ROADS</span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-success px-2 py-0.5 rounded bg-success/10 border border-success/20">RESOLVED</span>
+                </div>
+                <h3 class="font-display font-bold text-white text-base mb-1 line-through opacity-70">Major Pothole on ITPL Road</h3>
+                <p class="text-xs text-slate mb-3">Whitefield, ITPL Main Road</p>
+                <p class="text-xs text-slate/80 leading-relaxed mb-4">Pothole fully repaired by BBMP contractors following community verify triggers and ledger synchronisation.</p>
+                <div class="flex items-center justify-between border-t border-white/5 pt-3">
+                    <span class="text-[10px] text-slate font-semibold">Resolved 3 days ago</span>
+                    <span class="text-[10px] text-success font-bold flex items-center gap-1">
+                        <span class="material-symbols-outlined text-xs">task_alt</span> Resolved
+                    </span>
+                </div>
+            </div>
+
+            <!-- Issue 4: Streetlight Resolved -->
+            <div class="bg-surface-elevated/40 border border-white/5 rounded-xl p-4 grayscale-[0.4] report-card" data-status="resolved">
+                <div class="flex justify-between items-start mb-3">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate px-2 py-0.5 rounded bg-white/5">ELECTRICITY</span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-success px-2 py-0.5 rounded bg-success/10 border border-success/20">RESOLVED</span>
+                </div>
+                <h3 class="font-display font-bold text-white text-base mb-1 line-through opacity-70">Sector 4 Dead Streetlights</h3>
+                <p class="text-xs text-slate mb-3">Koramangala 3rd Block</p>
+                <p class="text-xs text-slate/80 leading-relaxed mb-4">Five consecutive streetlights fixed and switched to high energy efficient LED bulbs. Safe passage restored.</p>
+                <div class="flex items-center justify-between border-t border-white/5 pt-3">
+                    <span class="text-[10px] text-slate font-semibold">Resolved 1 week ago</span>
+                    <span class="text-[10px] text-success font-bold flex items-center gap-1">
+                        <span class="material-symbols-outlined text-xs">task_alt</span> Resolved
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FAB for reporting a new issue -->
+        <button onclick="window.location.href='/report_issue_connected/code.html'" class="fixed bottom-24 right-5 w-16 h-16 rounded-full bg-gradient-to-r from-action-gradient-start to-action-gradient-end shadow-[0_0_20px_rgba(239,68,68,0.4)] text-white flex items-center justify-center z-50 active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-3xl font-bold">campaign</span>
+        </button>
+
+        <!-- Navigation Bar -->
+        <nav class="fixed bottom-0 left-0 w-full z-50 bg-surface-container border-t border-white/10 flex justify-around items-center px-4 py-2 pb-safe shadow-lg rounded-t-xl">
+            <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/netagram_unified_navigation_hub/code.html">
+                <span class="material-symbols-outlined">dynamic_feed</span>
+                <span class="font-label-sm text-label-sm-mobile mt-1">Feed</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all duration-200" href="/civic_intelligence_hub/code.html">
+                <span class="material-symbols-outlined">explore</span>
+                <span class="font-label-sm text-label-sm-mobile mt-1">Explore</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/unified_reports_tracking_hub/code.html">
+                <span class="material-symbols-outlined">add_circle</span>
+                <span class="font-label-sm text-label-sm-mobile mt-1">Report</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/political_leaders/code.html">
+                <span class="material-symbols-outlined">stars</span>
+                <span class="font-label-sm text-label-sm-mobile mt-1">Leaders</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/community_hub_unified_design/code.html">
+                <span class="material-symbols-outlined">groups</span>
+                <span class="font-label-sm text-label-sm-mobile mt-1">Community</span>
+            </a>
+        </nav>
+    </main>
+
+    <script>
+        // Load dynamic Karma
+        document.addEventListener('DOMContentLoaded', () => {
+            const karma = localStorage.getItem('netagram_karma') || '4820';
+            document.getElementById('karma-display').innerText = parseInt(karma).toLocaleString() + " 🌟";
+        });
+
+        // Filter Functionality
+        function filterReports(status, el) {
+            // Update active styling
+            const siblings = el.parentNode.children;
+            for (let child of siblings) {
+                child.classList.remove('border-b-2', 'border-primary-container', 'text-white');
+                child.classList.add('text-slate');
+            }
+            el.classList.add('border-b-2', 'border-primary-container', 'text-white');
+            el.classList.remove('text-slate');
+
+            const cards = document.querySelectorAll('.report-card');
+            cards.forEach(card => {
+                if (status === 'all') {
+                    card.style.display = 'block';
+                } else if (card.getAttribute('data-status') === status) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

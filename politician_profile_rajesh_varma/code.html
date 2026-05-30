@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Rajesh Varma — Profile | Netagram</title>
+<meta name="description" content="Detailed accountability profile, promises tracker, civic score, and timeline for political leader Rajesh Varma."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "error":"#ffb4ab","secondary-fixed":"#ffdad7","on-secondary-container":"#ffaea8",
+        "surface-variant":"#2e3544","outline-variant":"#584237","primary-fixed-dim":"#ffb690",
+        "tertiary-container":"#00a2f4","on-surface":"#dce2f6","primary-fixed":"#ffdbca",
+        "secondary-fixed-dim":"#ffb3ad","on-primary-fixed":"#341100",
+        "surface-container-highest":"#2e3544","surface-container":"#19202e",
+        "on-primary":"#552100","on-tertiary":"#003351","surface-container-low":"#151b2a",
+        "on-error":"#690005","on-primary-fixed-variant":"#783200","surface":"#0c1321",
+        "on-primary-container":"#582200","tertiary":"#93ccff","surface-container-high":"#232a39",
+        "surface-dim":"#0c1321","surface-bright":"#323949","tertiary-fixed":"#cde5ff",
+        "on-tertiary-fixed":"#001d32","inverse-surface":"#dce2f6","inverse-primary":"#9d4300",
+        "on-secondary":"#68000a","on-error-container":"#ffdad6","surface-container-lowest":"#070e1c",
+        "on-secondary-fixed-variant":"#930013","inverse-on-surface":"#2a3040",
+        "on-tertiary-fixed-variant":"#004b74","success":"#22C55E","secondary":"#ffb3ad",
+        "on-surface-variant":"#e0c0b1","secondary-container":"#a40217","error-container":"#93000a",
+        "surface-elevated":"#1A2232","outline":"#a78b7d","action-gradient-end":"#F97316",
+        "tertiary-fixed-dim":"#93ccff","on-tertiary-container":"#003554",
+        "on-secondary-fixed":"#410004","primary-container":"#f97316","on-background":"#dce2f6",
+        "action-gradient-start":"#EF4444","surface-tint":"#ffb690","background":"#0c1321",
+        "slate":"#64748B","primary":"#ffb690",
+        "stalled":"#EF4444","broken":"#EF4444","in-progress":"#F97316"
+      },
+      spacing: {"gutter":"16px","container-margin":"20px","stack-lg":"32px","stack-sm":"8px","unit":"8px","stack-md":"16px"},
+      fontFamily: {"label-md":["Inter"],"headline-lg-mobile":["Sora"],"display":["Sora"],"body-md":["Inter"],"label-sm":["Inter"],"headline-lg":["Sora"],"headline-md":["Sora"],"body-lg":["Inter"]},
+      fontSize: {
+        "label-md":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],
+        "headline-lg-mobile":["24px",{"lineHeight":"32px","fontWeight":"600"}],
+        "display":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],
+        "body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],
+        "label-sm":["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"500"}],
+        "headline-lg":["32px",{"lineHeight":"40px","fontWeight":"600"}],
+        "headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],
+        "body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}]
+      }
+    }
+  }
+}
+</script>
+<style>
+  body { background-color:#0c1321; color:#dce2f6; -webkit-font-smoothing:antialiased; }
+  .action-gradient { background:linear-gradient(135deg,#EF4444 0%,#F97316 100%); }
+  .glass-card { background:rgba(26,34,50,0.75); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.08); }
+  .glass-panel { background:rgba(26,34,50,0.5); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.06); }
+  ::-webkit-scrollbar { width:4px; height:4px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb { background:#2e3544; border-radius:10px; }
+
+  /* Tab system */
+  .tab-btn { transition:all 0.25s ease; }
+  .tab-btn.active { background:linear-gradient(135deg,rgba(249,115,22,0.15),rgba(239,68,68,0.1)); border-color:rgba(249,115,22,0.4); color:#ffb690; }
+  .tab-content { display:none; }
+  .tab-content.active { display:block; animation:fadeSlideUp 0.35s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+
+  /* Score ring */
+  .score-ring-track { stroke:rgba(255,255,255,0.06); }
+  .score-ring-fill { transition:stroke-dashoffset 1s cubic-bezier(0.4,0,0.2,1); transform:rotate(-90deg); transform-origin:50% 50%; }
+
+  /* Progress bars */
+  .metric-bar { height:8px; border-radius:4px; background:rgba(255,255,255,0.06); overflow:hidden; }
+  .metric-bar-fill { height:100%; border-radius:4px; transition:width 0.8s cubic-bezier(0.4,0,0.2,1); }
+
+  /* Promise card */
+  .promise-card { transition:all 0.2s ease; }
+  .promise-card:active { transform:scale(0.98); }
+
+  /* Status badges */
+  .badge-progress { background:rgba(249,115,22,0.1); color:#ffb690; border:1px solid rgba(249,115,22,0.2); }
+  .badge-stalled { background:rgba(239,68,68,0.1); color:#ffb4ab; border:1px solid rgba(239,68,68,0.2); }
+  .badge-delivered { background:rgba(34,197,94,0.1); color:#22C55E; border:1px solid rgba(34,197,94,0.2); }
+  .badge-broken { background:rgba(239,68,68,0.1); color:#ffb4ab; border:1px solid rgba(239,68,68,0.2); }
+
+  /* Animations */
+  @keyframes fadeSlideUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes pageEnter { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes pageExit { to { opacity:0; transform:translateY(-16px) scale(0.98); } }
+  @keyframes countUp { from { opacity:0; transform:scale(0.8); } to { opacity:1; transform:scale(1); } }
+  @keyframes ringDraw { from { stroke-dashoffset:339.3; } }
+  body { animation:pageEnter 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+  body.page-exit { animation:pageExit 0.4s cubic-bezier(0.55,0,1,0.45) forwards; }
+  .animate-in { animation:fadeSlideUp 0.4s ease forwards; }
+  .score-animate { animation:countUp 0.6s 0.3s ease both; }
+  .ring-animate { animation:ringDraw 1.2s cubic-bezier(0.4,0,0.2,1) both; }
+</style>
+<script>
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href]');
+  if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes('#')) {
+    e.preventDefault();
+    document.body.classList.add('page-exit');
+    setTimeout(function(){ window.location.href = link.href; }, 350);
+  }
+});
+window._smoothNav = function(url) {
+  document.body.classList.add('page-exit');
+  setTimeout(function(){ window.location.href = url; }, 350);
+};
+</script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-24 overflow-x-hidden">
+
+<!-- ===== TOP APP BAR ===== -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl border-b border-white/10 h-14 flex items-center justify-between px-container-margin">
+  <div class="flex items-center gap-3">
+    <button class="flex items-center justify-center w-9 h-9 rounded-full hover:bg-surface-variant/30 transition-colors active:scale-95" onclick="window.location.href='/political_leaders/code.html'" title="Back">
+      <span class="material-symbols-outlined text-primary text-[22px]">arrow_back</span>
+    </button>
+    <div class="leading-tight">
+      <h1 class="font-headline-md text-[15px] text-on-surface font-bold">Rajesh Varma</h1>
+      <p class="text-[11px] text-slate">Ward 142 - Varthur</p>
+    </div>
+  </div>
+  <div class="flex items-center gap-1">
+    <button class="px-2.5 py-1 rounded-full bg-primary-container text-on-primary text-[11px] font-bold">EN</button>
+    <button class="px-2 py-1 rounded-full bg-surface-container-high text-slate text-[11px] font-bold border border-white/10">हि</button>
+    <button class="w-8 h-8 rounded-full hover:bg-surface-variant/30 flex items-center justify-center transition-colors">
+      <span class="material-symbols-outlined text-slate text-[20px]">share</span>
+    </button>
+    <button class="w-8 h-8 rounded-full hover:bg-surface-variant/30 flex items-center justify-center transition-colors" onclick="window.location.reload()">
+      <span class="material-symbols-outlined text-slate text-[20px]">refresh</span>
+    </button>
+    <a class="w-8 h-8 rounded-full bg-surface-bright border border-white/10 flex items-center justify-center overflow-hidden active:scale-95 duration-200 ml-1" href="/user_profile/code.html">
+      <span class="material-symbols-outlined text-primary text-[20px]" data-icon="person">person</span>
+    </a>
+  </div>
+</header>
+
+<main class="mt-14 max-w-screen-md mx-auto">
+
+  <!-- ===== PROFILE HERO CARD ===== -->
+  <section class="px-container-margin pt-5 pb-3">
+    <div class="glass-card rounded-2xl p-5 relative">
+      <!-- Bookmark -->
+      <button id="bookmarkBtn" class="absolute top-4 right-4 w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center hover:bg-surface-variant/30 transition-colors active:scale-95">
+        <span class="material-symbols-outlined text-slate text-[20px]">bookmark</span>
+      </button>
+
+      <div class="flex items-start gap-4">
+        <!-- Avatar with initials ring -->
+        <div class="relative shrink-0">
+          <div class="w-[72px] h-[72px] rounded-full border-[3px] border-primary overflow-hidden">
+            <img class="w-full h-full rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRgINOzxmNicE51SkDFSF3iuAT_BqiYtKiYqHs3H85DaMVDpwoQ9MJJzx4EdWHcdtu7mjKJh04E813Txh_X1q4N-v3ZGw1fREqsvk0ByHBmYVGiPVsk7isXSx6-NweniyGP9crNqFWFCLIpMoVZ4MJeM3-3uSGeBfuV0S71DkV7d9f7rPjUvxDjMdtha6stNfhlfxhRciVkifR95S5VPJLPLvd-pZ-Wxf5CSmy27322oeaGb_LM7mghIC5yra1SvjzhtjkMKo-Gt7w" alt="Rajesh Varma">
+          </div>
+          <div class="absolute -bottom-0.5 -right-0.5 bg-success p-0.5 rounded-full border-2 border-surface-elevated">
+            <span class="material-symbols-outlined text-[12px] text-white" style="font-variation-settings:'FILL' 1;">verified</span>
+          </div>
+        </div>
+        <!-- Info -->
+        <div class="pt-1 min-w-0">
+          <div class="flex items-center gap-2 flex-wrap mb-1">
+            <span class="px-2 py-0.5 bg-primary-container/20 text-primary text-[10px] font-bold rounded uppercase tracking-wider">MLA (State Assembly)</span>
+            <span class="text-[12px] text-slate">Citizen Action Alliance (CAA)</span>
+          </div>
+          <h2 class="font-headline-md text-[20px] text-on-surface font-bold leading-tight">Rajesh Varma</h2>
+          <p class="text-[13px] text-primary mt-0.5">Term: 2023 - 2028</p>
+        </div>
+      </div>
+
+      <!-- ===== CIVIC SCORE DASHBOARD ===== -->
+      <div class="mt-5 flex items-center gap-5">
+        <!-- Score Ring -->
+        <div class="relative w-[100px] h-[100px] shrink-0">
+          <svg viewBox="0 0 120 120" class="w-full h-full">
+            <circle class="score-ring-track" cx="60" cy="60" r="54" fill="none" stroke-width="10"/>
+            <circle class="score-ring-fill ring-animate" cx="60" cy="60" r="54" fill="none"
+                    stroke="#f97316" stroke-width="10" stroke-linecap="round"
+                    stroke-dasharray="339.3" stroke-dashoffset="108.5"/>
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center score-animate">
+            <span class="font-display text-[28px] text-on-surface font-bold leading-none">68%</span>
+            <span class="text-[9px] text-slate uppercase font-bold tracking-widest mt-0.5">GRADE</span>
+          </div>
+        </div>
+
+        <!-- Metric Bars -->
+        <div class="flex-1 space-y-3">
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-[12px] text-on-surface-variant">Promises kept</span>
+              <span class="text-[13px] text-on-surface font-bold">68%</span>
+            </div>
+            <div class="metric-bar"><div class="metric-bar-fill bg-success" style="width:68%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-[12px] text-on-surface-variant">Response rate</span>
+              <span class="text-[13px] text-primary font-bold">92%</span>
+            </div>
+            <div class="metric-bar"><div class="metric-bar-fill bg-primary-container" style="width:92%"></div></div>
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-[12px] text-on-surface-variant">Open reports index</span>
+              <span class="text-[13px] text-slate font-bold">14%</span>
+            </div>
+            <div class="metric-bar"><div class="metric-bar-fill bg-slate" style="width:14%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Follow / Message Actions -->
+      <div class="flex gap-3 mt-5">
+        <button id="followBtn" class="flex-1 action-gradient h-[44px] rounded-xl font-label-md text-white flex items-center justify-center gap-2 active:scale-95 transition-all shadow-[0_4px_16px_rgba(249,115,22,0.3)]">
+          <span class="material-symbols-outlined text-[18px]">person_add</span> Follow
+        </button>
+        <button class="flex-1 border border-white/15 h-[44px] rounded-xl font-label-md text-on-surface flex items-center justify-center gap-2 hover:bg-white/5 active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-[18px]">forum</span> Message Office
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTENT TABS ===== -->
+  <section class="px-container-margin">
+    <div class="flex bg-surface-container-low p-1 rounded-xl border border-white/5 mb-4 overflow-x-auto">
+      <button id="tab-promises" onclick="switchTab('promises')" class="tab-btn active flex-1 py-2.5 px-4 rounded-lg text-label-md font-bold text-slate hover:text-on-surface border border-transparent active:scale-[0.98] flex items-center justify-center gap-1 shrink-0">
+        <span class="material-symbols-outlined text-[16px]">handshake</span> Promises
+      </button>
+      <button id="tab-bio" onclick="switchTab('bio')" class="tab-btn flex-1 py-2.5 px-4 rounded-lg text-label-md font-bold text-slate hover:text-on-surface border border-transparent active:scale-[0.98] flex items-center justify-center gap-1 shrink-0">
+        <span class="material-symbols-outlined text-[16px]">verified_user</span> Transparency & Bio
+      </button>
+      <button id="tab-timeline" onclick="switchTab('timeline')" class="tab-btn flex-1 py-2.5 px-4 rounded-lg text-label-md font-bold text-slate hover:text-on-surface border border-transparent active:scale-[0.98] flex items-center justify-center gap-1 shrink-0">
+        <span class="material-symbols-outlined text-[16px]">timeline</span> Timeline
+      </button>
+      <button id="tab-schemes" onclick="switchTab('schemes')" class="tab-btn flex-1 py-2.5 px-4 rounded-lg text-label-md font-bold text-slate hover:text-on-surface border border-transparent active:scale-[0.98] flex items-center justify-center gap-1 shrink-0">
+        <span class="material-symbols-outlined text-[16px]">account_balance</span> Ward Schemes
+      </button>
+    </div>
+
+    <!-- ===================== PROMISES TAB (ACTIVE BY DEFAULT) ===================== -->
+    <div id="view-promises" class="tab-content active">
+      <!-- Sub-Toggle chips -->
+      <div class="flex gap-2 mb-4">
+        <button id="toggle-ongoing" onclick="filterPromises('ongoing')" class="px-3 py-1.5 rounded-lg border border-white/10 bg-white/5 text-[12px] font-bold text-on-surface">
+          Ongoing Campaigns (3)
+        </button>
+        <button id="toggle-resolved" onclick="filterPromises('resolved')" class="px-3 py-1.5 rounded-lg border border-white/5 bg-transparent text-[12px] text-slate hover:text-on-surface">
+          Resolved (3)
+        </button>
+      </div>
+
+      <div class="space-y-3">
+        <!-- Ongoing Promises -->
+        <div class="promise-item ongoing-promise glass-card rounded-xl p-4 cursor-pointer" onclick="toggleDetails('promise-d1')">
+          <div class="flex items-start gap-4">
+            <div class="w-9 h-9 rounded-full bg-primary-container/10 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-primary text-[18px]">hourglass_bottom</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <h4 class="font-label-md text-[13px] text-on-surface leading-tight">Pothole-free Varthur Main Road campaign</h4>
+                <span class="px-2 py-0.5 bg-primary/10 text-primary text-[9px] font-bold rounded uppercase tracking-wide">In Progress</span>
+              </div>
+              <p class="text-[11px] text-slate mt-1">Road Infrastructure & Pothole Repair · Target: 31 Mar 2027</p>
+              <div id="promise-d1" class="hidden mt-3 text-[12px] text-slate border-t border-white/5 pt-3">
+                <p class="leading-relaxed text-on-background/80">Comprehensive resurfacing using long-lasting synthetic asphalt grid laying to withstand heavy monsoon water logging.</p>
+                <div class="flex justify-between items-center mt-3">
+                  <span class="text-[11px] text-primary font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">calendar_today</span> Due: 31 Mar 2027</span>
+                  <span class="px-2 py-1 bg-white/5 border border-white/5 rounded text-[11px] text-success font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">folder_shared</span> 22 Verified Audits</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="promise-item ongoing-promise glass-card rounded-xl p-4 cursor-pointer" onclick="toggleDetails('promise-d2')">
+          <div class="flex items-start gap-4">
+            <div class="w-9 h-9 rounded-full bg-error-container/20 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-error text-[18px]">pause_circle</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <h4 class="font-label-md text-[13px] text-on-surface leading-tight">Setting up a modern Solid Waste Segregation plant</h4>
+                <span class="px-2 py-0.5 bg-error/10 text-error text-[9px] font-bold rounded uppercase tracking-wide">Stalled</span>
+              </div>
+              <p class="text-[11px] text-slate mt-1">Solid Waste Disposal System · Target: 31 Dec 2026</p>
+              <div id="promise-d2" class="hidden mt-3 text-[12px] text-slate border-t border-white/5 pt-3">
+                <p class="leading-relaxed text-on-background/80">Decentralized automated organic waste converter grid facility for zero-dumping in neighborhood dump yards.</p>
+                <div class="flex justify-between items-center mt-3">
+                  <span class="text-[11px] text-primary font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">calendar_today</span> Due: 31 Dec 2026</span>
+                  <span class="px-2 py-1 bg-white/5 border border-white/5 rounded text-[11px] text-success font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">folder_shared</span> 5 Verified Audits</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="promise-item ongoing-promise glass-card rounded-xl p-4 cursor-pointer" onclick="toggleDetails('promise-d3')">
+          <div class="flex items-start gap-4">
+            <div class="w-9 h-9 rounded-full bg-primary-container/10 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-primary text-[18px]">hourglass_bottom</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <h4 class="font-label-md text-[13px] text-on-surface leading-tight">Rebuilding primary water-drain networks for monsoon</h4>
+                <span class="px-2 py-0.5 bg-primary/10 text-primary text-[9px] font-bold rounded uppercase tracking-wide">In Progress</span>
+              </div>
+              <p class="text-[11px] text-slate mt-1">Municipal Drainage Revamp · Target: 30 Jun 2027</p>
+              <div id="promise-d3" class="hidden mt-3 text-[12px] text-slate border-t border-white/5 pt-3">
+                <p class="leading-relaxed text-on-background/80">Dredging primary storm channels, cement concrete reinforcement, and laying internal pipelines.</p>
+                <div class="flex justify-between items-center mt-3">
+                  <span class="text-[11px] text-primary font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">calendar_today</span> Due: 30 Jun 2027</span>
+                  <span class="px-2 py-1 bg-white/5 border border-white/5 rounded text-[11px] text-success font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">folder_shared</span> 14 Verified Audits</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resolved Promises (Hidden by default) -->
+        <div class="promise-item resolved-promise glass-card rounded-xl p-4 cursor-pointer hidden" onclick="toggleDetails('promise-d4')">
+          <div class="flex items-start gap-4">
+            <div class="w-9 h-9 rounded-full bg-success/10 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-success text-[18px]">check_circle</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <h4 class="font-label-md text-[13px] text-on-surface leading-tight">Revitalization of Varthur Lake boundary walls & walkways</h4>
+                <span class="px-2 py-0.5 bg-success/10 text-success text-[9px] font-bold rounded uppercase tracking-wide">Delivered</span>
+              </div>
+              <p class="text-[11px] text-slate mt-1">Public Park & Greenery Development · Target: 31 Dec 2025</p>
+              <div id="promise-d4" class="hidden mt-3 text-[12px] text-slate border-t border-white/5 pt-3">
+                <p class="leading-relaxed text-on-background/80">Full revamp of perimeter tracks, planting 1500 native saplings, and erecting protective boundary mesh to prevent industrial dumping.</p>
+                <div class="flex justify-between items-center mt-3">
+                  <span class="text-[11px] text-primary font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">calendar_today</span> Resolved: 15 Dec 2025</span>
+                  <span class="px-2 py-1 bg-white/5 border border-white/5 rounded text-[11px] text-success font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">folder_shared</span> 12 Verified Audits</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="promise-item resolved-promise glass-card rounded-xl p-4 cursor-pointer hidden" onclick="toggleDetails('promise-d5')">
+          <div class="flex items-start gap-4">
+            <div class="w-9 h-9 rounded-full bg-success/10 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-success text-[18px]">check_circle</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <h4 class="font-label-md text-[13px] text-on-surface leading-tight">Equipping 4 Ward Government Schools with smart classrooms</h4>
+                <span class="px-2 py-0.5 bg-success/10 text-success text-[9px] font-bold rounded uppercase tracking-wide">Delivered</span>
+              </div>
+              <p class="text-[11px] text-slate mt-1">Government School High-Tech Upgrade · Target: 30 Jun 2024</p>
+              <div id="promise-d5" class="hidden mt-3 text-[12px] text-slate border-t border-white/5 pt-3">
+                <p class="leading-relaxed text-on-background/80">Procurement of smart projectors, high-speed fiber internet, and interactive training workshops for public educators to bridge the digital divide.</p>
+                <div class="flex justify-between items-center mt-3">
+                  <span class="text-[11px] text-primary font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">calendar_today</span> Resolved: 15 Jun 2024</span>
+                  <span class="px-2 py-1 bg-white/5 border border-white/5 rounded text-[11px] text-success font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">folder_shared</span> 8 Verified Audits</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="promise-item resolved-promise glass-card rounded-xl p-4 cursor-pointer hidden" onclick="toggleDetails('promise-d6')">
+          <div class="flex items-start gap-4">
+            <div class="w-9 h-9 rounded-full bg-success/10 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-success text-[18px]">check_circle</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <h4 class="font-label-md text-[13px] text-on-surface leading-tight">Installing 150 energy-efficient LED streetlights</h4>
+                <span class="px-2 py-0.5 bg-success/10 text-success text-[9px] font-bold rounded uppercase tracking-wide">Delivered</span>
+              </div>
+              <p class="text-[11px] text-slate mt-1">Road Infrastructure & Pothole Repair · Target: 31 Mar 2025</p>
+              <div id="promise-d6" class="hidden mt-3 text-[12px] text-slate border-t border-white/5 pt-3">
+                <p class="leading-relaxed text-on-background/80">Transitioning dark, high-accident lane junctions to automated, low-emission high-intensity lights with solar cells.</p>
+                <div class="flex justify-between items-center mt-3">
+                  <span class="text-[11px] text-primary font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">calendar_today</span> Resolved: 20 Mar 2025</span>
+                  <span class="px-2 py-1 bg-white/5 border border-white/5 rounded text-[11px] text-success font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">folder_shared</span> 15 Verified Audits</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===================== TRANSPARENCY & BIO TAB ===================== -->
+    <div id="view-bio" class="tab-content">
+      <!-- Biography Text Card -->
+      <div class="glass-card rounded-xl p-4 mb-4">
+        <h3 class="text-[11px] text-slate uppercase font-bold tracking-widest mb-3">BIOGRAPHY</h3>
+        <p class="text-[13px] text-on-surface-variant leading-relaxed">
+          Rajesh Varma is a dedicated public servant serving the Mahadevapura and Varthur zones with a strong focus on data-driven governance, civic tech transparency, and modernizing municipal infrastructure. Prior to entering public office, he worked in urban planning and public policy research.
+        </p>
+      </div>
+
+      <!-- Financial Disclosures Card -->
+      <div class="glass-card rounded-xl p-4 mb-4">
+        <h3 class="text-[11px] text-slate uppercase font-bold tracking-widest mb-3">FINANCIAL COMPLIANCE DECLARATIONS</h3>
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <p class="text-[10px] text-slate">Total Declared Assets</p>
+            <p class="text-[16px] text-primary font-bold font-display mt-0.5">₹2.50 Crores</p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] text-slate">Total Liabilities</p>
+            <p class="text-[16px] text-error font-bold font-display mt-0.5">₹5.00 Lakhs</p>
+          </div>
+        </div>
+        <!-- Ratio Comparative Bar -->
+        <div class="w-full bg-background rounded-full overflow-hidden h-1.5 flex mb-2">
+          <div class="h-full bg-error" style="width: 2%"></div>
+          <div class="h-full bg-primary/20 flex-1"></div>
+        </div>
+        <p class="text-[10.5px] text-slate">Liabilities comprise 2.0% of total declared assets.</p>
+      </div>
+
+      <!-- Education & Legal Card Grid -->
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <div class="glass-card p-4 rounded-xl flex flex-col justify-center min-h-[110px]">
+          <span class="material-symbols-outlined text-primary text-[20px]">school</span>
+          <h4 class="text-[10px] text-slate uppercase font-bold tracking-wider mt-2 mb-1">VERIFIED EDUCATION</h4>
+          <p class="text-[11.5px] text-on-surface font-semibold leading-tight">Master of Public Policy (MPP) - National Law School</p>
+        </div>
+        <div class="p-4 rounded-xl flex flex-col justify-center min-h-[110px] bg-success/5 border border-success/20">
+          <span class="material-symbols-outlined text-success text-[20px]">gavel</span>
+          <h4 class="text-[10px] text-success uppercase font-bold tracking-wider mt-2 mb-1">LEGAL HISTORY</h4>
+          <p class="text-[11.5px] text-success font-bold leading-tight">Fully Disclosed Clean Record</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== WARD SCHEMES TAB ===================== -->
+    <div id="view-schemes" class="tab-content">
+      <div class="space-y-3">
+        <!-- Scheme 1 -->
+        <div class="glass-card rounded-xl p-4 promise-card" onclick="toggleDetails('scheme-d1')">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-primary text-[20px]">nature_people</span>
+              </div>
+              <div>
+                <h3 class="font-label-md text-on-surface text-[13.5px]">Varthur Ward 142 Lake Restoration Grid</h3>
+                <p class="text-[11px] text-slate">Conservation · Launched 15 Aug 2023</p>
+              </div>
+            </div>
+            <span class="px-2 py-0.5 bg-success/10 text-success text-[9px] font-bold rounded uppercase tracking-wide shrink-0">Active</span>
+          </div>
+          <div id="scheme-d1" class="hidden mt-3 text-[12.5px] text-slate border-t border-white/5 pt-3">
+            <p class="leading-relaxed text-on-background/80">A comprehensive public conservation scheme dedicated to clearing encroachments, reinforcing lake perimeter fencing, and introducing biological water purification grids using custom reed beds.</p>
+            <div class="grid grid-cols-2 gap-2 mt-3 mb-3">
+              <div class="bg-white/25 p-2 rounded">
+                <p class="text-[10px] text-slate">Budget Allocation</p>
+                <p class="text-[12px] text-primary font-bold">₹1.2 Crores</p>
+              </div>
+              <div class="bg-white/25 p-2 rounded">
+                <p class="text-[10px] text-slate">Beneficiaries</p>
+                <p class="text-[12px] text-success font-bold">45,000+ citizens</p>
+              </div>
+            </div>
+            <div class="bg-background/50 border border-white/5 p-2.5 rounded text-[11px] leading-relaxed">
+              <p class="text-[9.5px] text-primary font-bold uppercase tracking-wider mb-1">Eligibility Criteria</p>
+              All registered Varthur Ward 142 residents and lake preservation volunteers.
+            </div>
+          </div>
+        </div>
+
+        <!-- Scheme 2 -->
+        <div class="glass-card rounded-xl p-4 promise-card" onclick="toggleDetails('scheme-d2')">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-primary text-[20px]">school</span>
+              </div>
+              <div>
+                <h3 class="font-label-md text-on-surface text-[13.5px]">Mahadevapura Free Tech & Skill Hubs</h3>
+                <p class="text-[11px] text-slate">Education · Launched 10 Jan 2024</p>
+              </div>
+            </div>
+            <span class="px-2 py-0.5 bg-success/10 text-success text-[9px] font-bold rounded uppercase tracking-wide shrink-0">Active</span>
+          </div>
+          <div id="scheme-d2" class="hidden mt-3 text-[12.5px] text-slate border-t border-white/5 pt-3">
+            <p class="leading-relaxed text-on-background/80">Initiated in partnership with local tech parks to provide free coding, accounting, and technical drafting training bootcamps for local public school alumni.</p>
+            <div class="grid grid-cols-2 gap-2 mt-3 mb-3">
+              <div class="bg-white/25 p-2 rounded">
+                <p class="text-[10px] text-slate">Budget Allocation</p>
+                <p class="text-[12px] text-primary font-bold">₹75 Lakhs</p>
+              </div>
+              <div class="bg-white/25 p-2 rounded">
+                <p class="text-[10px] text-slate">Target Capacity</p>
+                <p class="text-[12px] text-success font-bold">1,200 trained youth/yr</p>
+              </div>
+            </div>
+            <div class="bg-background/50 border border-white/5 p-2.5 rounded text-[11px] leading-relaxed">
+              <p class="text-[9.5px] text-primary font-bold uppercase tracking-wider mb-1">Eligibility Criteria</p>
+              Aged 18-28. Must have completed high school from a government/public school inside the Mahadevapura zone.
+            </div>
+          </div>
+        </div>
+
+        <!-- Scheme 3 -->
+        <div class="glass-card rounded-xl p-4 promise-card" onclick="toggleDetails('scheme-d3')">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-lg bg-slate/10 flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-slate text-[20px]">electric_bolt</span>
+              </div>
+              <div>
+                <h3 class="font-label-md text-on-surface text-[13.5px]">Ward Solar Street-Light Transition Plan</h3>
+                <p class="text-[11px] text-slate">Power · Launched 22 Jul 2024</p>
+              </div>
+            </div>
+            <span class="px-2 py-0.5 bg-slate/20 text-slate text-[9px] font-bold rounded uppercase tracking-wide shrink-0">Completed</span>
+          </div>
+          <div id="scheme-d3" class="hidden mt-3 text-[12.5px] text-slate border-t border-white/5 pt-3">
+            <p class="leading-relaxed text-on-background/80">Transitioning 100% of residential street lights to smart solar grids equipped with automatic light sensors and high-efficiency backup cells.</p>
+            <div class="grid grid-cols-2 gap-2 mt-3 mb-3">
+              <div class="bg-white/25 p-2 rounded">
+                <p class="text-[10px] text-slate">Budget Spent</p>
+                <p class="text-[12px] text-primary font-bold">₹45 Lakhs</p>
+              </div>
+              <div class="bg-white/25 p-2 rounded">
+                <p class="text-[10px] text-slate">Beneficiaries</p>
+                <p class="text-[12px] text-success font-bold">Entire Ward 142</p>
+              </div>
+            </div>
+            <div class="bg-background/50 border border-white/5 p-2.5 rounded text-[11px] leading-relaxed">
+              <p class="text-[9.5px] text-primary font-bold uppercase tracking-wider mb-1">Eligibility Criteria</p>
+              Applicable to all low-visibility public alleyways, secondary corridors, and school zones in the Varthur ward.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== TIMELINE TAB ===================== -->
+    <div id="view-timeline" class="tab-content">
+      <div class="relative pl-8">
+        <!-- Vertical line -->
+        <div class="absolute left-[15px] top-2 bottom-2 w-[2px] bg-white/10"></div>
+
+        <!-- Timeline item 1: Upcoming Townhall -->
+        <div class="relative mb-6">
+          <div class="absolute -left-8 top-1 w-[14px] h-[14px] rounded-full bg-tertiary-container border-2 border-surface-elevated"></div>
+          <div class="glass-card rounded-xl p-4">
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="text-[9px] px-2 py-0.5 bg-tertiary-container/10 text-tertiary-container rounded uppercase font-bold tracking-wider">Upcoming Townhall</span>
+              <span class="text-[10px] text-slate">Jun 2, 2026</span>
+            </div>
+            <h4 class="font-label-md text-on-surface text-[13.5px] mb-1">Townhall: Monsoon Grid Readiness</h4>
+            <p class="text-[12px] text-slate leading-relaxed">Scheduled assembly with civic volunteers and BBMP engineers to review Varthur storm-water drain readiness before heavy monsoons.</p>
+          </div>
+        </div>
+
+        <!-- Timeline item 2: Lake walkway revamp completed -->
+        <div class="relative mb-6">
+          <div class="absolute -left-8 top-1 w-[14px] h-[14px] rounded-full bg-success border-2 border-surface-elevated"></div>
+          <div class="glass-card rounded-xl p-4">
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="text-[9px] px-2 py-0.5 bg-success/10 text-success rounded uppercase font-bold tracking-wider">Delivered</span>
+              <span class="text-[10px] text-slate">Dec 15, 2025</span>
+            </div>
+            <h4 class="font-label-md text-on-surface text-[13.5px] mb-1">Delivered Varthur Lake Walkway Revamp</h4>
+            <p class="text-[12px] text-slate leading-relaxed">Completed walkway resurfacing, plantation of 1500 saplings, and erected safety fencing along the southern bank corridor.</p>
+            <div class="flex items-center gap-3 mt-3">
+              <span class="text-[10.5px] text-slate flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">folder_shared</span> 12 Verified Audits</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline item 3: Ward 142 Budget Townhall -->
+        <div class="relative mb-6">
+          <div class="absolute -left-8 top-1 w-[14px] h-[14px] rounded-full bg-primary border-2 border-surface-elevated"></div>
+          <div class="glass-card rounded-xl p-4">
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="text-[9px] px-2 py-0.5 bg-primary/10 text-primary rounded uppercase font-bold tracking-wider">Budget Townhall</span>
+              <span class="text-[10px] text-slate">Feb 10, 2025</span>
+            </div>
+            <h4 class="font-label-md text-on-surface text-[13.5px] mb-1">Led Ward 142 Budget Townhall</h4>
+            <p class="text-[12px] text-slate leading-relaxed">Direct civic engagement townhall held at Varthur Community Hall, allocating ₹2.4 Crores to primary monsoon drainage network works.</p>
+          </div>
+        </div>
+
+        <!-- Timeline item 4: Smart classroom launch -->
+        <div class="relative mb-6">
+          <div class="absolute -left-8 top-1 w-[14px] h-[14px] rounded-full bg-success border-2 border-surface-elevated"></div>
+          <div class="glass-card rounded-xl p-4">
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="text-[9px] px-2 py-0.5 bg-success/10 text-success rounded uppercase font-bold tracking-wider">Delivered</span>
+              <span class="text-[10px] text-slate">Jun 15, 2024</span>
+            </div>
+            <h4 class="font-label-md text-on-surface text-[13.5px] mb-1">Smart Classroom Initiative Launch</h4>
+            <p class="text-[12px] text-slate leading-relaxed">Delivered fully operational smart projector grids, modern bookshelves, and high-speed fiber internet loops to 4 major government schools.</p>
+            <div class="flex items-center gap-3 mt-3">
+              <span class="text-[10.5px] text-slate flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">folder_shared</span> 8 Verified Audits</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline item 5: Term Start Oath -->
+        <div class="relative mb-6">
+          <div class="absolute -left-8 top-1 w-[14px] h-[14px] rounded-full bg-primary border-2 border-surface-elevated"></div>
+          <div class="glass-card rounded-xl p-4">
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="text-[9px] px-2 py-0.5 bg-primary/10 text-primary rounded uppercase font-bold tracking-wider">Oath Taking</span>
+              <span class="text-[10px] text-slate">May 20, 2023</span>
+            </div>
+            <h4 class="font-label-md text-on-surface text-[13.5px] mb-1">Assumed MLA Office for Varthur</h4>
+            <p class="text-[12px] text-slate leading-relaxed">Officially sworn in as Member of Legislative Assembly (MLA) for Varthur / Mahadevapura constituency after securing 58.4% of citizen vote.</p>
+          </div>
+        </div>
+
+    <!-- Disclaimer and Attribution -->
+    <div class="px-container-margin mt-6 mb-8 animate-in">
+      <div class="glass-card rounded-xl p-4 text-[11px] leading-relaxed">
+        <div class="flex items-center gap-2 mb-2 text-primary">
+          <span class="material-symbols-outlined text-[15px]">info</span>
+          <span class="font-bold uppercase tracking-wider">Data Source & Disclaimer</span>
+        </div>
+        <p class="text-on-surface/80 mb-1">Information is compiled from public sources. Users should verify latest updates.</p>
+        <p class="text-slate italic">Attribution: Data sourced from MyNeta.info / ADR, PRS India, ECI</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===== FAB ===== -->
+<button class="fixed bottom-24 right-5 w-14 h-14 rounded-full action-gradient flex items-center justify-center text-white shadow-2xl z-40 active:scale-90 transition-transform" style="box-shadow:0 8px 24px rgba(249,115,22,0.35);" onclick="window.location.href='/unified_reports_tracking_hub/code.html'">
+  <span class="material-symbols-outlined text-[28px]" style="font-variation-settings:'FILL' 1;">campaign</span>
+</button>
+
+<!-- ===== BOTTOM NAV BAR ===== -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface-container border-t border-white/10 flex justify-around items-center px-4 py-2 pb-safe shadow-lg rounded-t-xl">
+  <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/netagram_unified_navigation_hub/code.html">
+    <span class="material-symbols-outlined">dynamic_feed</span>
+    <span class="font-label-sm text-[11px] mt-1">Feed</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all duration-200" href="/civic_intelligence_hub/code.html">
+    <span class="material-symbols-outlined">explore</span>
+    <span class="font-label-sm text-[11px] mt-1">Explore</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/unified_reports_tracking_hub/code.html">
+    <span class="material-symbols-outlined">add_circle</span>
+    <span class="font-label-sm text-[11px] mt-1">Report</span>
+  </a>
+  <a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1 active:scale-90 transition-all" href="/political_leaders/code.html">
+    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">stars</span>
+    <span class="font-label-sm text-[11px] mt-1">Leaders</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/community_hub_unified_design/code.html">
+    <span class="material-symbols-outlined">groups</span>
+    <span class="font-label-sm text-[11px] mt-1">Community</span>
+  </a>
+</nav>
+
+<script>
+// === Tab Switching ===
+function switchTab(tab) {
+  const tabs = ['bio', 'promises', 'schemes', 'timeline'];
+  tabs.forEach(t => {
+    const view = document.getElementById('view-' + t);
+    const btn = document.getElementById('tab-' + t);
+    if (t === tab) {
+      view.classList.add('active');
+      btn.classList.add('active');
+      btn.classList.remove('text-slate', 'hover:text-on-surface');
+    } else {
+      view.classList.remove('active');
+      btn.classList.remove('active');
+      btn.classList.add('text-slate', 'hover:text-on-surface');
+    }
+  });
+}
+
+// === Promises Filter Tab ===
+function filterPromises(category) {
+  const ongoingToggle = document.getElementById('toggle-ongoing');
+  const resolvedToggle = document.getElementById('toggle-resolved');
+  
+  const ongoingCards = document.querySelectorAll('.ongoing-promise');
+  const resolvedCards = document.querySelectorAll('.resolved-promise');
+  
+  if (category === 'ongoing') {
+    ongoingToggle.classList.add('bg-white/5', 'text-on-surface', 'border-white/10');
+    ongoingToggle.classList.remove('bg-transparent', 'text-slate', 'border-white/5');
+    
+    resolvedToggle.classList.add('bg-transparent', 'text-slate', 'border-white/5');
+    resolvedToggle.classList.remove('bg-white/5', 'text-on-surface', 'border-white/10');
+    
+    ongoingCards.forEach(c => c.classList.remove('hidden'));
+    resolvedCards.forEach(c => c.classList.add('hidden'));
+  } else {
+    resolvedToggle.classList.add('bg-white/5', 'text-on-surface', 'border-white/10');
+    resolvedToggle.classList.remove('bg-transparent', 'text-slate', 'border-white/5');
+    
+    ongoingToggle.classList.add('bg-transparent', 'text-slate', 'border-white/5');
+    ongoingToggle.classList.remove('bg-white/5', 'text-on-surface', 'border-white/10');
+    
+    ongoingCards.forEach(c => c.classList.add('hidden'));
+    resolvedCards.forEach(c => c.classList.remove('hidden'));
+  }
+}
+
+// === Accordion Toggles ===
+function toggleDetails(elementId) {
+  const el = document.getElementById(elementId);
+  if (el) {
+    el.classList.toggle('hidden');
+  }
+}
+
+// === Follow Button Toggle ===
+const followBtn = document.getElementById('followBtn');
+if (followBtn) {
+  followBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const isFollowing = this.getAttribute('data-following') === 'true';
+    if (!isFollowing) {
+      this.innerHTML = '<span class="material-symbols-outlined text-[18px]" style="font-variation-settings:\'FILL\' 1;">check_circle</span> Following';
+      this.classList.remove('action-gradient', 'shadow-[0_4px_16px_rgba(249,115,22,0.3)]');
+      this.classList.add('bg-surface-bright', 'border', 'border-white/15');
+      this.setAttribute('data-following', 'true');
+    } else {
+      this.innerHTML = '<span class="material-symbols-outlined text-[18px]">person_add</span> Follow';
+      this.classList.add('action-gradient', 'shadow-[0_4px_16px_rgba(249,115,22,0.3)]');
+      this.classList.remove('bg-surface-bright', 'border', 'border-white/15');
+      this.setAttribute('data-following', 'false');
+    }
+  });
+}
+
+// === Bookmark Toggle ===
+const bookmarkBtn = document.getElementById('bookmarkBtn');
+if (bookmarkBtn) {
+  bookmarkBtn.addEventListener('click', function() {
+    const icon = this.querySelector('.material-symbols-outlined');
+    const isSaved = this.getAttribute('data-saved') === 'true';
+    if (!isSaved) {
+      icon.textContent = 'bookmark';
+      icon.style.fontVariationSettings = "'FILL' 1";
+      icon.classList.remove('text-slate');
+      icon.classList.add('text-primary');
+      this.setAttribute('data-saved', 'true');
+    } else {
+      icon.textContent = 'bookmark';
+      icon.style.fontVariationSettings = "'FILL' 0";
+      icon.classList.add('text-slate');
+      icon.classList.remove('text-primary');
+      this.setAttribute('data-saved', 'false');
+    }
+  });
+}
+
+// === Horizontal scroll drag ===
+document.querySelectorAll('.overflow-x-auto').forEach(slider => {
+  let isDown = false, startX, scrollLeft;
+  slider.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft; });
+  slider.addEventListener('mouseleave', () => isDown = false);
+  slider.addEventListener('mouseup', () => isDown = false);
+  slider.addEventListener('mousemove', e => { if(!isDown) return; e.preventDefault(); slider.scrollLeft = scrollLeft - ((e.pageX - slider.offsetLeft) - startX) * 2; });
+});
+</script>
+</body></html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Netagram - Your Ward Boundary</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#ffaea8",
+                        "background": "#0c1321",
+                        "on-primary-fixed": "#341100",
+                        "on-background": "#dce2f6",
+                        "outline": "#a78b7d",
+                        "primary": "#ffb690",
+                        "action-gradient-end": "#F97316",
+                        "primary-fixed": "#ffdbca",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-container": "#003554",
+                        "tertiary-container": "#00a2f4",
+                        "surface-variant": "#2e3544",
+                        "tertiary-fixed": "#cde5ff",
+                        "surface-container-lowest": "#070e1c",
+                        "outline-variant": "#584237",
+                        "surface-container-highest": "#2e3544",
+                        "primary-fixed-dim": "#ffb690",
+                        "on-tertiary-fixed": "#001d32",
+                        "tertiary": "#93ccff",
+                        "surface": "#0c1321",
+                        "secondary-container": "#a40217",
+                        "on-tertiary": "#003351",
+                        "inverse-surface": "#dce2f6",
+                        "action-gradient-start": "#EF4444",
+                        "tertiary-fixed-dim": "#93ccff",
+                        "surface-dim": "#0c1321",
+                        "primary-container": "#f97316",
+                        "secondary-fixed": "#ffdad7",
+                        "on-surface-variant": "#e0c0b1",
+                        "surface-bright": "#323949",
+                        "secondary": "#ffb3ad",
+                        "surface-elevated": "#1A2232",
+                        "on-primary-fixed-variant": "#783200",
+                        "inverse-on-surface": "#2a3040",
+                        "on-primary": "#552100",
+                        "surface-container-low": "#151b2a",
+                        "secondary-fixed-dim": "#ffb3ad",
+                        "on-secondary": "#68000a",
+                        "on-error": "#690005",
+                        "error": "#ffb4ab",
+                        "on-secondary-fixed-variant": "#930013",
+                        "surface-container": "#19202e",
+                        "slate": "#64748B",
+                        "on-tertiary-fixed-variant": "#004b74",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#232a39",
+                        "inverse-primary": "#9d4300",
+                        "surface-tint": "#ffb690",
+                        "on-primary-container": "#582200",
+                        "success": "#22C55E",
+                        "on-surface": "#dce2f6",
+                        "on-secondary-fixed": "#410004"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "container-margin": "20px",
+                        "unit": "8px",
+                        "stack-md": "16px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "display": ["Sora"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Sora"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "display": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .action-gradient {
+            background: linear-gradient(135deg, #EF4444 0%, #F97316 100%);
+        }
+
+        .map-overlay-shadow {
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+        }
+
+        .pulse-marker {
+            box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(249, 115, 22, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
+            }
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+/* Premium page transitions */
+@keyframes pageEnter { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pageExit { to { opacity:0; transform:translateY(-16px) scale(0.98); } }
+body { animation: pageEnter 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+body.page-exit { animation: pageExit 0.4s cubic-bezier(0.55,0,1,0.45) forwards; }
+</style>
+<script>
+// Intercept all internal navigation for smooth transitions
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href]');
+  if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes('#')) {
+    e.preventDefault();
+    document.body.classList.add('page-exit');
+    setTimeout(function(){ window.location.href = link.href; }, 350);
+  }
+});
+// Wrap onclick navigations
+const origLocationSet = Object.getOwnPropertyDescriptor(window, 'location');
+window._smoothNav = function(url) {
+  document.body.classList.add('page-exit');
+  setTimeout(function(){ window.location.href = url; }, 350);
+};
+</script>
+</head>
+
+<body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden">
+    <!-- TopAppBar -->
+    <header
+        class="fixed top-0 w-full h-16 flex items-center justify-between px-container-margin bg-surface border-b border-white/10 z-50">
+        <button onclick="window.location.href='/community_hub_unified_design/code.html'"
+            class="hover:bg-surface-bright transition-colors p-2 rounded-full active:scale-95 transition-transform"
+            title="Back">
+            <span class="material-symbols-outlined text-primary">arrow_back</span>
+        </button>
+        <div class="font-headline-md text-headline-md font-bold tracking-tighter text-primary"><img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqhQGFG7EYvL1yBIJMFWOd2GhfwximEx0UALgsKiGoMaAlZ_mxuVGHZWCb2LHEwsGG1AIpQ683eQUQqlyPbBVqw1akaaupoKE0HmIa4xjdGzbErlNjN-djBd7vWF4KtekXeQVbKtE97h2Ho7OMPDl7RgwF0DQyhQvH4jJ4ESUBIEs6ldKDTI-3OCRX_kACYa11uzEyVuW9F8gSohOcdcjnVKZ_pyWaEpBHXhsFxo-C5fJLVozgS_Un72bQFbzEgeQf6Wo1IWdU8g40"
+                alt="NETAGRAPH Logo" class="h-8 w-auto object-contain"></div>
+        <div class="flex items-center gap-2">
+            <button class="hover:bg-surface-bright transition-colors p-2 rounded-full active:scale-95 transition-transform">
+                <span class="material-symbols-outlined text-primary">notifications</span>
+            </button>
+            <a class="w-8 h-8 rounded-full bg-surface-bright border border-white/10 flex items-center justify-center overflow-hidden active:scale-95 duration-200" href="/user_profile/code.html">
+                <span class="material-symbols-outlined text-primary text-[20px]" data-icon="person">person</span>
+            </a>
+        </div>
+    </header>
+    <main class="pt-20 pb-24 px-container-margin max-w-5xl mx-auto">
+        <!-- Page Title -->
+        <div class="mb-stack-lg">
+            <h1
+                class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-background mb-1">
+                Your Ward Boundary</h1>
+            <p class="text-slate font-label-md">Viewing administrative district limits for your current location.</p>
+        </div>
+        <!-- Interactive Map Section -->
+        <div
+            class="relative w-full aspect-square md:aspect-video bg-surface-elevated rounded-xl overflow-hidden border border-white/10 group mb-stack-lg" style="z-index: 1;">
+            <div id="boundary-map" class="w-full h-full opacity-60" style="z-index: 1;"></div>
+            <!-- Map Markers & Labels -->
+            <div class="absolute inset-0 p-8 pointer-events-none">
+                <!-- Location Indicator -->
+                <div class="absolute top-[45%] left-[45%] flex flex-col items-center">
+                    <div class="w-4 h-4 bg-primary-container rounded-full pulse-marker ring-2 ring-white"></div>
+                    <div
+                        class="mt-2 px-2 py-1 bg-surface-container rounded-lg border border-white/20 text-label-sm text-on-surface whitespace-nowrap">
+                        You are here</div>
+                </div>
+                <!-- Landmark Labels -->
+                <div class="absolute top-[25%] right-[30%] flex items-center gap-2 opacity-80 scale-90">
+                    <span class="material-symbols-outlined text-tertiary text-sm">local_hospital</span>
+                    <span class="text-label-sm text-slate bg-background/50 px-1">Metropolis Hospital</span>
+                </div>
+                <div class="absolute bottom-[40%] left-[20%] flex items-center gap-2 opacity-80 scale-90">
+                    <span class="material-symbols-outlined text-success text-sm">park</span>
+                    <span class="text-label-sm text-slate bg-background/50 px-1">Central Park</span>
+                </div>
+                <!-- Street Labels -->
+                <div class="absolute top-[40%] right-[10%] rotate-45">
+                    <span class="text-label-sm text-slate/40 uppercase tracking-widest font-bold">Main Road</span>
+                </div>
+                <div class="absolute bottom-[20%] right-[40%]">
+                    <span class="text-label-sm text-slate/40 uppercase tracking-widest font-bold">Hill Street</span>
+                </div>
+            </div>
+            <!-- Floating Info Card -->
+            <div
+                class="absolute bottom-4 left-4 right-4 md:right-auto md:w-64 bg-surface-container/90 backdrop-blur-md p-stack-md rounded-xl border border-white/10 map-overlay-shadow animate-in slide-in-from-bottom-4 duration-500">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-headline-md text-primary">Ward 45</h3>
+                    <span class="px-2 py-0.5 bg-success/20 text-success text-label-sm rounded">Active</span>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center text-label-sm">
+                        <span class="text-slate">Total Area</span>
+                        <span class="text-on-surface">4.2 sq km</span>
+                    </div>
+                    <div class="flex justify-between items-center text-label-sm">
+                        <span class="text-slate">Population</span>
+                        <span class="text-on-surface">12,402 Citizens</span>
+                    </div>
+                    <div class="flex justify-between items-center text-label-sm">
+                        <span class="text-slate">Reports (24h)</span>
+                        <span class="text-on-surface-variant">14 Pending</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Map Controls -->
+            <div class="absolute top-4 right-4 flex flex-col gap-2">
+                <button
+                    class="bg-surface-bright/80 backdrop-blur p-2 rounded-lg border border-white/10 text-on-surface active:scale-90 transition-transform">
+                    <span class="material-symbols-outlined">add</span>
+                </button>
+                <button
+                    class="bg-surface-bright/80 backdrop-blur p-2 rounded-lg border border-white/10 text-on-surface active:scale-90 transition-transform">
+                    <span class="material-symbols-outlined">remove</span>
+                </button>
+                <button
+                    class="bg-surface-bright/80 backdrop-blur p-2 rounded-lg border border-white/10 text-primary active:scale-90 transition-transform">
+                    <span class="material-symbols-outlined"
+                        style="font-variation-settings: &quot;FILL&quot; 1;">my_location</span>
+                </button>
+            </div>
+        </div>
+        <!-- Action Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter mb-4">
+            <button
+                class="action-gradient h-14 flex items-center justify-center gap-3 rounded-xl text-white font-headline-md active:scale-95 transition-transform shadow-[0_4px_20px_rgba(239,68,68,0.3)]">
+                <span class="material-symbols-outlined">share</span>
+                <span class="">Share Map</span>
+            </button>
+            <button
+                class="bg-transparent border-2 border-slate/30 h-14 flex items-center justify-center gap-3 rounded-xl text-on-surface font-headline-md hover:border-primary transition-colors active:scale-95 transition-transform">
+                <span class="material-symbols-outlined">download</span>
+                <span class="">Download PDF</span>
+            </button>
+        </div>
+        <button onclick="window.location.href='/civic_intelligence_hub/code.html'"
+            class="w-full h-14 flex items-center justify-center gap-3 rounded-xl text-primary bg-primary/10 border border-primary/30 font-headline-md hover:bg-primary/20 active:scale-95 transition-all">
+            <span class="material-symbols-outlined">rocket_launch</span>
+            <span class="">Proceed to Feed</span>
+        </button>
+        <!-- Secondary Information / Data Cards -->
+        <div class="mt-stack-lg grid grid-cols-1 md:grid-cols-3 gap-gutter">
+            <div class="bg-surface-elevated p-stack-md rounded-xl border border-white/5">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="p-2 bg-primary-container/10 rounded-lg">
+                        <span class="material-symbols-outlined text-primary">person</span>
+                    </div>
+                    <span class="font-label-md text-on-surface">Council Member</span>
+                </div>
+                <p class="text-body-md text-on-background font-semibold">Robert J. Vance</p>
+                <button class="mt-4 text-primary font-label-sm flex items-center gap-1 hover:underline">
+                    View Profile <span class="material-symbols-outlined text-xs">arrow_forward</span>
+                </button>
+            </div>
+            <div class="bg-surface-elevated p-stack-md rounded-xl border border-white/5">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="p-2 bg-tertiary-container/10 rounded-lg">
+                        <span class="material-symbols-outlined text-tertiary">campaign</span>
+                    </div>
+                    <span class="font-label-md text-on-surface">Announcements</span>
+                </div>
+                <p class="text-body-md text-on-background font-semibold">Scheduled Roadwork on Main Rd</p>
+                <p class="text-label-sm text-slate mt-1">Starting July 24th</p>
+            </div>
+            <div class="bg-surface-elevated p-stack-md rounded-xl border border-white/5">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="p-2 bg-success/10 rounded-lg">
+                        <span class="material-symbols-outlined text-success">analytics</span>
+                    </div>
+                    <span class="font-label-md text-on-surface">Resolution Rate</span>
+                </div>
+                <div class="flex items-baseline gap-2">
+                    <span class="text-headline-md text-on-background">94%</span>
+                    <span class="text-success text-label-sm">+2% this month</span>
+                </div>
+                <div class="w-full bg-surface h-1.5 rounded-full mt-3 overflow-hidden">
+                    <div class="bg-success h-full" style="width: 94%"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- BottomNavBar -->
+    <nav
+        class="fixed bottom-0 left-0 w-full z-50 bg-surface-container border-t border-white/10 flex justify-around items-center px-4 py-2 pb-safe shadow-lg rounded-t-xl">
+        <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all"
+            href="/netagram_unified_navigation_hub/code.html">
+            <span class="material-symbols-outlined">dynamic_feed</span>
+            <span class="font-label-sm text-label-sm-mobile mt-1">Feed</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all duration-200"
+            href="/civic_intelligence_hub/code.html">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+            <span class="font-label-sm text-label-sm-mobile mt-1">Explore</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all"
+            href="/unified_reports_tracking_hub/code.html">
+            <span class="material-symbols-outlined">add_circle</span>
+            <span class="font-label-sm text-label-sm-mobile mt-1">Report</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all"
+            href="/political_leaders/code.html">
+            <span class="material-symbols-outlined">stars</span>
+            <span class="font-label-sm text-label-sm-mobile mt-1">Leaders</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all"
+            href="/community_hub_unified_design/code.html">
+            <span class="material-symbols-outlined">groups</span>
+            <span class="font-label-sm text-label-sm-mobile mt-1">Community</span>
+        </a>
+    </nav>
+    <!-- Permanent Floating Action Button (FAB) -->
+    <button onclick="window.location.href='/report_issue_connected/code.html'"
+        class="fixed bottom-24 right-container-margin action-gradient w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg active:scale-90 transition-transform z-40">
+        <span class="material-symbols-outlined text-2xl"
+            style="font-variation-settings: &quot;FILL&quot; 1;">speaker_phone</span>
+    </button>
+    <script>
+        // Simple Micro-interaction for the FAB
+        const fab = document.querySelector('.fixed.bottom-24.right-container-margin');
+        if (fab) {
+            fab.addEventListener('click', () => {
+                fab.classList.add('scale-125');
+                setTimeout(() => fab.classList.remove('scale-125'), 200);
+            });
+        }
+
+        // Initialize Leaflet Map
+        var map = L.map('boundary-map', {
+            zoomControl: false,
+            attributionControl: false
+        }).setView([12.942, 77.744], 14);
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            maxZoom: 20
+        }).addTo(map);
+
+        // Add real ward polygon limits
+        var latlngs = [
+            [12.952, 77.734],
+            [12.954, 77.754],
+            [12.942, 77.759],
+            [12.932, 77.749],
+            [12.934, 77.739]
+        ];
+        L.polygon(latlngs, {
+            color: '#F97316',
+            fillColor: '#F97316',
+            fillOpacity: 0.15,
+            weight: 2
+        }).addTo(map);
+
+        // Add marker for user location
+        L.circleMarker([12.942, 77.744], {
+            color: '#ffffff',
+            fillColor: '#F97316',
+            fillOpacity: 1.0,
+            radius: 6,
+            weight: 2
+        }).addTo(map);
+    </script>
+
+
+</body>
+
+</html>

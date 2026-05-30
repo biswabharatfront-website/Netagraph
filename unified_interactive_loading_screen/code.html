@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Netagram | Loading</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+  :root { --brand-orange: #f97316; --surface-dark: #0c1321; }
+  body { background-color: var(--surface-dark); overflow: hidden; margin: 0; padding: 0; touch-action: none; -webkit-font-smoothing: antialiased; }
+
+  .liquid-container { width:100%;height:100%;position:absolute;top:0;left:0;z-index:1;background:var(--surface-dark);overflow:hidden; }
+  .flare-layer { position:absolute;inset:-20%;filter:url(#solar-flare-filter);opacity:0.9;mix-blend-mode:screen; }
+  .flare-blob { position:absolute;background:radial-gradient(circle,var(--brand-orange) 0%,transparent 70%);border-radius:50%;width:800px;height:800px;opacity:0.4;will-change:transform; }
+  .logo-glow { filter: drop-shadow(0 0 30px rgba(249,115,22,0.6)); }
+  @keyframes floating { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  .animate-float { animation: floating 6s ease-in-out infinite; }
+
+  .progress-line { height:2px;background:rgba(255,255,255,0.06);width:240px;position:relative;overflow:hidden;border-radius:2px; }
+  .progress-fill { height:100%;width:0%;border-radius:2px;background:linear-gradient(90deg,#EF4444,#F97316);transition:width 3.5s cubic-bezier(0.22,1,0.36,1); }
+
+  .vignette-overlay { position:fixed;inset:0;background:radial-gradient(circle at center,transparent 20%,rgba(12,19,33,0.9) 100%);pointer-events:none;z-index:5; }
+
+  /* Page exit */
+  @keyframes fadeOut { to { opacity:0; transform:scale(1.03); } }
+  .fade-exit { animation: fadeOut 0.6s cubic-bezier(0.55,0,1,0.45) forwards; }
+
+  /* Status text animation */
+  .status-text { transition: opacity 0.6s ease, transform 0.6s ease; }
+</style>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: { "background":"#0c1321","primary":"#ffb690","on-surface":"#dce2f6","on-surface-variant":"#e0c0b1","primary-container":"#f97316" },
+      fontFamily: { "display":["Sora"],"headline-md":["Sora"],"label-sm":["Inter"] },
+      spacing: { "unit":"8px","container-margin":"24px" }
+    }
+  }
+}
+</script>
+</head>
+<body class="bg-background overflow-hidden selection:bg-primary/30">
+
+<!-- SVG Filter -->
+<svg class="hidden" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter id="solar-flare-filter">
+<feTurbulence baseFrequency="0.008 0.004" id="flare-turbulence" numOctaves="4" seed="5" type="fractalNoise">
+<animate attributeName="baseFrequency" dur="25s" repeatCount="indefinite" values="0.008 0.004; 0.012 0.007; 0.008 0.004"></animate>
+</feTurbulence>
+<feDisplacementMap in="SourceGraphic" scale="140"></feDisplacementMap>
+<feGaussianBlur stdDeviation="20"></feGaussianBlur>
+<feComposite in2="SourceGraphic" operator="over"></feComposite>
+</filter>
+</defs>
+</svg>
+
+<!-- Liquid Animation Background -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden bg-background">
+<div class="liquid-container">
+<div class="flare-layer">
+<div class="flare-blob" id="flare-1" style="top:-10%;left:-10%;"></div>
+<div class="flare-blob" id="flare-2" style="top:40%;right:-20%;"></div>
+<div class="flare-blob" id="flare-3" style="bottom:-10%;left:30%;"></div>
+</div>
+<div class="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+</div>
+</div>
+<div class="vignette-overlay"></div>
+
+<!-- Main Content -->
+<main class="relative z-10 flex flex-col items-center justify-center min-h-screen px-6" id="loading-main">
+<div class="flex flex-col items-center space-y-14 animate-float">
+  <!-- Logo -->
+  <div class="w-[240px] md:w-[340px] logo-glow">
+    <img alt="Netagram Brand Logo" class="w-full h-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDUSjD8Br5dHthCixMq8_nwAXoAwDX5IiFKuJNC9p7wkBWwmVlze_mQ362vCQSID20Ip0cq5l6iAes1zhbHeKqGhTP99pFSepCMLEdmQ2TkD2Fjp2ldxEur98E9Jv7OFPn5uIgoz13XpgiUxe8durraAy8VSR5HLba0mvyAdO7x4BQI_LboKp6iY_NiNF8i4YVMQXKqziSWLHLSn38OZkb1fFYMLZ48o5XmUqNV8Pa2dZh1jWyJw63XP9gGnkOrsX1gTvdPGFr14QA"/>
+  </div>
+  <!-- Loading Indicator -->
+  <div class="flex flex-col items-center space-y-6">
+    <div class="progress-line rounded-full">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+    <div class="flex flex-col items-center space-y-3">
+      <p class="status-text font-headline-md text-[13px] text-white uppercase tracking-[0.3em] font-bold text-center drop-shadow-md" id="status-text">
+        Setting Up Your Ward
+      </p>
+      <div class="flex space-x-1.5">
+        <div class="h-1 w-1 bg-primary rounded-full animate-pulse"></div>
+        <div class="h-1 w-1 bg-primary/70 rounded-full animate-pulse" style="animation-delay:0.15s"></div>
+        <div class="h-1 w-1 bg-primary/40 rounded-full animate-pulse" style="animation-delay:0.3s"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Footer -->
+<div class="absolute bottom-10 left-0 w-full px-6 text-center">
+  <p class="font-label-sm text-[10px] tracking-[0.35em] uppercase text-white/40 font-semibold">
+    Civic Authority Management System v2.4.0
+  </p>
+</div>
+</main>
+
+<script>
+// Liquid animation
+let time = 0;
+const flares = [document.getElementById('flare-1'), document.getElementById('flare-2'), document.getElementById('flare-3')];
+let tX = 0, tY = 0, cX = 0, cY = 0;
+function animateFlare() {
+  time += 0.002;
+  cX += (tX - cX) * 0.05;
+  cY += (tY - cY) * 0.05;
+  flares.forEach((f, i) => {
+    const sx = Math.sin(time * (0.7 + i * 0.1)) * 120 + (cX * (i + 1) * 30);
+    const sy = Math.cos(time * (0.5 + i * 0.2)) * 100 + (cY * (i + 1) * 30);
+    const r = time * 25 * (i % 2 === 0 ? 1 : -1);
+    const s = 1.1 + Math.sin(time * 0.4 + i) * 0.2;
+    f.style.transform = `translate(${sx}px,${sy}px) rotate(${r}deg) scale(${s})`;
+  });
+  requestAnimationFrame(animateFlare);
+}
+animateFlare();
+window.addEventListener('mousemove', e => { tX = (e.clientX / window.innerWidth - 0.5); tY = (e.clientY / window.innerHeight - 0.5); });
+window.addEventListener('touchmove', e => { tX = (e.touches[0].clientX / window.innerWidth - 0.5); tY = (e.touches[0].clientY / window.innerHeight - 0.5); }, { passive: true });
+
+// Status text cycle
+const statusEl = document.getElementById('status-text');
+const phrases = ["Setting Up Your Ward", "Syncing Civic Data", "Loading Community Feed", "Almost Ready"];
+let pi = 0;
+setInterval(() => {
+  pi = (pi + 1) % phrases.length;
+  statusEl.style.opacity = '0';
+  statusEl.style.transform = 'translateY(8px)';
+  setTimeout(() => {
+    statusEl.textContent = phrases[pi];
+    statusEl.style.opacity = '1';
+    statusEl.style.transform = 'translateY(0)';
+  }, 500);
+}, 2000);
+
+// Start progress bar
+document.addEventListener('DOMContentLoaded', () => {
+  requestAnimationFrame(() => {
+    document.getElementById('progress-fill').style.width = '100%';
+  });
+
+  // Read destination from URL param, default to welcome screen with skip_splash enabled
+  const params = new URLSearchParams(window.location.search);
+  const dest = params.get('dest') || '/welcome_to_netagram/code.html?skip_splash=true';
+
+  // Navigate after 4 seconds with smooth fade
+  setTimeout(() => {
+    const mainEl = document.getElementById('loading-main');
+    if (mainEl) mainEl.classList.add('fade-exit');
+    setTimeout(() => { window.location.href = dest; }, 500);
+  }, 3800);
+});
+</script>
+</body></html>

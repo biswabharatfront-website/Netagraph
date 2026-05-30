@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netagram - Mobile Designs Emulator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: radial-gradient(circle at 80% 20%, #151d30 0%, #080c14 100%);
+      overflow: hidden;
+    }
+    .glass-card {
+      background: rgba(25, 32, 46, 0.4);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    /* Real phone mock styling */
+    .phone-frame {
+      position: relative;
+      width: 375px;
+      height: 780px;
+      background: #000;
+      border-radius: 44px;
+      padding: 12px;
+      box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.5), 
+                  0 0 0 4px #232d3d,
+                  0 0 0 10px #0e1622;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .phone-screen {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #070e1c;
+      border-radius: 34px;
+      overflow: hidden;
+      border: 1px solid #1a2232;
+    }
+    .phone-notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 24px;
+      background: #000;
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+      z-index: 100;
+    }
+    .phone-home-indicator {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 115px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 9999px;
+      z-index: 100;
+      pointer-events: none;
+    }
+    .sidebar-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .sidebar-scroll::-webkit-scrollbar-thumb {
+      background: rgba(249, 115, 22, 0.3);
+      border-radius: 4px;
+    }
+    .active-glow {
+      border-color: #f97316 !important;
+      box-shadow: 0 0 15px rgba(249, 115, 22, 0.2);
+    }
+  </style>
+</head>
+<body class="text-slate-100 min-h-screen flex flex-col">
+
+  <!-- Top Header -->
+  <header class="h-16 border-b border-white/5 flex items-center justify-between px-8 glass-card">
+    <div class="flex items-center space-x-3">
+      <div class="h-8 w-8 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg flex items-center justify-center shadow-lg">
+        <span class="material-symbols-outlined text-white text-lg font-bold">campaign</span>
+      </div>
+      <div>
+        <h1 class="text-lg font-bold tracking-tight bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">NETAGRAM</h1>
+        <p class="text-[10px] text-slate-400 uppercase tracking-widest -mt-1 font-semibold">Civic Mobile Designs Explorer</p>
+      </div>
+    </div>
+    <div class="flex items-center space-x-4">
+      <span class="flex items-center px-3 py-1 bg-green-500/10 border border-green-500/30 rounded-full text-green-400 text-xs font-semibold">
+        <span class="h-1.5 w-1.5 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+        Local Server Live
+      </span>
+      <a href="/welcome_to_netagram/code.html" target="_blank" class="px-4 py-1.5 bg-white/5 border border-white/10 rounded-lg text-xs font-bold hover:bg-white/10 transition-colors">
+        Open Fullscreen
+      </a>
+    </div>
+  </header>
+
+  <!-- Main View -->
+  <div class="flex-grow flex overflow-hidden">
+    
+    <!-- Sidebar Screen Directory -->
+    <aside class="w-80 border-r border-white/5 p-6 flex flex-col sidebar-scroll overflow-y-auto glass-card">
+      <h2 class="text-xs font-bold uppercase tracking-widest text-orange-400 mb-6">Constituency Flow</h2>
+      
+      <!-- Flow 1: Auth & Onboard -->
+      <div class="mb-6">
+        <div class="flex items-center space-x-2 text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
+          <span class="material-symbols-outlined text-sm">login</span>
+          <span>1. Authorize & Onboard</span>
+        </div>
+        <div class="space-y-2">
+          <button onclick="loadScreen('/welcome_to_netagram/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-bold flex justify-between items-center active-glow">
+            <span>Welcome to Netagram</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-orange-500/10 text-orange-400 border border-orange-500/20">BOOT</span>
+          </button>
+          <button onclick="loadScreen('/onboarding_with_transitions/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>Swipeable Onboarding</span>
+            <span class="text-[10px] text-slate-400">INFO</span>
+          </button>
+          <button onclick="loadScreen('/login_sign_up/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>Secure OTP Login</span>
+            <span class="text-[10px] text-slate-400">AUTH</span>
+          </button>
+          <button onclick="loadScreen('/enable_permissions/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>Device Permissions</span>
+            <span class="text-[10px] text-slate-400">LOCK</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Flow 2: Ward Lock -->
+      <div class="mb-6">
+        <div class="flex items-center space-x-2 text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
+          <span class="material-symbols-outlined text-sm">map</span>
+          <span>2. Ward Boundary Lock</span>
+        </div>
+        <div class="space-y-2">
+          <button onclick="loadScreen('/select_your_ward_updated_logo/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>Select Local Ward</span>
+            <span class="text-[10px] text-slate-400">SELECT</span>
+          </button>
+          <button onclick="loadScreen('/select_your_ward/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>Ward Search (Alt)</span>
+            <span class="text-[10px] text-slate-400">SEARCH</span>
+          </button>
+          <button onclick="loadScreen('/unified_interactive_loading_screen/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>Ledger Sync Loader</span>
+            <span class="text-[10px] text-slate-400">SYNC</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Flow 3: App Hubs -->
+      <div class="mb-6">
+        <div class="flex items-center space-x-2 text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
+          <span class="material-symbols-outlined text-sm">widgets</span>
+          <span>3. Main Dashboards</span>
+        </div>
+        <div class="space-y-2">
+          <button onclick="loadScreen('/netagram_unified_navigation_hub/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>Unified Home Feed</span>
+            <span class="text-[10px] text-slate-400">FEED</span>
+          </button>
+          <button onclick="loadScreen('/civic_intelligence_hub/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>Explore Map + Community Hub</span>
+            <span class="text-[10px] text-orange-400 border border-orange-500/20 px-1 bg-orange-500/10 rounded">EXPLORE</span>
+          </button>
+          <button onclick="loadScreen('/community_hub_unified_design/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>Community Hub & Chat</span>
+            <span class="text-[10px] text-orange-400 border border-orange-500/20 px-1 bg-orange-500/10 rounded">CHAT</span>
+          </button>
+          <button onclick="loadScreen('/unified_reports_tracking_hub/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>Unified Reports Hub</span>
+            <span class="text-[10px] text-slate-400">REPORTS</span>
+          </button>
+          <button onclick="loadScreen('/political_leaders/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>Political Leaders Grid</span>
+            <span class="text-[10px] text-slate-400">LEADERS</span>
+          </button>
+          <button onclick="loadScreen('/community_events/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>Community Events Grid</span>
+            <span class="text-[10px] text-slate-400">EVENTS</span>
+          </button>
+          <button onclick="loadScreen('/user_profile/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>User Profile (Arjun Mehta)</span>
+            <span class="text-[10px] text-slate-400">PROFILE</span>
+          </button>
+          <button onclick="loadScreen('/politician_profile_rajesh_varma/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>MLA Rajesh Varma Profile</span>
+            <span class="text-[10px] text-slate-400">MLA</span>
+          </button>
+          <button onclick="loadScreen('/issue_details/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>Report Status Details</span>
+            <span class="text-[10px] text-slate-400">STATUS</span>
+          </button>
+          <button onclick="loadScreen('/new_announcement/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>New Announcement Form</span>
+            <span class="text-[10px] text-slate-400">FORM</span>
+          </button>
+          <button onclick="loadScreen('/new_discussion/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>New Discussion Form</span>
+            <span class="text-[10px] text-slate-400">FORM</span>
+          </button>
+          <button onclick="loadScreen('/your_ward_boundary/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>Your Ward Boundary Map</span>
+            <span class="text-[10px] text-slate-400">MAP</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Flow 4: Admin Console -->
+      <div class="mb-6">
+        <div class="flex items-center space-x-2 text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
+          <span class="material-symbols-outlined text-sm">security</span>
+          <span>4. Admin & Security</span>
+        </div>
+        <div class="space-y-2">
+          <button onclick="loadScreen('/admin/flags/code.html', this)" class="screen-btn w-full text-left p-3 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/5 transition-all text-xs font-semibold flex justify-between items-center">
+            <span>Suspicious Activity Dashboard</span>
+            <span class="text-[10px] text-red-400 border border-red-500/20 px-1 bg-red-500/10 rounded">ADMIN</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Interactive Phone Emulator Wrapper -->
+    <main class="flex-grow flex items-center justify-center bg-slate-950/20 relative">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(249,115,22,0.1),transparent_50%)] pointer-events-none"></div>
+      
+      <!-- Phone Frame Container -->
+      <div class="phone-frame scale-90 md:scale-100">
+        <div class="phone-notch"></div>
+        <div class="phone-home-indicator"></div>
+        
+        <div class="phone-screen">
+          <iframe id="screen-viewport" src="/unified_interactive_loading_screen/code.html" class="w-full h-full border-none"></iframe>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <script>
+    const iframe = document.getElementById('screen-viewport');
+    
+    function loadScreen(path, btnElement) {
+      // Set iframe viewport source
+      iframe.src = path;
+      
+      // Update sidebar buttons styling
+      document.querySelectorAll('.screen-btn').forEach(btn => {
+        btn.classList.remove('active-glow');
+        btn.classList.remove('font-bold');
+        btn.classList.add('font-semibold');
+      });
+      
+      if (btnElement) {
+        btnElement.classList.add('active-glow');
+        btnElement.classList.remove('font-semibold');
+        btnElement.classList.add('font-bold');
+      }
+    }
+
+    // Capture navigation inside iframe to update active sidebar highlights
+    setInterval(() => {
+      try {
+        const currentPath = iframe.contentWindow.location.pathname;
+        document.querySelectorAll('.screen-btn').forEach(btn => {
+          const onclickAttr = btn.getAttribute('onclick');
+          if (onclickAttr && onclickAttr.includes(currentPath)) {
+            document.querySelectorAll('.screen-btn').forEach(b => b.classList.remove('active-glow'));
+            btn.classList.add('active-glow');
+          }
+        });
+      } catch (e) {
+        // Handle cross-origin if needed
+      }
+    }, 500);
+  </script>
+</body>
+</html>

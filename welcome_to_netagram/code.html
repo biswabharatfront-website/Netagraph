@@ -1,0 +1,282 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>Netagram | Welcome</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "background":"#0c1321","primary":"#ffb690","primary-container":"#f97316",
+        "on-surface":"#dce2f6","on-surface-variant":"#e0c0b1","surface":"#0c1321",
+        "surface-elevated":"#1A2232","surface-container":"#19202e","surface-bright":"#323949",
+        "slate":"#64748B","action-gradient-start":"#EF4444","action-gradient-end":"#F97316",
+        "success":"#22C55E","on-background":"#dce2f6","on-primary":"#552100"
+      },
+      spacing: {"stack-md":"16px","unit":"8px","stack-sm":"8px","container-margin":"24px","stack-lg":"32px"},
+      fontFamily: {"display":["Sora"],"headline-md":["Sora"],"body-md":["Inter"],"label-sm":["Inter"],"label-md":["Inter"]},
+      fontSize: {
+        "headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],
+        "body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],
+        "label-sm":["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"500"}],
+        "label-md":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}]
+      }
+    }
+  }
+}
+</script>
+<style>
+  :root { --brand-orange: #f97316; --surface-dark: #0c1321; }
+
+  /* Splash overlay */
+  .splash-overlay {
+    position: fixed; inset: 0; z-index: 100;
+    background: var(--surface-dark);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
+  }
+  .splash-overlay.fade-out {
+    opacity: 0;
+    transform: scale(1.05);
+    pointer-events: none;
+  }
+
+  .splash-logo {
+    filter: drop-shadow(0 0 40px rgba(249,115,22,0.5));
+    animation: splashPulse 2s ease-in-out infinite;
+  }
+  @keyframes splashPulse {
+    0%,100% { transform: scale(1); filter: drop-shadow(0 0 30px rgba(249,115,22,0.4)); }
+    50% { transform: scale(1.03); filter: drop-shadow(0 0 50px rgba(249,115,22,0.6)); }
+  }
+
+  .splash-bar {
+    width: 200px; height: 2px; border-radius: 2px; overflow: hidden;
+    background: rgba(255,255,255,0.08); margin-top: 40px;
+  }
+  .splash-bar-fill {
+    height: 100%; width: 0%; border-radius: 2px;
+    background: linear-gradient(90deg, #EF4444, #F97316);
+    transition: width 2.8s cubic-bezier(0.22,1,0.36,1);
+  }
+
+  .splash-text {
+    margin-top: 20px; font-family: 'Inter',sans-serif; font-size: 10px;
+    text-transform: uppercase; letter-spacing: 0.4em; color: rgba(255,255,255,0.4);
+    font-weight: 600;
+  }
+
+  /* Main content entrance */
+  .main-content {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s;
+  }
+  .main-content.visible { opacity: 1; transform: translateY(0); }
+
+  /* Hero gradient */
+  .hero-gradient-overlay {
+    background: linear-gradient(180deg, rgba(12,19,33,0.3) 0%, rgba(12,19,33,0.85) 55%, rgba(12,19,33,1) 100%);
+  }
+
+  /* Page exit transition */
+  .page-exit {
+    animation: pageExit 0.5s cubic-bezier(0.55,0,1,0.45) forwards;
+  }
+  @keyframes pageExit {
+    to { opacity: 0; transform: translateY(-20px) scale(0.98); }
+  }
+
+  /* Animated gradient border */
+  .btn-glow {
+    position: relative; overflow: hidden;
+  }
+  .btn-glow::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .btn-glow:hover::before { opacity: 1; }
+
+  /* Floating particles */
+  .particle {
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle, rgba(249,115,22,0.3), transparent);
+    pointer-events: none; animation: particleFloat linear infinite;
+  }
+  @keyframes particleFloat {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+  }
+</style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-hidden">
+
+<!-- SPLASH LOADING OVERLAY -->
+<div class="splash-overlay" id="splash">
+  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDUSjD8Br5dHthCixMq8_nwAXoAwDX5IiFKuJNC9p7wkBWwmVlze_mQ362vCQSID20Ip0cq5l6iAes1zhbHeKqGhTP99pFSepCMLEdmQ2TkD2Fjp2ldxEur98E9Jv7OFPn5uIgoz13XpgiUxe8durraAy8VSR5HLba0mvyAdO7x4BQI_LboKp6iY_NiNF8i4YVMQXKqziSWLHLSn38OZkb1fFYMLZ48o5XmUqNV8Pa2dZh1jWyJw63XP9gGnkOrsX1gTvdPGFr14QA" alt="Netagram Logo" class="splash-logo w-56 md:w-72">
+  <div class="splash-bar"><div class="splash-bar-fill" id="splash-fill"></div></div>
+  <p class="splash-text">Track Promises. Demand Delivery.</p>
+</div>
+
+<!-- BACKGROUND -->
+<div class="absolute inset-0 z-0">
+  <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBcKo1EkkKt7q0y1WJBz0UeFvOr6kmL0jNVkr2FYS8X5uIqL9zVFV8AHT7Tbd8ANjbHcG5zCR4-TeTkoRBuV8qiBt9h45t7sCWrw03O5LZvF7-awEUUoF2YC5CWrt8KYrDNMjpa18H6nkXbW9nP7tYohu-QjXWMbK5DcmhEElaw_YLb9ERQ5hb4QjN9QxQIhMENHkqPiQUTFYAFuK3aQfwIj0RiqiCP8IDt8UlJBs22lonSlvsHz5j3_WsTPd-KLKJCLqPlpZnRD8n_');"></div>
+  <div class="absolute inset-0 hero-gradient-overlay"></div>
+  <!-- Floating particles -->
+  <div class="particle" style="left:10%;width:4px;height:4px;animation-duration:8s;animation-delay:0s;"></div>
+  <div class="particle" style="left:25%;width:3px;height:3px;animation-duration:12s;animation-delay:2s;"></div>
+  <div class="particle" style="left:50%;width:5px;height:5px;animation-duration:10s;animation-delay:1s;"></div>
+  <div class="particle" style="left:70%;width:3px;height:3px;animation-duration:9s;animation-delay:3s;"></div>
+  <div class="particle" style="left:85%;width:4px;height:4px;animation-duration:11s;animation-delay:0.5s;"></div>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="main-content relative z-10 flex-grow flex flex-col items-center justify-between min-h-screen" id="main-content">
+  <!-- Header -->
+  <header class="w-full px-container-margin py-stack-md flex items-center justify-center">
+    <img alt="Netagraph Logo" class="h-8 w-auto object-contain opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRgINOzxmNicE51SkDFSF3iuAT_BqiYtKiYqHs3H85DaMVDpwoQ9MJJzx4EdWHcdtu7mjKJh04E813Txh_X1q4N-v3ZGw1fREqsvk0ByHBmYVGiPVsk7isXSx6-NweniyGP9crNqFWFCLIpMoVZ4MJeM3-3uSGeBfuV0S71DkV7d9f7rPjUvxDjMdtha6stNfhlfxhRciVkifR95S5VPJLPLvd-pZ-Wxf5CSmy27322oeaGb_LM7mghIC5yra1SvjzhtjkMKo-Gt7w">
+  </header>
+
+  <!-- Hero Tagline -->
+  <div class="flex-grow flex flex-col items-center justify-center px-container-margin text-center">
+    <p class="text-headline-md font-display max-w-xs md:max-w-md mx-auto text-on-surface leading-tight opacity-0" id="tagline" style="transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s; transform: translateY(16px);">
+      Track Promises.<br>Report Reality.<br>Demand Delivery.
+    </p>
+  </div>
+
+  <!-- Bottom Actions -->
+  <div class="w-full px-container-margin pb-12 flex flex-col space-y-3 max-w-md mx-auto">
+    <!-- Info Pulse -->
+    <div class="bg-surface-elevated/80 backdrop-blur-md border border-white/10 rounded-xl p-4 flex items-start space-x-4 opacity-0" id="info-pulse" style="transition: opacity 0.6s ease 0.5s, transform 0.6s ease 0.5s; transform: translateY(12px);">
+      <div class="p-2 bg-action-gradient-start/20 rounded-lg shrink-0">
+        <span class="material-symbols-outlined text-action-gradient-start" style="font-variation-settings:'FILL' 1;">campaign</span>
+      </div>
+      <div>
+        <p class="text-label-md font-display text-on-surface">Community Impact</p>
+        <p class="text-label-sm text-slate">Join 12,400 citizens holding public offices accountable today.</p>
+      </div>
+    </div>
+
+    <!-- Get Started -->
+    <button class="btn-glow h-14 w-full bg-gradient-to-r from-action-gradient-start to-action-gradient-end text-white font-display font-bold text-lg rounded-xl shadow-[0_0_24px_rgba(249,115,22,0.3)] active:scale-[0.97] transition-all flex items-center justify-center gap-2 opacity-0" id="btn-start" style="transition: opacity 0.6s ease 0.6s, transform 0.6s ease 0.6s; transform: translateY(12px);" onclick="navigateTo('/login_sign_up/code.html')">
+      <span>Get Started</span>
+      <span class="material-symbols-outlined">arrow_forward</span>
+    </button>
+
+    <!-- Sign In -->
+    <button class="h-14 w-full bg-transparent border border-slate/30 text-on-surface font-display font-semibold rounded-xl hover:bg-surface-bright/20 transition-all active:scale-[0.97] flex items-center justify-center opacity-0" id="btn-signin" style="transition: opacity 0.6s ease 0.7s, transform 0.6s ease 0.7s; transform: translateY(12px);" onclick="navigateTo('/login_sign_up/code.html')">
+      Sign In
+    </button>
+
+    <!-- Meta links -->
+    <div class="flex justify-center items-center space-x-stack-md pt-2 opacity-0" id="meta-links" style="transition: opacity 0.6s ease 0.8s;">
+      <a class="text-label-sm text-slate hover:text-primary transition-colors" href="#">Privacy Policy</a>
+      <span class="w-1 h-1 bg-slate/30 rounded-full"></span>
+      <a class="text-label-sm text-slate hover:text-primary transition-colors" href="#">Terms of Service</a>
+    </div>
+  </div>
+
+  <!-- Bottom accent line -->
+  <div class="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-action-gradient-end to-transparent opacity-40"></div>
+</main>
+
+<script>
+// Premium smooth navigation
+function navigateTo(url) {
+  document.body.classList.add('page-exit');
+  setTimeout(() => { window.location.href = url; }, 450);
+}
+
+// Splash → Welcome sequence
+document.addEventListener('DOMContentLoaded', () => {
+  const splash = document.getElementById('splash');
+  const fill = document.getElementById('splash-fill');
+  const main = document.getElementById('main-content');
+
+  const params = new URLSearchParams(window.location.search);
+  const skipSplash = params.get('skip_splash') === 'true';
+
+  if (skipSplash) {
+    if (splash) splash.style.display = 'none';
+    if (main) main.classList.add('visible');
+
+    // Instantly reveal child elements
+    const tagline = document.getElementById('tagline');
+    const infoPulse = document.getElementById('info-pulse');
+    const btnStart = document.getElementById('btn-start');
+    const btnSignin = document.getElementById('btn-signin');
+    const metaLinks = document.getElementById('meta-links');
+
+    if (tagline) {
+      tagline.style.opacity = '1';
+      tagline.style.transform = 'translateY(0)';
+    }
+    if (infoPulse) {
+      infoPulse.style.opacity = '1';
+      infoPulse.style.transform = 'translateY(0)';
+    }
+    if (btnStart) {
+      btnStart.style.opacity = '1';
+      btnStart.style.transform = 'translateY(0)';
+    }
+    if (btnSignin) {
+      btnSignin.style.opacity = '1';
+      btnSignin.style.transform = 'translateY(0)';
+    }
+    if (metaLinks) {
+      metaLinks.style.opacity = '1';
+    }
+    return;
+  }
+
+  // Start progress bar animation
+  if (fill) {
+    requestAnimationFrame(() => { fill.style.width = '100%'; });
+  }
+
+  // After 3s, fade out splash and reveal content
+  setTimeout(() => {
+    if (splash) splash.classList.add('fade-out');
+
+    setTimeout(() => {
+      if (splash) splash.style.display = 'none';
+      if (main) main.classList.add('visible');
+
+      // Stagger-animate child elements
+      const tagline = document.getElementById('tagline');
+      const infoPulse = document.getElementById('info-pulse');
+      const btnStart = document.getElementById('btn-start');
+      const btnSignin = document.getElementById('btn-signin');
+      const metaLinks = document.getElementById('meta-links');
+
+      if (tagline) {
+        tagline.style.opacity = '1';
+        tagline.style.transform = 'translateY(0)';
+      }
+      if (infoPulse) {
+        infoPulse.style.opacity = '1';
+        infoPulse.style.transform = 'translateY(0)';
+      }
+      if (btnStart) {
+        btnStart.style.opacity = '1';
+        btnStart.style.transform = 'translateY(0)';
+      }
+      if (btnSignin) {
+        btnSignin.style.opacity = '1';
+        btnSignin.style.transform = 'translateY(0)';
+      }
+      if (metaLinks) {
+        metaLinks.style.opacity = '1';
+      }
+    }, 600);
+  }, 3000);
+});
+</script>
+</body></html>

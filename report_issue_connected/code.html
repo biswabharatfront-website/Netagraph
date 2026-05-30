@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Netagram | File Grievance</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#0c1321",
+                        "surface": "#0c1321",
+                        "surface-elevated": "#1A2232",
+                        "surface-container-high": "#232a39",
+                        "primary": "#ffb690",
+                        "on-surface": "#dce2f6",
+                        "primary-container": "#f97316",
+                        "success": "#22C55E",
+                        "slate": "#64748B",
+                        "action-gradient-start": "#EF4444",
+                        "action-gradient-end": "#F97316"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-margin": "20px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0c1321;
+            font-family: 'Inter', sans-serif;
+        }
+        .font-display {
+            font-family: 'Sora', sans-serif;
+        }
+        .active-cat {
+            background-color: #f97316 !important;
+            border-color: #f97316 !important;
+            color: white !important;
+        }
+        .active-cat span {
+            color: white !important;
+        }
+        .active-sub-cat {
+            background-color: rgba(249, 115, 22, 0.15) !important;
+            border-color: #f97316 !important;
+            color: #f97316 !important;
+        }
+        /* Custom scrollbar hiding helper */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+/* Premium page transitions */
+@keyframes pageEnter { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pageExit { to { opacity:0; transform:translateY(-16px) scale(0.98); } }
+body { animation: pageEnter 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+body.page-exit { animation: pageExit 0.4s cubic-bezier(0.55,0,1,0.45) forwards; }
+</style>
+<script>
+// Intercept all internal navigation for smooth transitions
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href]');
+  if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes('#')) {
+    e.preventDefault();
+    document.body.classList.add('page-exit');
+    setTimeout(function(){ window.location.href = link.href; }, 350);
+  }
+});
+// Wrap onclick navigations
+const origLocationSet = Object.getOwnPropertyDescriptor(window, 'location');
+window._smoothNav = function(url) {
+  document.body.classList.add('page-exit');
+  setTimeout(function(){ window.location.href = url; }, 350);
+};
+</script>
+</head>
+<body class="text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden">
+    
+    <main class="flex-grow flex flex-col min-h-screen pb-6">
+        <!-- Header -->
+        <header class="w-full px-container-margin py-6 flex items-center justify-between border-b border-white/5 bg-background">
+            <div class="flex items-center space-x-3">
+                <button onclick="window.location.href='/unified_reports_tracking_hub/code.html'" class="p-2 hover:bg-surface-elevated rounded-full transition-colors" title="Back">
+                    <span class="material-symbols-outlined text-white">arrow_back</span>
+                </button>
+                <h1 class="text-base font-bold font-display text-white">Report Civic Issue</h1>
+            </div>
+            <span class="text-xs font-bold text-slate">STEP 3/3</span>
+        </header>
+
+        <!-- Form content -->
+        <div class="px-container-margin py-6 space-y-6 flex-grow">
+            
+            <!-- Photo Upload Mock Box -->
+            <div>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate mb-3">VERIFIABLE IMAGE EVIDENCE</h3>
+                <div onclick="triggerMockPhoto()" id="photo-box" class="h-40 w-full bg-surface-elevated border border-dashed border-white/10 rounded-xl flex flex-col items-center justify-center cursor-pointer transition-all hover:bg-surface-elevated/80 overflow-hidden">
+                    <span class="material-symbols-outlined text-4xl text-slate mb-2" id="camera-icon">camera_enhance</span>
+                    <h4 class="font-display font-bold text-white text-sm" id="upload-txt">Capture PWD Failure (Camera)</h4>
+                    <p class="text-[10px] text-slate mt-1" id="upload-sub">Adds permanent UTC timestamp & GPS metadata.</p>
+                </div>
+            </div>
+
+            <!-- Categories selector grid (Horizontal Scroll) -->
+            <div>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate mb-3">SELECT REPORT CATEGORY</h3>
+                <div class="flex space-x-2 overflow-x-auto no-scrollbar py-1 -mx-container-margin px-container-margin">
+                    <button onclick="selectCategory('Roads', this)" class="cat-btn active-cat flex-shrink-0 bg-surface-elevated border border-white/5 rounded-full px-5 py-3.5 flex items-center justify-center space-x-2 text-[10px] font-semibold text-slate transition-all">
+                        <span class="material-symbols-outlined text-[16px] text-slate">road</span>
+                        <span>Roads</span>
+                    </button>
+                    <button onclick="selectCategory('Water', this)" class="cat-btn flex-shrink-0 bg-surface-elevated border border-white/5 rounded-full px-5 py-3.5 flex items-center justify-center space-x-2 text-[10px] font-semibold text-slate transition-all">
+                        <span class="material-symbols-outlined text-[16px] text-slate">water_drop</span>
+                        <span>Water</span>
+                    </button>
+                    <button onclick="selectCategory('Waste Management', this)" class="cat-btn flex-shrink-0 bg-surface-elevated border border-white/5 rounded-full px-5 py-3.5 flex items-center justify-center space-x-2 text-[10px] font-semibold text-slate transition-all">
+                        <span class="material-symbols-outlined text-[16px] text-slate">delete_outline</span>
+                        <span>Waste</span>
+                    </button>
+                    <button onclick="selectCategory('Electricity', this)" class="cat-btn flex-shrink-0 bg-surface-elevated border border-white/5 rounded-full px-5 py-3.5 flex items-center justify-center space-x-2 text-[10px] font-semibold text-slate transition-all">
+                        <span class="material-symbols-outlined text-[16px] text-slate">lightbulb_outline</span>
+                        <span>Power</span>
+                    </button>
+                    <button onclick="selectCategory('Security', this)" class="cat-btn flex-shrink-0 bg-surface-elevated border border-white/5 rounded-full px-5 py-3.5 flex items-center justify-center space-x-2 text-[10px] font-semibold text-slate transition-all">
+                        <span class="material-symbols-outlined text-[16px] text-slate">security</span>
+                        <span>Security</span>
+                    </button>
+                    <button onclick="selectCategory('Other', this)" class="cat-btn flex-shrink-0 bg-surface-elevated border border-white/5 rounded-full px-5 py-3.5 flex items-center justify-center space-x-2 text-[10px] font-semibold text-slate transition-all">
+                        <span class="material-symbols-outlined text-[16px] text-slate">more_horiz</span>
+                        <span>Other</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sub-Categories selector (Horizontal Scroll) -->
+            <div id="sub-category-section">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate mb-3">SELECT SUB-CATEGORY</h3>
+                <div id="sub-category-list" class="flex space-x-2 overflow-x-auto no-scrollbar py-1 -mx-container-margin px-container-margin">
+                    <!-- Dynamically populated via javascript -->
+                </div>
+            </div>
+
+            <!-- Title input -->
+            <div>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate mb-2">GRIEVANCE HEADING</h3>
+                <input type="text" id="issue-title" class="w-full bg-surface-container-high border border-white/5 rounded-lg px-4 py-3 text-sm text-white placeholder-slate focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none" placeholder="e.g. Deep waterlogging near lake bridge entrance...">
+            </div>
+
+            <!-- Description and Voice -->
+            <div>
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate">DETAILED COMPLAINT TIMELINE</h3>
+                    <button onclick="triggerVoiceFill()" class="flex items-center space-x-1 text-primary-container text-xs font-bold">
+                        <span class="material-symbols-outlined text-sm">mic</span>
+                        <span>Talk to Fill</span>
+                    </button>
+                </div>
+                <textarea id="issue-desc" rows="4" class="w-full bg-surface-container-high border border-white/5 rounded-lg px-4 py-3 text-sm text-white placeholder-slate focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none" placeholder="State dates, impact on traffic, safety issues, and previous official responses..."></textarea>
+            </div>
+
+            <!-- Geo-lock info -->
+            <div class="bg-surface-elevated border border-white/5 rounded-xl p-3 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span class="material-symbols-outlined text-success">location_on</span>
+                    <div>
+                        <h4 class="text-xs font-bold text-white">GPS Coordinates Locked</h4>
+                        <p class="text-[10px] text-slate">Varthur, Bengaluru 560087</p>
+                    </div>
+                </div>
+                <span class="material-symbols-outlined text-slate text-sm">lock</span>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-4">
+                <button onclick="submitGrievance()" class="w-full h-14 bg-gradient-to-r from-action-gradient-start to-action-gradient-end text-white font-display font-bold rounded-xl shadow-[0_0_20px_rgba(239,68,68,0.3)] active:scale-[0.98] transition-all flex items-center justify-center space-x-2">
+                    <span>Submit Grievance with Sign-off</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Success Dialog Overlay Mockup -->
+        <div id="success-dialog" class="fixed inset-0 bg-background/95 z-[9999] hidden flex items-center justify-center p-6">
+            <div class="bg-surface-elevated border border-white/10 rounded-2xl p-6 w-full max-w-sm text-center">
+                <div class="w-16 h-16 bg-success/15 rounded-full flex items-center justify-center mx-auto mb-5 border border-success/30">
+                    <span class="material-symbols-outlined text-4xl text-success font-bold">verified</span>
+                </div>
+                <h2 class="font-display font-bold text-xl text-white mb-2">Grievance Filed!</h2>
+                <p class="text-xs text-slate leading-relaxed mb-6">Your issue has been logged, geo-stamped, and signed with your OTP certificate. It is now live in the constituency feed.</p>
+                <button onclick="window.location.href='/unified_reports_tracking_hub/code.html'" class="w-full h-12 bg-gradient-to-r from-action-gradient-start to-action-gradient-end text-white font-display font-bold rounded-xl active:scale-[0.98] transition-all">
+                    View Timelines Board
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        let selectedCategory = "Roads";
+        let selectedSubCategory = "";
+        let isPhotoSelected = false;
+
+        const subCategories = {
+            "Roads": ["Potholes", "Broken Sidewalk", "Open Manhole", "Water Logging", "Missing Signage"],
+            "Water": ["Pipe Leakage", "Contaminated Supply", "Low Pressure", "No Supply", "Water Stagnation"],
+            "Waste Management": ["Overflowing Dustbin", "Illegal Dumping", "Dead Animal Removal", "No Door Collection"],
+            "Electricity": ["Broken Streetlight", "Fallen Cables", "Power Fluctuations", "Transformers Sparking"],
+            "Security": ["Dark Alleyway", "Suspicious Loitering", "Vandalism", "Stray Animal Menace"],
+            "Other": ["Public Property Encroachment", "Illegal Banners", "Noise Disturbance", "Miscellaneous"]
+        };
+
+        function selectCategory(cat, btn) {
+            selectedCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active-cat'));
+            btn.classList.add('active-cat');
+            loadSubCategories(cat);
+        }
+
+        function loadSubCategories(cat) {
+            const list = document.getElementById('sub-category-list');
+            list.innerHTML = "";
+            const subs = subCategories[cat] || [];
+            
+            subs.forEach((sub, index) => {
+                const button = document.createElement('button');
+                button.className = "sub-cat-btn flex-shrink-0 bg-surface-elevated border border-white/5 rounded-full px-4 py-2.5 text-[10px] font-semibold text-slate transition-all" + (index === 0 ? " active-sub-cat" : "");
+                button.innerHTML = `<span>${sub}</span>`;
+                button.onclick = function() {
+                    document.querySelectorAll('.sub-cat-btn').forEach(b => b.classList.remove('active-sub-cat'));
+                    button.classList.add('active-sub-cat');
+                    selectedSubCategory = sub;
+                };
+                list.appendChild(button);
+                if (index === 0) {
+                    selectedSubCategory = sub;
+                }
+            });
+        }
+
+        // Initialize subcategories on load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSubCategories("Roads");
+        });
+
+        function triggerMockPhoto() {
+            const photoBox = document.getElementById('photo-box');
+            photoBox.innerHTML = `
+                <img src="https://images.unsplash.com/photo-1515162305285-0293e4767cc2?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover">
+            `;
+            photoBox.classList.remove('border-dashed');
+            photoBox.classList.add('border-success/50');
+            isPhotoSelected = true;
+            
+            // Show toast message
+            const toast = document.createElement('div');
+            toast.className = "fixed top-5 left-1/2 transform -translate-x-1/2 bg-success text-black text-xs font-bold px-4 py-2.5 rounded-full shadow-lg z-[10000]";
+            toast.textContent = "GPS Geo-stamp locked: Latitude 12.942, Longitude 77.744";
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function triggerVoiceFill() {
+            document.getElementById('issue-title').value = "Severe waterlogging near Varthur main junction";
+            document.getElementById('issue-desc').value = "Heavy pre-monsoon showers have caused massive flooding at the Shell fuel exit. Potholes are fully submerged, causing heavy vehicle damage.";
+            
+            const toast = document.createElement('div');
+            toast.className = "fixed top-5 left-1/2 transform -translate-x-1/2 bg-success text-black text-xs font-bold px-4 py-2.5 rounded-full shadow-lg z-[10000]";
+            toast.textContent = "Speech translation parsed successfully!";
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+
+        function submitGrievance() {
+            const title = document.getElementById('issue-title').value;
+            const desc = document.getElementById('issue-desc').value;
+
+            if (!title || !desc) {
+                alert("Please fill in the heading and timeline details.");
+                return;
+            }
+
+            const isOffline = localStorage.getItem('netagram_offline') === 'true';
+
+            if (isOffline) {
+                // Save to local draft queue
+                let drafts = JSON.parse(localStorage.getItem('netagram_offline_drafts') || '[]');
+                drafts.push({
+                    title: title,
+                    desc: desc,
+                    category: selectedCategory,
+                    subCategory: selectedSubCategory,
+                    time: "Just now",
+                    upvotes: 1
+                });
+                localStorage.setItem('netagram_offline_drafts', JSON.stringify(drafts));
+                
+                // Show custom offline dialog
+                const successTitle = document.querySelector('#success-dialog h2');
+                const successDesc = document.querySelector('#success-dialog p');
+                const successIcon = document.querySelector('#success-dialog .material-symbols-outlined');
+                const successIconContainer = successIcon.parentNode;
+
+                successIconContainer.className = "w-16 h-16 bg-primary-container/15 rounded-full flex items-center justify-center mx-auto mb-5 border border-primary-container/30";
+                successIcon.textContent = "cloud_off";
+                successIcon.className = "material-symbols-outlined text-4xl text-primary font-bold";
+                successTitle.textContent = "Saved to Offline Queue!";
+                successDesc.textContent = "Your device is in offline mode (2G/3G). This report is stored in your local queue and will sync to PostgreSQL when network is restored.";
+                
+                document.getElementById('success-dialog').classList.remove('hidden');
+            } else {
+                // Standard Online Submit
+                const successTitle = document.querySelector('#success-dialog h2');
+                const successDesc = document.querySelector('#success-dialog p');
+                const successIcon = document.querySelector('#success-dialog .material-symbols-outlined');
+                const successIconContainer = successIcon.parentNode;
+
+                successIconContainer.className = "w-16 h-16 bg-success/15 rounded-full flex items-center justify-center mx-auto mb-5 border border-success/30";
+                successIcon.textContent = "verified";
+                successIcon.className = "material-symbols-outlined text-4xl text-success font-bold";
+                successTitle.textContent = "Grievance Filed!";
+                successDesc.textContent = "Your issue has been logged, geo-stamped, and signed with your OTP certificate. It is now live in the constituency feed.";
+
+                document.getElementById('success-dialog').classList.remove('hidden');
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Admin Flags Console | Netagram</title>
+<meta name="description" content="Moderator dashboard to track, review, and act on coordinated spam and suspicious report alerts."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "error":"#ffb4ab","secondary-fixed":"#ffdad7","on-secondary-container":"#ffaea8",
+        "surface-variant":"#2e3544","outline-variant":"#584237","primary-fixed-dim":"#ffb690",
+        "tertiary-container":"#00a2f4","on-surface":"#dce2f6","primary-fixed":"#ffdbca",
+        "secondary-fixed-dim":"#ffb3ad","on-primary-fixed":"#341100",
+        "surface-container-highest":"#2e3544","surface-container":"#19202e",
+        "on-primary":"#552100","on-tertiary":"#003351","surface-container-low":"#151b2a",
+        "on-error":"#690005","on-primary-fixed-variant":"#783200","surface":"#0c1321",
+        "on-primary-container":"#582200","tertiary":"#93ccff","surface-container-high":"#232a39",
+        "surface-dim":"#0c1321","surface-bright":"#323949","tertiary-fixed":"#cde5ff",
+        "on-tertiary-fixed":"#001d32","inverse-surface":"#dce2f6","inverse-primary":"#9d4300",
+        "on-secondary":"#68000a","on-error-container":"#ffdad6","surface-container-lowest":"#070e1c",
+        "on-secondary-fixed-variant":"#930013","inverse-on-surface":"#2a3040",
+        "on-tertiary-fixed-variant":"#004b74","success":"#22C55E","secondary":"#ffb3ad",
+        "on-surface-variant":"#e0c0b1","secondary-container":"#a40217","error-container":"#93000a",
+        "surface-elevated":"#1A2232","outline":"#a78b7d","action-gradient-end":"#F97316",
+        "tertiary-fixed-dim":"#93ccff","on-tertiary-container":"#003554",
+        "on-secondary-fixed":"#410004","primary-container":"#f97316","on-background":"#dce2f6",
+        "action-gradient-start":"#EF4444","surface-tint":"#ffb690","background":"#0c1321",
+        "slate":"#64748B","primary":"#ffb690",
+        "stalled":"#EF4444","broken":"#EF4444","in-progress":"#F97316"
+      },
+      spacing: {"gutter":"16px","container-margin":"20px","stack-lg":"32px","stack-sm":"8px","unit":"8px","stack-md":"16px"},
+      fontFamily: {"label-md":["Inter"],"headline-lg-mobile":["Sora"],"display":["Sora"],"body-md":["Inter"],"label-sm":["Inter"],"headline-lg":["Sora"],"headline-md":["Sora"],"body-lg":["Inter"]},
+      fontSize: {
+        "label-md":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],
+        "headline-lg-mobile":["24px",{"lineHeight":"32px","fontWeight":"600"}],
+        "display":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],
+        "body-md":["16px",{"lineHeight":"24px","fontWeight":"400"}],
+        "label-sm":["12px",{"lineHeight":"16px","letterSpacing":"0.05em","fontWeight":"500"}],
+        "headline-lg":["32px",{"lineHeight":"40px","fontWeight":"600"}],
+        "headline-md":["24px",{"lineHeight":"32px","fontWeight":"600"}],
+        "body-lg":["18px",{"lineHeight":"28px","fontWeight":"400"}]
+      }
+    }
+  }
+}
+</script>
+<style>
+  body { background-color:#0c1321; color:#dce2f6; -webkit-font-smoothing:antialiased; }
+  .action-gradient { background:linear-gradient(135deg,#EF4444 0%,#F97316 100%); }
+  .glass-card { background:rgba(26,34,50,0.75); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.08); }
+  .glass-panel { background:rgba(26,34,50,0.5); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.06); }
+  ::-webkit-scrollbar { width:4px; height:4px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb { background:#2e3544; border-radius:10px; }
+
+  /* Filters */
+  .filter-btn { transition:all 0.2s ease; }
+  .filter-btn.active { background:linear-gradient(135deg,rgba(249,115,22,0.15),rgba(239,68,68,0.1)); border-color:rgba(249,115,22,0.4); color:#ffb690; }
+
+  /* Toast Notification */
+  #toast { transform:translateY(100px); opacity:0; transition:all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  #toast.active { transform:translateY(0); opacity:1; }
+
+  /* Animations */
+  @keyframes fadeSlideUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes cardRemoved { to { opacity:0; transform:scale(0.9) translateY(-20px); } }
+  .flag-card-anim { animation:fadeSlideUp 0.35s ease forwards; }
+  .flag-card-removed { animation:cardRemoved 0.3s ease forwards; }
+</style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-24 overflow-x-hidden">
+
+<!-- ===== TOP APP BAR ===== -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl border-b border-white/10 h-14 flex items-center justify-between px-container-margin">
+  <div class="flex items-center gap-3">
+    <button class="flex items-center justify-center w-9 h-9 rounded-full hover:bg-surface-variant/30 transition-colors active:scale-95" onclick="window.location.href='/netagram_unified_navigation_hub/code.html'" title="Back">
+      <span class="material-symbols-outlined text-primary text-[22px]">arrow_back</span>
+    </button>
+    <div class="leading-tight">
+      <h1 class="font-headline-md text-[15px] text-on-surface font-bold">Admin Flags Console</h1>
+      <p class="text-[11px] text-slate">Coordinated Action Monitor</p>
+    </div>
+  </div>
+  <div class="flex items-center gap-1">
+    <button class="w-8 h-8 rounded-full hover:bg-surface-variant/30 flex items-center justify-center transition-colors" onclick="resetFlags()">
+      <span class="material-symbols-outlined text-slate text-[20px]">restart_alt</span>
+    </button>
+    <span class="material-symbols-outlined text-primary text-[22px] mr-1">security</span>
+  </div>
+</header>
+
+<main class="mt-14 max-w-screen-md mx-auto px-container-margin pt-4">
+
+  <!-- ===== SUB HEADER ===== -->
+  <section class="mb-4 animate-in">
+    <h2 class="text-[11px] text-slate uppercase font-bold tracking-widest mb-1">AUTOMATED INCIDENT FILTERS</h2>
+    <p class="text-[13px] text-on-surface/80 leading-relaxed">
+      Audit suspicious coordinated activity filed in your locked constituency.
+    </p>
+  </section>
+
+  <!-- ===== CIB TELEMETRY WIDGET ===== -->
+  <section class="mb-5 glass-card rounded-2xl p-4 border border-white/5 space-y-4 relative overflow-hidden" id="telemetry-card">
+    <div class="absolute -bottom-8 -right-8 w-24 h-24 bg-primary/5 rounded-full blur-2xl pointer-events-none"></div>
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-primary text-xl animate-pulse">analytics</span>
+        <h3 class="font-headline-md text-xs text-white font-bold">CIB Telemetry & Spikes</h3>
+      </div>
+      <span class="px-2 py-0.5 rounded bg-success/15 border border-success/30 text-success text-[8px] font-bold tracking-wider" id="telemetry-status">STABLE NOMINAL</span>
+    </div>
+
+    <!-- Telemetry Row 1: Upvote Velocity -->
+    <div class="space-y-1.5">
+      <div class="flex justify-between text-[10px] text-slate font-bold">
+        <span>Upvote Velocity Spike Tracker</span>
+        <span id="velocity-val" class="text-slate text-[10px]">2.4 votes/min</span>
+      </div>
+      <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+        <div class="bg-gradient-to-r from-success to-primary h-full rounded-full transition-all duration-700" id="velocity-bar" style="width: 24%;"></div>
+      </div>
+    </div>
+
+    <!-- Telemetry Row 2: Subnet Concentration -->
+    <div class="space-y-1.5">
+      <div class="flex justify-between text-[10px] text-slate font-bold">
+        <span>Subnet IP Address Block Concentration</span>
+        <span id="subnet-val" class="text-slate text-[10px]">12% identical subnet</span>
+      </div>
+      <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+        <div class="bg-gradient-to-r from-success to-error h-full rounded-full transition-all duration-700" id="subnet-bar" style="width: 12%;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FILTERS SECTION ===== -->
+  <section class="mb-5 overflow-x-auto no-scrollbar flex gap-2">
+    <button id="filter-all" onclick="setFilter('all')" class="filter-btn active px-4 py-2 border border-white/10 rounded-xl text-label-md font-bold text-slate hover:text-on-surface shrink-0 active:scale-95">
+      All Alerts (<span id="count-all">0</span>)
+    </button>
+    <button id="filter-pending" onclick="setFilter('pending')" class="filter-btn px-4 py-2 border border-white/5 rounded-xl text-label-md font-bold text-slate hover:text-on-surface shrink-0 active:scale-95">
+      Pending (<span id="count-pending">0</span>)
+    </button>
+    <button id="filter-high" onclick="setFilter('high')" class="filter-btn px-4 py-2 border border-white/5 rounded-xl text-label-md font-bold text-slate hover:text-on-surface shrink-0 active:scale-95">
+      High Severity (<span id="count-high">0</span>)
+    </button>
+  </section>
+
+  <!-- ===== FLAGS INCIDENT LIST ===== -->
+  <section id="flags-container" class="space-y-4">
+    <!-- Hydrated dynamically via JavaScript -->
+  </section>
+
+</main>
+
+<!-- ===== TOAST SLIDER ===== -->
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 glass-card px-5 py-3 rounded-2xl flex items-center gap-3 shadow-2xl border border-primary/20 pointer-events-none">
+  <span id="toast-icon" class="material-symbols-outlined text-primary text-[20px]">security</span>
+  <span id="toast-msg" class="text-xs font-bold text-on-surface">Action recorded successfully.</span>
+</div>
+
+<script>
+// Mock data seed
+const defaultFlags = [
+  {
+    id: "flag_001",
+    reportId: "issue_001",
+    reportTitle: "Severe Potholes & Waterlogging on Varthur Main Rd",
+    flagType: "ip_burst",
+    reason: "Coordinated IP Burst detected. 6 reports submitted from the same hashed IP address in the last 2 hours.",
+    severity: 3,
+    status: "Pending",
+    notes: "System Auto-Trigger: High frequency IP correlation.",
+    ipHash: "f5a709b110de7c68832a8ba76eef5a0928ba7f96cfb2ba73ee6f1c7d2c3be992",
+    deviceFingerprint: "device_fingerprint_7f8ba39a",
+    createdAt: "Just now"
+  },
+  {
+    id: "flag_002",
+    reportId: "issue_002",
+    reportTitle: "Broken Streetlight Junction near Vinayaka Layout",
+    flagType: "text_similarity",
+    reason: "Text Similarity Alert: Found recent duplicate report matching title/description with >82% similarity index.",
+    severity: 1,
+    status: "Pending",
+    notes: "System Auto-Trigger: Word similarity matches resolved issue 003.",
+    ipHash: "7c68832a8ba76eef5a0928ba7f96cfb2ba73ee6f1c7d2c3be992a7f5a709b110",
+    deviceFingerprint: "device_fingerprint_990a42f1",
+    createdAt: "1 hour ago"
+  }
+];
+
+let currentFilter = 'all';
+
+function loadFlags() {
+  let flags = JSON.parse(localStorage.getItem('suspicious_flags'));
+  if (!flags) {
+    flags = defaultFlags;
+    localStorage.setItem('suspicious_flags', JSON.stringify(flags));
+  }
+  return flags;
+}
+
+function saveFlags(flags) {
+  localStorage.setItem('suspicious_flags', JSON.stringify(flags));
+}
+
+function resetFlags() {
+  localStorage.setItem('suspicious_flags', JSON.stringify(defaultFlags));
+  showToast("restart_alt", "Flags Database successfully reset.");
+  renderFlags();
+}
+
+function getFlagTypeLabel(type) {
+  switch (type) {
+    case 'ip_burst': return "COORDINATED IP BURST";
+    case 'geo_burst': return "GEOGRAPHIC BURST";
+    case 'text_similarity': return "TEXT SIMILARITY ALERT";
+    case 'coordinated': return "COORDINATED ATTACK";
+    default: return type.toUpperCase();
+  }
+}
+
+function getSeverityClass(severity) {
+  switch (severity) {
+    case 3: return "text-error border-error/20 bg-error/5";
+    case 2: return "text-primary border-primary/20 bg-primary/5";
+    default: return "text-[#EAB308] border-[#EAB308]/20 bg-[#EAB308]/5";
+  }
+}
+
+function getSeverityLabel(severity) {
+  switch (severity) {
+    case 3: return "HIGH SEVERITY";
+    case 2: return "MEDIUM SEVERITY";
+    default: return "LOW SEVERITY";
+  }
+}
+
+function renderFlags() {
+  const flags = loadFlags();
+  const container = document.getElementById('flags-container');
+  container.innerHTML = '';
+
+  updateTelemetryUI();
+
+  // Update badges counts
+  document.getElementById('count-all').textContent = flags.length;
+  document.getElementById('count-pending').textContent = flags.filter(f => f.status === 'Pending').length;
+  document.getElementById('count-high').textContent = flags.filter(f => f.severity === 3).length;
+
+  // Filter flags
+  const filtered = flags.filter(flag => {
+    if (currentFilter === 'pending') return flag.status === 'Pending';
+    if (currentFilter === 'high') return flag.severity === 3;
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="flex flex-col items-center justify-center py-16 text-center">
+        <span class="material-symbols-outlined text-[48px] text-slate opacity-40 mb-3">shield</span>
+        <p class="text-xs text-slate font-medium">No flagged coordinate alerts in this query.</p>
+      </div>
+    `;
+    return;
+  }
+
+  filtered.forEach(flag => {
+    const isPending = flag.status === 'Pending';
+    const sevClass = getSeverityClass(flag.severity);
+    const sevLabel = getSeverityLabel(flag.severity);
+    const typeLabel = getFlagTypeLabel(flag.flagType);
+
+    const card = document.createElement('div');
+    card.id = `card-${flag.id}`;
+    card.className = `glass-card rounded-2xl p-4 flex flex-col flag-card-anim border transition-all duration-300 ${
+      isPending ? 'border-primary/10' : 'border-white/5'
+    }`;
+    card.innerHTML = `
+      <div class="flex justify-between items-start mb-2.5">
+        <span class="px-2 py-0.5 rounded text-[9px] font-bold border uppercase tracking-wider ${sevClass}">${sevLabel}</span>
+        <span class="text-[11px] text-slate">${flag.createdAt}</span>
+      </div>
+      <h3 class="font-headline-md text-on-surface text-[14px] font-bold mb-1">${typeLabel}</h3>
+      <p class="text-[12.5px] text-on-surface-variant/95 leading-relaxed mb-3">${flag.reason}</p>
+      
+      <!-- Target Incident reference link -->
+      <div class="bg-surface-container-low/50 border border-white/5 rounded-xl p-3 mb-3 hover:bg-white/5 transition-colors cursor-pointer" onclick="window.location.href='/issue_details/code.html'">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary text-[18px]">campaign</span>
+          <div class="flex-1 min-w-0">
+            <p class="text-[10px] text-slate">Target Incident Report</p>
+            <p class="text-[12px] text-on-surface font-semibold truncate mt-0.5">${flag.reportTitle}</p>
+          </div>
+          <span class="material-symbols-outlined text-slate text-[16px]">chevron_right</span>
+        </div>
+      </div>
+
+      <!-- System Auditing variables -->
+      <div class="bg-white/5 border border-white/5 rounded-xl p-2.5 mb-4 text-[10.5px]">
+        <div class="flex justify-between mb-1">
+          <span class="text-slate">Hashed IP Range:</span>
+          <span class="font-mono text-slate font-bold">${flag.ipHash.substring(0, 16)}...</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate">Device Fingerprint:</span>
+          <span class="font-mono text-slate font-bold">${flag.deviceFingerprint}</span>
+        </div>
+      </div>
+
+      <!-- Action Row -->
+      <div class="flex gap-2 items-center">
+        ${isPending ? `
+          <button onclick="updateFlagStatus('${flag.id}', 'Confirmed')" class="flex-1 bg-success/15 border border-success/30 text-success text-[12px] font-bold py-2 rounded-xl active:scale-[0.98] transition-all hover:bg-success/20">
+            Confirm
+          </button>
+          <button onclick="updateFlagStatus('${flag.id}', 'Dismissed')" class="flex-1 bg-white/5 border border-white/10 text-on-surface text-[12px] font-bold py-2 rounded-xl active:scale-[0.98] transition-all hover:bg-white/10">
+            Dismiss
+          </button>
+        ` : `
+          <div class="px-2.5 py-1 bg-white/5 text-slate text-[11px] font-bold rounded uppercase tracking-wider">${flag.status}</div>
+        `}
+        <button onclick="banReporter('${flag.id}', 'Arjun Mehta')" class="bg-error/15 border border-error/30 text-error text-[12px] font-bold px-3 py-2 rounded-xl active:scale-[0.98] transition-all hover:bg-error/20">
+          Ban User
+        </button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function setFilter(filter) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.remove('active');
+    btn.classList.add('border-white/5');
+  });
+  document.getElementById('filter-' + filter).classList.add('active');
+  document.getElementById('filter-' + filter).classList.remove('border-white/5');
+  renderFlags();
+}
+
+function updateFlagStatus(flagId, newStatus) {
+  const flags = loadFlags();
+  const index = flags.indexWhere ? flags.indexWhere(f => f.id === flagId) : flags.findIndex(f => f.id === flagId);
+  if (index !== -1) {
+    flags[index].status = newStatus;
+    saveFlags(flags);
+    
+    // Play remove transition
+    const card = document.getElementById(`card-${flagId}`);
+    card.classList.add('flag-card-removed');
+    
+    setTimeout(() => {
+      renderFlags();
+      showToast(newStatus === 'Confirmed' ? 'check_circle' : 'cancel', `Flag alert successfully marked as ${newStatus}.`);
+    }, 300);
+  }
+}
+
+function banReporter(flagId, reporterName) {
+  showToast('security_update_warning', `Reporter "${reporterName}" banned successfully. IP blacklisted.`);
+  const card = document.getElementById(`card-${flagId}`);
+  if (card) {
+    card.classList.add('flag-card-removed');
+    setTimeout(() => {
+      const flags = loadFlags();
+      const updated = flags.filter(f => f.id !== flagId);
+      saveFlags(updated);
+      renderFlags();
+    }, 300);
+  }
+}
+
+function updateTelemetryUI() {
+  const flags = loadFlags();
+  const hasCIB = flags.some(f => f.flagType === 'coordinated' && f.status === 'Pending');
+  
+  const statusBadge = document.getElementById('telemetry-status');
+  const velVal = document.getElementById('velocity-val');
+  const velBar = document.getElementById('velocity-bar');
+  const subVal = document.getElementById('subnet-val');
+  const subBar = document.getElementById('subnet-bar');
+  const card = document.getElementById('telemetry-card');
+  
+  if (!statusBadge) return;
+  
+  if (hasCIB) {
+    statusBadge.innerText = "CRITICAL BRIGADING DETECTED";
+    statusBadge.className = "px-2 py-0.5 rounded bg-error/15 border border-error/30 text-error text-[8px] font-bold tracking-wider animate-pulse";
+    velVal.innerText = "42.8 votes/min (Anomaly)";
+    velVal.className = "text-error font-bold text-[10px]";
+    velBar.style.width = "92%";
+    velBar.className = "bg-gradient-to-r from-primary to-error h-full rounded-full transition-all duration-700";
+    
+    subVal.innerText = "84% subnet match (Astroturfing)";
+    subVal.className = "text-error font-bold text-[10px]";
+    subBar.style.width = "84%";
+    subBar.className = "bg-gradient-to-r from-primary to-error h-full rounded-full transition-all duration-700";
+    
+    card.style.borderColor = "rgba(239, 68, 68, 0.3)";
+  } else {
+    statusBadge.innerText = "STABLE NOMINAL";
+    statusBadge.className = "px-2 py-0.5 rounded bg-success/15 border border-success/30 text-success text-[8px] font-bold tracking-wider";
+    velVal.innerText = "2.4 votes/min";
+    velVal.className = "text-slate text-[10px]";
+    velBar.style.width = "24%";
+    velBar.className = "bg-gradient-to-r from-success to-primary h-full rounded-full transition-all duration-700";
+    
+    subVal.innerText = "12% identical subnet";
+    subVal.className = "text-slate text-[10px]";
+    subBar.style.width = "12%";
+    subBar.className = "bg-gradient-to-r from-success to-error h-full rounded-full transition-all duration-700";
+    
+    card.style.borderColor = "rgba(255, 255, 255, 0.05)";
+  }
+}
+
+function showToast(icon, msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-icon').textContent = icon;
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('active');
+  setTimeout(() => { t.classList.remove('active'); }, 3000);
+}
+
+// Render on boot
+renderFlags();
+</script>
+</body></html>

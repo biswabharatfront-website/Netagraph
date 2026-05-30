@@ -1,0 +1,269 @@
+<!DOCTYPE html><html class="dark" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>Netagram | Secure Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .brand-gradient {
+            background: linear-gradient(135deg, #EF4444 0%, #F97316 100%);
+        }
+        .action-glow:active {
+            box-shadow: 0 0 20px 0 rgba(249, 115, 22, 0.3);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#93ccff",
+                        "surface": "#0c1321",
+                        "surface-container-high": "#232a39",
+                        "secondary-container": "#a40217",
+                        "on-surface-variant": "#e0c0b1",
+                        "outline": "#a78b7d",
+                        "tertiary-fixed-dim": "#93ccff",
+                        "surface-variant": "#2e3544",
+                        "secondary-fixed-dim": "#ffb3ad",
+                        "on-primary-fixed-variant": "#783200",
+                        "error": "#ffb4ab",
+                        "tertiary-container": "#00a2f4",
+                        "surface-container": "#19202e",
+                        "surface-tint": "#ffb690",
+                        "on-secondary-fixed": "#410004",
+                        "surface-container-low": "#151b2a",
+                        "primary-fixed": "#ffdbca",
+                        "on-primary": "#552100",
+                        "surface-container-lowest": "#070e1c",
+                        "surface-elevated": "#1A2232",
+                        "outline-variant": "#584237",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#004b74",
+                        "on-tertiary-container": "#003554",
+                        "tertiary-fixed": "#cde5ff",
+                        "inverse-surface": "#dce2f6",
+                        "inverse-on-surface": "#2a3040",
+                        "slate": "#64748B",
+                        "primary": "#ffb690",
+                        "on-surface": "#dce2f6",
+                        "on-secondary-fixed-variant": "#930013",
+                        "inverse-primary": "#9d4300",
+                        "on-secondary": "#68000a",
+                        "on-primary-fixed": "#341100",
+                        "primary-container": "#f97316",
+                        "primary-fixed-dim": "#ffb690",
+                        "surface-container-highest": "#2e3544",
+                        "on-tertiary-fixed": "#001d32",
+                        "error-container": "#93000a",
+                        "background": "#0c1321",
+                        "success": "#22C55E",
+                        "on-secondary-container": "#ffaea8",
+                        "surface-dim": "#0c1321",
+                        "action-gradient-end": "#F97316",
+                        "on-background": "#dce2f6",
+                        "on-error": "#690005",
+                        "action-gradient-start": "#EF4444",
+                        "secondary": "#ffb3ad",
+                        "on-primary-container": "#582200",
+                        "surface-bright": "#323949",
+                        "secondary-fixed": "#ffdad7",
+                        "on-tertiary": "#003351"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "gutter": "16px",
+                        "container-margin": "20px",
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "display": ["Sora"],
+                        "headline-lg-mobile": ["Sora"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Sora"],
+                        "headline-lg": ["Sora"]
+                    },
+                    "fontSize": {
+                        "display": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+/* Premium page transitions */
+@keyframes pageEnter { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pageExit { to { opacity:0; transform:translateY(-16px) scale(0.98); } }
+body { animation: pageEnter 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+body.page-exit { animation: pageExit 0.4s cubic-bezier(0.55,0,1,0.45) forwards; }
+</style>
+<script>
+// Intercept all internal navigation for smooth transitions
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href]');
+  if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes('#')) {
+    e.preventDefault();
+    document.body.classList.add('page-exit');
+    setTimeout(function(){ window.location.href = link.href; }, 350);
+  }
+});
+// Wrap onclick navigations
+const origLocationSet = Object.getOwnPropertyDescriptor(window, 'location');
+window._smoothNav = function(url) {
+  document.body.classList.add('page-exit');
+  setTimeout(function(){ window.location.href = url; }, 350);
+};
+</script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- Hero Section / Background Aesthetic -->
+<div class="fixed inset-0 z-0 opacity-20 pointer-events-none overflow-hidden">
+<div class="absolute -top-24 -left-24 w-96 h-96 brand-gradient rounded-full blur-[120px]"></div>
+<div class="absolute top-1/2 -right-48 w-80 h-80 bg-tertiary-container rounded-full blur-[100px]"></div>
+</div>
+<!-- Main Content Wrapper -->
+<main class="relative z-10 flex flex-col flex-1 px-container-margin pt-stack-lg pb-stack-md max-w-md mx-auto w-full">
+<!-- Header / Logo -->
+<header class="flex flex-col items-center mt-12 mb-stack-lg">
+<div class="mb-4 max-w-[280px] w-full px-4">
+  <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfP2ee45Cc8-IxuHFSMIe7ZspfJkQKWT-6xoJ42ZMAojD6JUc9PtTB8QuJUX8jnyrszvi8r8ut7vp0EjB2cg-6zgZ3zSP-FMAxcnwegCWYAhk6Dno2pcc-iHp_qlCbUr5GXV007KEEmMPzprYO10gE0lJGD8BLiJ-4GqnCpw5HnkYET6rnDi2U4mmQwM5FGlMCNrdtmlr4qlBJeK9Z9BmaK6RofTGjFl3kxih42bnmSc1EDT7P6O7T3oVr82U0mkpYhMaz6GcOk1pm" alt="Netagraph Logo" class="w-full h-auto object-contain mx-auto block">
+</div>
+
+<p class="text-slate text-label-md mt-2 font-medium">Civic Empowerment Platform</p>
+</header>
+<!-- Login Card -->
+<section class="bg-surface-elevated border border-white/10 rounded-xl p-stack-md flex flex-col gap-gutter">
+<div class="space-y-1">
+<h2 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">Welcome Back</h2>
+<p class="text-label-md text-slate">Secure login for verified citizens</p>
+</div>
+<!-- Tabs/State Switcher for Login Method -->
+<div class="flex bg-surface-container-low p-1 rounded-lg">
+<button class="flex-1 py-2 text-label-md font-semibold text-on-primary-container bg-primary-container rounded-md transition-all" id="phone-tab">Mobile OTP</button>
+<button class="flex-1 py-2 text-label-md font-semibold text-slate transition-all" id="email-tab">Email Login</button>
+</div>
+<!-- Input Group -->
+<form class="space-y-stack-md" id="login-form">
+<div class="space-y-2">
+<label class="text-label-sm uppercase tracking-widest text-slate font-bold" for="mobile-number">Mobile Number</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate material-symbols-outlined">smartphone</span>
+<input class="w-full h-14 bg-surface-container-high border-none rounded-lg pl-12 text-on-surface placeholder:text-slate/50 focus:ring-2 focus:ring-action-gradient-end transition-all font-display" id="mobile-number" placeholder="+1 (555) 000-0000" type="tel">
+</div>
+</div>
+<div class="space-y-2" id="otp-container">
+<label class="text-label-sm uppercase tracking-widest text-slate font-bold" for="otp">Verification Code</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate material-symbols-outlined">verified_user</span>
+<input class="w-full h-14 bg-surface-container-high border-none rounded-lg pl-12 text-on-surface placeholder:text-slate/50 focus:ring-2 focus:ring-action-gradient-end transition-all tracking-[0.5em] font-bold" id="otp" placeholder="Enter 6-digit code" type="text">
+</div>
+<div class="flex justify-end">
+<button class="text-label-sm text-action-gradient-end font-semibold hover:underline" type="button">Resend Code?</button>
+</div>
+</div>
+<!-- Primary Action -->
+<button class="brand-gradient w-full h-14 rounded-lg text-white font-display font-bold text-body-lg shadow-lg active:scale-[0.98] transition-transform action-glow" type="submit" onclick="window.location.href='/enable_permissions/code.html'">
+                    Sign In to Portal
+                </button>
+</form>
+<div class="relative flex py-2 items-center">
+<div class="flex-grow border-t border-white/5"></div>
+<span class="flex-shrink mx-4 text-label-sm text-slate uppercase font-bold">Or continue with</span>
+<div class="flex-grow border-t border-white/5"></div>
+</div>
+<!-- Social Logins -->
+<div class="grid grid-cols-2 gap-4">
+<button class="flex items-center justify-center gap-2 h-14 rounded-lg bg-surface-container border border-white/5 hover:bg-surface-bright transition-colors active:scale-95 duration-200">
+<img alt="Google Logo" class="w-6 h-6 grayscale brightness-150" data-alt="A sleek minimalist corporate graphic of the Google logo rendered in high contrast monochromatic white against a deep charcoal background to fit a professional dark mode aesthetic. The icon is clean, sharp, and centered in a modern tech-focused digital interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR-TDkQ1Hyq9fndfPtyQMtsiJNKrWVRqZG-sp6LIssXKh7CIv6iMhWko34wY8INczQE1xmTx54mP1SWtbjhv1_pzPenONwq3lUVZ_PR6VvZe5c9BVwFudcwIArqDEx4FGlQGrQ0njODUmMwv7k20CDUn7igCjzzEm8M-Apv7kPS-qlOHQCOEWiUNCrYlpWnM-vEWU2rtKCOVOJrbCUWLDyLfh9Wl54pn1-5TWJ-Na1wR1Pp3dBXPBKRk8UK_kwAaminUxituOen0AI">
+<span class="text-label-md text-on-surface">Google</span>
+</button>
+<button class="flex items-center justify-center gap-2 h-14 rounded-lg bg-surface-container border border-white/5 hover:bg-surface-bright transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined text-on-surface" style="font-variation-settings: &quot;FILL&quot; 1;">ios</span>
+<span class="text-label-md text-on-surface">Apple</span>
+</button>
+</div>
+</section>
+<!-- Footer Actions -->
+<footer class="mt-auto pt-stack-lg flex flex-col items-center gap-4">
+<button class="text-on-surface font-semibold text-body-md group" onclick="window.location.href='/civic_intelligence_hub/code.html'">
+                New to Netagram? <span class="text-action-gradient-end group-hover:underline">Sign Up</span>
+</button>
+<nav class="flex gap-4">
+<a class="text-label-sm text-slate hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
+<span class="text-slate/20">•</span>
+<a class="text-label-sm text-slate hover:text-on-surface transition-colors" href="#">Terms of Service</a>
+</nav>
+</footer>
+</main>
+<!-- Floating Background Graphic (Optional Micro-Interaction) -->
+<div class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-background to-transparent pointer-events-none"></div>
+<script>
+        // Micro-interactions for tab switching
+        const phoneTab = document.getElementById('phone-tab');
+        const emailTab = document.getElementById('email-tab');
+        const mobileInput = document.getElementById('mobile-number');
+        const otpContainer = document.getElementById('otp-container');
+
+        phoneTab.addEventListener('click', () => {
+            phoneTab.classList.add('bg-primary-container', 'text-on-primary-container');
+            phoneTab.classList.remove('text-slate');
+            emailTab.classList.remove('bg-primary-container', 'text-on-primary-container');
+            emailTab.classList.add('text-slate');
+            mobileInput.placeholder = "+1 (555) 000-0000";
+            mobileInput.type = "tel";
+            otpContainer.style.display = 'block';
+        });
+
+        emailTab.addEventListener('click', () => {
+            emailTab.classList.add('bg-primary-container', 'text-on-primary-container');
+            emailTab.classList.remove('text-slate');
+            phoneTab.classList.remove('bg-primary-container', 'text-on-primary-container');
+            phoneTab.classList.add('text-slate');
+            mobileInput.placeholder = "Enter your verified email";
+            mobileInput.type = "email";
+            otpContainer.style.display = 'none';
+        });
+
+        // Form submission prevention for demo
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            btn.innerHTML = 'Verifying...';
+            btn.classList.add('opacity-80');
+            setTimeout(() => {
+                btn.innerHTML = 'Access Granted';
+                btn.classList.replace('brand-gradient', 'bg-success');
+            }, 1500);
+        });
+    </script>
+
+
+
+
+
+
+</body></html>

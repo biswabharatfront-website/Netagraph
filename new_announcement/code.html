@@ -1,0 +1,307 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>New Announcement | Netagram</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-primary": "#9d4300",
+                    "on-tertiary-fixed-variant": "#004b74",
+                    "on-tertiary-fixed": "#001d32",
+                    "surface-tint": "#ffb690",
+                    "error": "#ffb4ab",
+                    "on-secondary": "#68000a",
+                    "on-primary": "#552100",
+                    "on-tertiary-container": "#003554",
+                    "background": "#0c1321",
+                    "success": "#22C55E",
+                    "inverse-on-surface": "#2a3040",
+                    "primary-fixed": "#ffdbca",
+                    "surface-variant": "#2e3544",
+                    "primary-container": "#f97316",
+                    "surface-container-lowest": "#070e1c",
+                    "surface": "#0c1321",
+                    "primary": "#ffb690",
+                    "surface-container": "#19202e",
+                    "on-primary-container": "#582200",
+                    "tertiary-fixed": "#cde5ff",
+                    "on-tertiary": "#003351",
+                    "surface-container-high": "#232a39",
+                    "action-gradient-end": "#F97316",
+                    "secondary-fixed": "#ffdad7",
+                    "on-error": "#690005",
+                    "action-gradient-start": "#EF4444",
+                    "on-background": "#dce2f6",
+                    "secondary": "#ffb3ad",
+                    "surface-container-low": "#151b2a",
+                    "on-secondary-fixed": "#410004",
+                    "primary-fixed-dim": "#ffb690",
+                    "surface-bright": "#323949",
+                    "outline-variant": "#584237",
+                    "tertiary-container": "#00a2f4",
+                    "inverse-surface": "#dce2f6",
+                    "surface-elevated": "#1A2232",
+                    "on-primary-fixed": "#341100",
+                    "outline": "#a78b7d",
+                    "on-secondary-container": "#ffaea8",
+                    "on-surface-variant": "#e0c0b1",
+                    "tertiary": "#93ccff",
+                    "surface-dim": "#0c1321",
+                    "on-error-container": "#ffdad6",
+                    "on-primary-fixed-variant": "#783200",
+                    "tertiary-fixed-dim": "#93ccff",
+                    "on-secondary-fixed-variant": "#930013",
+                    "secondary-fixed-dim": "#ffb3ad",
+                    "secondary-container": "#a40217",
+                    "on-surface": "#dce2f6",
+                    "slate": "#64748B",
+                    "surface-container-highest": "#2e3544",
+                    "error-container": "#93000a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "unit": "8px",
+                    "stack-md": "16px",
+                    "stack-lg": "32px",
+                    "container-margin": "20px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "display": ["Sora"],
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Sora"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Sora"],
+                    "headline-md": ["Sora"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "display": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0c1321;
+            color: #dce2f6;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .gradient-button {
+            background: linear-gradient(135deg, #EF4444 0%, #F97316 100%);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2e3544;
+            border-radius: 10px;
+        }
+        .glow-orange {
+            box-shadow: 0 10px 20px -5px rgba(249, 115, 22, 0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  <style>
+/* Premium page transitions */
+@keyframes pageEnter { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pageExit { to { opacity:0; transform:translateY(-16px) scale(0.98); } }
+body { animation: pageEnter 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+body.page-exit { animation: pageExit 0.4s cubic-bezier(0.55,0,1,0.45) forwards; }
+</style>
+<script>
+// Intercept all internal navigation for smooth transitions
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href]');
+  if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes('#')) {
+    e.preventDefault();
+    document.body.classList.add('page-exit');
+    setTimeout(function(){ window.location.href = link.href; }, 350);
+  }
+});
+// Wrap onclick navigations
+const origLocationSet = Object.getOwnPropertyDescriptor(window, 'location');
+window._smoothNav = function(url) {
+  document.body.classList.add('page-exit');
+  setTimeout(function(){ window.location.href = url; }, 350);
+};
+</script>
+</head>
+<body class="font-body-md text-body-md overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-background border-b border-white/10 flex items-center justify-between px-container-margin h-16 w-full"><div class="flex items-center justify-between w-full relative px-container-margin h-16">
+  <button aria-label="Close" onclick="window.location.href='/community_hub_unified_design/code.html'" class="absolute left-container-margin cursor-pointer active:scale-95 text-on-surface-variant hover:bg-surface-variant/50 transition-colors p-2 rounded-full z-10" title="Close">
+    <span class="material-symbols-outlined" data-icon="close">close</span>
+  </button>
+  
+  <div class="flex-grow flex justify-center items-center">
+    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJ4PWsMTGGHRKjXuwDjs0ZLJ9LwbaigGTLZ0rDqmv8uDK9c8zWL2eqrAwGOHG_ts36EDdfRprTubN2jzqNudy58iBObgnpOh07_2QC2by8Kxsx_3kjtAQJvE9WxFUjmnBJ6_qS-KwzKGAHaRtZtLgUUVO3NHsLOi3kGLCh6UWJyzRo7iVXRl7SETs6c11cQAhf2vE-H3QZc7GXZsteQHsQTnZz1c5ITdds_5BdURsQS-uKB52ub7Arkx6gyhvpuCpuls6e1dAqPrzu" alt="Netagram Logo" class="h-8 w-auto object-contain">
+  </div>
+
+  <div class="absolute right-container-margin flex items-center gap-2 z-10">
+    <button class="cursor-pointer active:scale-95 font-label-md text-label-md text-primary hover:bg-surface-variant/50 transition-colors px-3 py-2 rounded-lg" onclick="alert('Drafts feature simulated!')">
+      Drafts
+    </button>
+    <a class="w-8 h-8 rounded-full bg-surface-bright border border-white/10 flex items-center justify-center overflow-hidden active:scale-95 duration-200" href="/user_profile/code.html">
+      <span class="material-symbols-outlined text-primary text-[20px]" data-icon="person">person</span>
+    </a>
+  </div>
+</div></header>
+<main class="flex flex-col gap-stack-lg px-container-margin py-stack-md pb-40">
+<!-- Announcement Title Section -->
+<section class="flex flex-col gap-stack-sm">
+<label class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Announcement Title</label>
+<div class="relative group">
+<input class="w-full h-16 bg-surface-elevated border border-white/10 rounded-xl px-5 text-headline-md font-display text-on-surface placeholder:text-slate/50 focus:outline-none focus:border-primary-container transition-all duration-300" placeholder="Enter headline..." type="text">
+<div class="absolute bottom-0 left-0 h-[2px] w-0 bg-primary-container group-focus-within:w-full transition-all duration-500"></div>
+</div>
+</section>
+<!-- Body / Rich Text Editor Section -->
+<section class="flex flex-col gap-stack-sm">
+<label class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Body Content</label>
+<div class="bg-surface-elevated border border-white/10 rounded-xl overflow-hidden focus-within:border-primary-container transition-all">
+<!-- Toolbar -->
+<div class="flex items-center gap-2 p-3 border-b border-white/5 bg-surface-container-low">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/50 rounded-lg">
+<span class="material-symbols-outlined" data-icon="format_bold">format_bold</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/50 rounded-lg">
+<span class="material-symbols-outlined" data-icon="format_italic">format_italic</span>
+</button>
+<div class="w-px h-6 bg-white/10 mx-1"></div>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/50 rounded-lg">
+<span class="material-symbols-outlined" data-icon="format_list_bulleted">format_list_bulleted</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/50 rounded-lg">
+<span class="material-symbols-outlined" data-icon="link">link</span>
+</button>
+<div class="flex-grow"></div>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant/50 rounded-lg">
+<span class="material-symbols-outlined" data-icon="image">image</span>
+</button>
+</div>
+<!-- Text Area -->
+<textarea class="w-full min-h-[200px] bg-transparent border-none p-5 text-body-lg font-body-lg text-on-surface placeholder:text-slate/50 focus:ring-0 resize-none custom-scrollbar" placeholder="Describe the announcement in detail..."></textarea>
+</div>
+</section>
+<!-- Urgency Level Section -->
+<section class="flex flex-col gap-stack-sm">
+<label class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Urgency Level</label>
+<div class="grid grid-cols-3 gap-stack-md">
+<button class="urgency-chip group relative flex flex-col items-center justify-center gap-2 p-4 rounded-xl border border-white/10 bg-surface-container-low hover:bg-surface-variant/30 transition-all duration-300 overflow-hidden" onclick="selectUrgency(this, 'urgent')">
+<div class="absolute inset-0 bg-error/10 opacity-0 group-[.active]:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-error" data-icon="emergency">emergency</span>
+<span class="font-label-sm text-label-sm tracking-tighter">URGENT</span>
+</button>
+<button class="urgency-chip group relative flex flex-col items-center justify-center gap-2 p-4 rounded-xl border border-white/10 bg-surface-container-low hover:bg-surface-variant/30 transition-all duration-300 overflow-hidden" onclick="selectUrgency(this, 'action')">
+<div class="absolute inset-0 bg-primary-container/10 opacity-0 group-[.active]:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-action-gradient-end" data-icon="task_alt">task_alt</span>
+<span class="font-label-sm text-label-sm tracking-tighter">ACTION</span>
+</button>
+<button class="urgency-chip group active relative flex flex-col items-center justify-center gap-2 p-4 rounded-xl border border-primary/40 bg-surface-container-low hover:bg-surface-variant/30 transition-all duration-300 overflow-hidden" onclick="selectUrgency(this, 'info')">
+<div class="absolute inset-0 bg-tertiary-container/10 opacity-0 group-[.active]:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-tertiary-container" data-icon="info">info</span>
+<span class="font-label-sm text-label-sm tracking-tighter">INFO</span>
+</button>
+</div>
+</section>
+<!-- Post to Ward Section -->
+<section class="flex flex-col gap-stack-sm">
+<label class="font-label-sm text-label-sm text-on-surface-variant tracking-wider uppercase">Post to Ward</label>
+<div class="relative group">
+<div class="w-full flex items-center justify-between p-4 bg-surface-elevated border border-white/10 rounded-xl cursor-pointer hover:border-white/30 transition-all active:scale-[0.99]">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="location_city">location_city</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Ward 45 Discussion</p>
+<p class="text-label-sm text-slate">2.4k Residents</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</section>
+<!-- Attachment Preview (Optional Flair) -->
+<section class="grid grid-cols-2 gap-stack-md">
+<div class="aspect-video rounded-xl overflow-hidden relative group cursor-pointer border border-white/10">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A professional architectural photograph of a modern city hall building with clean lines and sharp angles. The scene is shot during the golden hour, casting a warm orange glow across the charcoal-grey concrete facades. The atmosphere is official and majestic, emphasizing civic duty and structural integrity with high-contrast shadows and deep blue evening skies." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgXd49qmm9jUjmxeJi761w0vT7rnXZJAQDixLnKDbNxFir5PBLcGxMa-Y4TWEL_weHCvIERI6SnoJRXplj8Wl6J6Sf7CWWoHUo4LVQESkoDIs_7JjKHKPzKN_PR6fa0ul-T36dCLAS5NGuAMUzhks6D7Gqw_sYFX34gCCS-daLLQkTtzJoN4AbCNTAqwPp4KxtP7UmCjFdqJlysHS_bQ3gmJlvuOVqAOs_si3dimGalhwrHfK7sHRzSIiZe5u2JXghCI39ib3mU0cY">
+<button class="absolute top-2 right-2 bg-black/60 backdrop-blur-md p-1.5 rounded-full text-white">
+<span class="material-symbols-outlined text-[18px]" data-icon="close">close</span>
+</button>
+</div>
+<div class="aspect-video rounded-xl bg-surface-container-low border border-dashed border-white/20 flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-surface-variant/20 transition-all">
+<span class="material-symbols-outlined text-primary" data-icon="add_a_photo">add_a_photo</span>
+<span class="text-label-sm font-label-sm text-slate">Add Media</span>
+</div>
+</section>
+</main>
+<!-- Sticky Action Bar -->
+<div class="fixed bottom-0 left-0 w-full p-container-margin bg-gradient-to-t from-background via-background to-transparent pt-8 z-50">
+<button class="w-full h-14 gradient-button rounded-xl text-white font-display font-bold text-label-md flex items-center justify-center gap-2 glow-orange active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="campaign" data-weight="fill">campaign</span>
+            Publish Announcement
+        </button>
+</div>
+<!-- Bottom Navigation Bar (Shell Rule: Navigation for top-level only, this is a sub-page/focused journey so we usually suppress, but the prompt asked for "New Announcement Screen" which fits the 'focused task' criteria where we hide the global nav to focus on the form. However, if needed as part of the app shell context, it's defined here but hidden on mobile to prioritize the sticky CTA) -->
+<script>
+        function selectUrgency(el, type) {
+            // Remove active state from all chips
+            document.querySelectorAll('.urgency-chip').forEach(chip => {
+                chip.classList.remove('active', 'border-primary/40');
+                chip.classList.add('border-white/10');
+            });
+            
+            // Add active state to selected
+            el.classList.add('active', 'border-primary/40');
+            el.classList.remove('border-white/10');
+            
+            // Interaction feedback
+            el.classList.add('scale-95');
+            setTimeout(() => el.classList.remove('scale-95'), 100);
+        }
+
+        // Simple animation for the header on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('bg-background/95', 'backdrop-blur-md');
+            } else {
+                header.classList.remove('bg-background/95', 'backdrop-blur-md');
+            }
+        });
+    </script>
+
+
+</body></html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html><html class="dark" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+    <title>Netagram - RTI Status</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ffb690",
+                        "primary-container": "#f97316",
+                        "on-primary-container": "#582200",
+                        "background": "#0c1321",
+                        "on-background": "#dce2f6",
+                        "surface": "#0c1321",
+                        "on-surface": "#dce2f6",
+                        "surface-container": "#19202e",
+                        "surface-container-low": "#151b2a",
+                        "surface-container-high": "#232a39",
+                        "surface-elevated": "#1A2232",
+                        "surface-bright": "#323949",
+                        "slate": "#64748B",
+                        "success": "#22C55E",
+                        "error": "#ffb4ab",
+                        "action-gradient-start": "#EF4444",
+                        "action-gradient-end": "#F97316",
+                    },
+                    fontFamily: {
+                        "display": ["Sora", "sans-serif"],
+                        "body": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-display { font-family: 'Sora', sans-serif; }
+        .glass-card { background: rgba(25, 32, 46, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.05); }
+    </style>
+<style>
+/* Premium page transitions */
+@keyframes pageEnter { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pageExit { to { opacity:0; transform:translateY(-16px) scale(0.98); } }
+body { animation: pageEnter 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+body.page-exit { animation: pageExit 0.4s cubic-bezier(0.55,0,1,0.45) forwards; }
+</style>
+<script>
+// Intercept all internal navigation for smooth transitions
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href]');
+  if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes('#')) {
+    e.preventDefault();
+    document.body.classList.add('page-exit');
+    setTimeout(function(){ window.location.href = link.href; }, 350);
+  }
+});
+// Wrap onclick navigations
+const origLocationSet = Object.getOwnPropertyDescriptor(window, 'location');
+window._smoothNav = function(url) {
+  document.body.classList.add('page-exit');
+  setTimeout(function(){ window.location.href = url; }, 350);
+};
+</script>
+</head>
+<body class="bg-background text-on-background min-h-screen overflow-x-hidden">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full z-50 border-b border-white/10 bg-background/80 backdrop-blur-md flex justify-between items-center h-16 px-4">
+        <button onclick="window.location.href='/user_profile/code.html'" class="p-2 hover:bg-white/5 rounded-full transition-colors active:scale-95 duration-200">
+            <span class="material-symbols-outlined text-primary">arrow_back</span>
+        </button>
+        <h1 class="text-lg font-display font-bold">RTI Status</h1>
+        <a class="w-8 h-8 rounded-full bg-surface-bright border border-white/10 flex items-center justify-center overflow-hidden active:scale-95 duration-200" href="/user_profile/code.html">
+          <span class="material-symbols-outlined text-primary text-[20px]" data-icon="person">person</span>
+        </a>
+    </header>
+
+    <main class="pt-20 pb-24 px-4 max-w-2xl mx-auto space-y-4">
+        <h2 class="text-sm font-bold text-slate uppercase tracking-wider mb-2">Active Filings</h2>
+        
+        <!-- Active RTI Card -->
+        <div class="glass-card rounded-2xl p-5 border border-primary/20">
+            <div class="flex justify-between items-start mb-3">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-primary px-2 py-0.5 rounded bg-primary/10">In Progress</span>
+                <span class="text-[10px] font-mono text-slate">ID: NTG-882-X</span>
+            </div>
+            <h3 class="font-display font-bold text-base mb-1">Inquiry: Sector 14 Structural Damage</h3>
+            <p class="text-xs text-slate mb-4">Filed to: Public Information Officer, Urban Development</p>
+            
+            <div class="w-full bg-surface-bright rounded-full h-1.5 mb-2">
+                <div class="bg-primary h-1.5 rounded-full" style="width: 40%"></div>
+            </div>
+            <div class="flex justify-between text-[10px] font-semibold text-slate mb-4">
+                <span class="text-primary">Drafted</span>
+                <span class="text-primary">Dispatched</span>
+                <span>Response Due (16 Days)</span>
+            </div>
+            
+            <button class="w-full py-2.5 rounded-xl border border-white/10 hover:bg-white/5 text-sm font-bold transition-colors">
+                View Full Filing Document
+            </button>
+        </div>
+
+        <h2 class="text-sm font-bold text-slate uppercase tracking-wider mb-2 mt-6">Completed Filings</h2>
+        
+        <!-- Completed RTI Card -->
+        <div class="glass-card rounded-2xl p-5 opacity-80">
+            <div class="flex justify-between items-start mb-3">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-success px-2 py-0.5 rounded bg-success/10">Resolved</span>
+                <span class="text-[10px] font-mono text-slate">ID: NTG-541-A</span>
+            </div>
+            <h3 class="font-display font-bold text-base mb-1">Inquiry: Ward 12 Water Allocation Budget</h3>
+            <p class="text-xs text-slate mb-4">Filed to: Municipal Water Board</p>
+            
+            <div class="bg-surface-elevated rounded-lg p-3 text-xs text-on-surface-variant border border-white/5">
+                <span class="font-bold text-success mb-1 block">Response Received:</span>
+                "The allocated budget for Ward 12 water pipeline repair for FY25 is ?4.2 Crores. Tenders have been assigned..."
+            </div>
+        </div>
+    </main>
+</body>
+</html>

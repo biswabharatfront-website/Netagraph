@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Community Events | NETAGRAM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#93ccff",
+                        "on-secondary-fixed": "#410004",
+                        "inverse-primary": "#9d4300",
+                        "on-primary-container": "#582200",
+                        "primary": "#ffb690",
+                        "on-tertiary-container": "#003554",
+                        "on-background": "#dce2f6",
+                        "action-gradient-end": "#F97316",
+                        "secondary": "#ffb3ad",
+                        "surface-container-lowest": "#070e1c",
+                        "on-secondary-fixed-variant": "#930013",
+                        "outline-variant": "#584237",
+                        "surface-variant": "#2e3544",
+                        "surface-container": "#19202e",
+                        "primary-fixed-dim": "#ffb690",
+                        "error-container": "#93000a",
+                        "tertiary-fixed": "#cde5ff",
+                        "outline": "#a78b7d",
+                        "surface-container-highest": "#2e3544",
+                        "on-tertiary-fixed": "#001d32",
+                        "error": "#ffb4ab",
+                        "on-error-container": "#ffdad6",
+                        "surface": "#0c1321",
+                        "surface-tint": "#ffb690",
+                        "surface-container-low": "#151b2a",
+                        "surface-dim": "#0c1321",
+                        "on-tertiary": "#003351",
+                        "on-secondary": "#68000a",
+                        "surface-elevated": "#1A2232",
+                        "inverse-surface": "#dce2f6",
+                        "secondary-fixed": "#ffdad7",
+                        "background": "#0c1321",
+                        "surface-bright": "#323949",
+                        "tertiary-fixed-dim": "#93ccff",
+                        "success": "#22C55E",
+                        "surface-container-high": "#232a39",
+                        "primary-fixed": "#ffdbca",
+                        "on-primary-fixed": "#341100",
+                        "tertiary-container": "#00a2f4",
+                        "secondary-fixed-dim": "#ffb3ad",
+                        "on-error": "#690005",
+                        "on-primary": "#552100",
+                        "slate": "#64748B",
+                        "on-primary-fixed-variant": "#783200",
+                        "primary-container": "#f97316",
+                        "on-surface": "#dce2f6",
+                        "on-secondary-container": "#ffaea8",
+                        "on-surface-variant": "#e0c0b1",
+                        "secondary-container": "#a40217",
+                        "on-tertiary-fixed-variant": "#004b74",
+                        "inverse-on-surface": "#2a3040",
+                        "action-gradient-start": "#EF4444"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "gutter": "16px",
+                        "stack-sm": "8px",
+                        "container-margin": "20px",
+                        "unit": "8px",
+                        "stack-lg": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Sora"],
+                        "headline-lg-mobile": ["Sora"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Sora"],
+                        "display": ["Sora"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "display": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0c1321;
+            color: #dce2f6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-tab-indicator {
+            position: absolute;
+            bottom: -4px;
+            height: 4px;
+            width: 24px;
+            background: linear-gradient(to right, #EF4444, #F97316);
+            border-radius: 2px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2e3544;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+/* Premium page transitions */
+@keyframes pageEnter { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pageExit { to { opacity:0; transform:translateY(-16px) scale(0.98); } }
+body { animation: pageEnter 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+body.page-exit { animation: pageExit 0.4s cubic-bezier(0.55,0,1,0.45) forwards; }
+</style>
+<script>
+// Intercept all internal navigation for smooth transitions
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href]');
+  if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes('#')) {
+    e.preventDefault();
+    document.body.classList.add('page-exit');
+    setTimeout(function(){ window.location.href = link.href; }, 350);
+  }
+});
+// Wrap onclick navigations
+const origLocationSet = Object.getOwnPropertyDescriptor(window, 'location');
+window._smoothNav = function(url) {
+  document.body.classList.add('page-exit');
+  setTimeout(function(){ window.location.href = url; }, 350);
+};
+</script>
+</head>
+<body class="font-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 border-b border-white/10 bg-surface h-16 flex items-center justify-between px-container-margin">
+<button onclick="window.location.href='/community_hub_unified_design/code.html'" class="p-2 hover:bg-surface-bright/20 rounded-full transition-colors active:scale-95 duration-200" title="Back">
+  <span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<div class="flex items-center justify-center flex-1">
+<img alt="NETAGRAM logo" class="h-8 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuQH1EQu-08Q-7mpDs4emXbwM5ucliTKGP0yzoMMgx6TPB9hiNoljzjCSScdMvDGZCsef03nOvfJVK-3TJMhy0Uk3GOnH-of9ERFXAipUQA4fHlqAV2Hf-LOmrq_AAnzCpQmQTAM6CLf5EzTcxki04PWzevKYGoA3dHVZjnbBAjTv0_JMbpWHZUmyYN6hRTaB6NVzBkQxYvb2AgL63x96i49jvqPZ5R_qnHEyc64NtwOsz33XEfUveLTDkiBfFBQYUo_anhfEUEniM"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 transition-transform">
+<span class="material-symbols-outlined">calendar_month</span>
+</button>
+<a class="w-8 h-8 rounded-full bg-surface-bright border border-white/10 flex items-center justify-center overflow-hidden active:scale-95 duration-200" href="/user_profile/code.html">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="person">person</span>
+</a>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 pb-24 px-container-margin min-h-screen">
+<!-- Section Header -->
+<div class="mb-stack-lg">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-stack-sm">Community Events</h1>
+<p class="font-body-md text-on-surface-variant max-w-md">Stay informed and engaged with local civic activities across your neighborhood.</p>
+</div>
+<!-- Events List -->
+<div class="flex flex-col gap-gutter">
+<!-- Event Item 1 -->
+<div class="bg-surface-elevated rounded-xl p-stack-md border border-white/10 hover:border-primary/30 transition-all duration-300 group cursor-pointer" onclick="toggleEventComments('evt-1', event)">
+<div class="flex gap-stack-md">
+<div class="flex-1">
+<div class="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-stack-sm">
+<span class="font-label-sm text-label-sm text-primary uppercase">OCT 24 | 10:00 AM</span>
+</div>
+<h2 class="font-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors">Ward 4 Town Hall</h2>
+<div class="flex items-center text-on-surface-variant mb-stack-md">
+<span class="material-symbols-outlined text-[16px] mr-1">location_on</span>
+<span class="font-label-md text-label-md">Community Center Hall B</span>
+</div>
+<div class="flex gap-2">
+  <button class="h-10 px-4 border-1.5 border-white/20 rounded-lg text-xs font-bold hover:bg-white/5 transition-colors" onclick="event.stopPropagation()">Learn More</button>
+  <button class="h-10 px-4 bg-surface-container border border-white/5 rounded-lg text-xs font-bold hover:bg-surface-bright flex items-center gap-1"><span class="material-symbols-outlined text-sm">comment</span> <span id="count-evt-1">2</span> Comments</button>
+</div>
+</div>
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A focused close-up of a high-tech architectural model of a modern community center, sitting on a dark wooden table. The lighting is dramatic and moody, with orange-hued professional spotlighting that emphasizes the building's futuristic lines. The background is a soft, deep charcoal office setting, maintaining a corporate yet urgent civic atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBt4rI3fK_ouDcx3JEBQwlMLIomgPWwZS8l5x7lPJGcCH7e7RuUmjYuBDV502C6oAin3Iknxw-YZ3JSktp-a31oDrRZMFq3DabGP1mHZCyvuz1YF4CiDM6jIPexKjMpgX7dAvwzgS5yZ8nTPoDvWbM36g-EOCeSKomCw9tlFtVPDxO7ASbFTKA4fzp9EOJJofFVUrJzqZOh6W9by-DF7_9xEr6FYHkXz1662t5kc-JdB7iQC_1mwJA2lihAS5mJLzK11SGaPYBinZF-"/>
+</div>
+</div>
+<!-- Comments Drawer -->
+<div id="comments-evt-1" class="hidden mt-4 border-t border-white/10 pt-4 space-y-3 cursor-default" onclick="event.stopPropagation()">
+  <div class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar pr-1 comments-list">
+    <div class="text-[11px] bg-background/50 p-2.5 rounded-xl border border-white/5"><p class="font-bold text-primary mb-1">Ramesh K.</p><p class="text-white">Is this open to non-residents too?</p></div>
+    <div class="text-[11px] bg-background/50 p-2.5 rounded-xl border border-white/5"><p class="font-bold text-success mb-1">Priya (Organizer)</p><p class="text-white">Yes, absolutely! All citizens in Ward 142 are welcome.</p></div>
+  </div>
+  <div class="flex gap-2 mt-2">
+    <input type="text" placeholder="Write a comment..." class="flex-grow bg-background/40 border-none text-[11px] rounded-xl px-3 py-2 text-white focus:ring-1 focus:ring-primary-container" onkeypress="handleEventCommentKeyPress(event, 'evt-1')">
+    <button onclick="postEventComment('evt-1')" class="bg-primary-container text-on-primary-container rounded-xl px-3 py-2 text-xs font-bold hover:opacity-90 active:scale-95 transition-all">Send</button>
+  </div>
+</div>
+</div>
+<!-- Event Item 2 -->
+<div class="bg-surface-elevated rounded-xl p-stack-md border border-white/10 hover:border-primary/30 transition-all duration-300 group cursor-pointer" onclick="toggleEventComments('evt-2', event)">
+<div class="flex gap-stack-md">
+<div class="flex-1">
+<div class="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-stack-sm">
+<span class="font-label-sm text-label-sm text-primary uppercase">OCT 26 | 08:30 AM</span>
+</div>
+<h2 class="font-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors">Public Park Cleanup</h2>
+<div class="flex items-center text-on-surface-variant mb-stack-md">
+<span class="material-symbols-outlined text-[16px] mr-1">location_on</span>
+<span class="font-label-md text-label-md">Riverside Grand Park</span>
+</div>
+<div class="flex gap-2">
+  <button class="h-10 px-4 border-1.5 border-white/20 rounded-lg text-xs font-bold hover:bg-white/5 transition-colors" onclick="event.stopPropagation()">Learn More</button>
+  <button class="h-10 px-4 bg-surface-container border border-white/5 rounded-lg text-xs font-bold hover:bg-surface-bright flex items-center gap-1"><span class="material-symbols-outlined text-sm">comment</span> <span id="count-evt-2">1</span> Comments</button>
+</div>
+</div>
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A cinematic, low-angle shot of a lush green city park under a vibrant sunrise. The morning sun casts long, glowing shadows across the manicured grass. The color palette is dominated by deep forest greens and fiery orange skies, creating a mood of hope and community action. The style is sharp, clean, and professional photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIk4hcBwqH6ujf-vqUoQyDsiTLjNfkEKO7UlatuUpTHtSSUuz_99HIezC4qsAVi8jUChoGGxxgyYb4lf6_zRulSoS7581SadTRHTkzOXmBiLjjNG0YkNKwfH4U5SUhJt7-1t1JldP5pP7BWkSbV1rQdsQqwjGGNbWEjZsr85Pm-0sYKRK1x-rpN0I7tsF3ZWEb523Nv9XME1qz4sWEduufKVh_I3dXOznlb85FLBO7GAoj9xTeiBuODaf4vmf44jht5FDb4ocXrkAR"/>
+</div>
+</div>
+<!-- Comments Drawer -->
+<div id="comments-evt-2" class="hidden mt-4 border-t border-white/10 pt-4 space-y-3 cursor-default" onclick="event.stopPropagation()">
+  <div class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar pr-1 comments-list">
+    <div class="text-[11px] bg-background/50 p-2.5 rounded-xl border border-white/5"><p class="font-bold text-slate mb-1">Vikram S.</p><p class="text-white">I will bring extra garbage bags and rubber gloves for everyone!</p></div>
+  </div>
+  <div class="flex gap-2 mt-2">
+    <input type="text" placeholder="Write a comment..." class="flex-grow bg-background/40 border-none text-[11px] rounded-xl px-3 py-2 text-white focus:ring-1 focus:ring-primary-container" onkeypress="handleEventCommentKeyPress(event, 'evt-2')">
+    <button onclick="postEventComment('evt-2')" class="bg-primary-container text-on-primary-container rounded-xl px-3 py-2 text-xs font-bold hover:opacity-90 active:scale-95 transition-all">Send</button>
+  </div>
+</div>
+</div>
+<!-- Event Item 3 -->
+<div class="bg-surface-elevated rounded-xl p-stack-md border border-white/10 hover:border-primary/30 transition-all duration-300 group cursor-pointer" onclick="toggleEventComments('evt-3', event)">
+<div class="flex gap-stack-md">
+<div class="flex-1">
+<div class="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-stack-sm">
+<span class="font-label-sm text-label-sm text-primary uppercase">NOV 02 | 06:00 PM</span>
+</div>
+<h2 class="font-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors">Zoning Board Meeting</h2>
+<div class="flex items-center text-on-surface-variant mb-stack-md">
+<span class="material-symbols-outlined text-[16px] mr-1">location_on</span>
+<span class="font-label-md text-label-md">City Hall, Room 302</span>
+</div>
+<div class="flex gap-2">
+  <button class="h-10 px-4 border-1.5 border-white/20 rounded-lg text-xs font-bold hover:bg-white/5 transition-colors" onclick="event.stopPropagation()">Learn More</button>
+  <button class="h-10 px-4 bg-surface-container border border-white/5 rounded-lg text-xs font-bold hover:bg-surface-bright flex items-center gap-1"><span class="material-symbols-outlined text-sm">comment</span> <span id="count-evt-3">0</span> Comments</button>
+</div>
+</div>
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="An atmospheric interior view of a contemporary city hall auditorium. The room is filled with rows of sleek, dark seating illuminated by cool blue ambient light, with a warm orange glow emanating from the central podium. The composition is professional and orderly, evoking a sense of serious governance and high-stakes community decision-making." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1DEo2qWEU_m751377KjraeUX7sR1ciEw9Z4WBVsYPXeAgA3c9NxXnoKp8hQ1TDwfkr-7XHTn5JV5Ca_14h0VHaMNUse_lDnIG6xKypGNtrG4Xg7MdnRhNhdaEm4isn4WkF7dtKFofAPkRJgFAkSj8rkRBnVIx_W1ptr15SIIfslrXUvTIt9hlLgj31xyIB1uBjxGTo9cju9dB4aGJ5G8mZsch3OkMsv26Pxtc5-5M8CzKyinaC-_uNDMuqG4BTNjp9zwFj8GUHFNz"/>
+</div>
+</div>
+<!-- Comments Drawer -->
+<div id="comments-evt-3" class="hidden mt-4 border-t border-white/10 pt-4 space-y-3 cursor-default" onclick="event.stopPropagation()">
+  <div class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar pr-1 comments-list">
+  </div>
+  <div class="flex gap-2 mt-2">
+    <input type="text" placeholder="Write a comment..." class="flex-grow bg-background/40 border-none text-[11px] rounded-xl px-3 py-2 text-white focus:ring-1 focus:ring-primary-container" onkeypress="handleEventCommentKeyPress(event, 'evt-3')">
+    <button onclick="postEventComment('evt-3')" class="bg-primary-container text-on-primary-container rounded-xl px-3 py-2 text-xs font-bold hover:opacity-90 active:scale-95 transition-all">Send</button>
+  </div>
+</div>
+</div>
+<!-- Event Item 4 -->
+<div class="bg-surface-elevated rounded-xl p-stack-md border border-white/10 hover:border-primary/30 transition-all duration-300 group cursor-pointer" onclick="toggleEventComments('evt-4', event)">
+<div class="flex gap-stack-md">
+<div class="flex-1">
+<div class="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-stack-sm">
+<span class="font-label-sm text-label-sm text-primary uppercase">NOV 05 | 09:00 AM</span>
+</div>
+<h2 class="font-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors">Street Safety Workshop</h2>
+<div class="flex items-center text-on-surface-variant mb-stack-md">
+<span class="material-symbols-outlined text-[16px] mr-1">location_on</span>
+<span class="font-label-md text-label-md">Public Library Annex</span>
+</div>
+<div class="flex gap-2">
+  <button class="h-10 px-4 border-1.5 border-white/20 rounded-lg text-xs font-bold hover:bg-white/5 transition-colors" onclick="event.stopPropagation()">Learn More</button>
+  <button class="h-10 px-4 bg-surface-container border border-white/5 rounded-lg text-xs font-bold hover:bg-surface-bright flex items-center gap-1"><span class="material-symbols-outlined text-sm">comment</span> <span id="count-evt-4">0</span> Comments</button>
+</div>
+</div>
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A high-contrast street-level photo of a modern city intersection featuring bold white pedestrian crossing stripes and bright orange safety pylons. The asphalt is dark charcoal and wet, reflecting the city's neon lights. The lighting is crisp and clear, conveying a sense of urban safety and meticulous city planning." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdob1SUTY4raIW5ndkcKjJLHwySO3fMb_Pf8tl07mpgegqm1EjNDoVvT55B39--Oa7BrQcUHgFvw1zX9nJ-8J8_ZBaru04lTG5d60R0SuDOZUsR4VPr9CN51nx-b4BkgFWVVFWH-n21oMocjs9keyOJEGY0r6Ep1LRY7vNDQacYdTdcqtGwMsggJ9o8RNmQRC-HwUSvyIEABeLv3pAhEe8hVcfma05Kn27AYkBCX17CxbS22wzMuXD3j0IK1_Lvd8TzGOBqsu0kbQ-"/>
+</div>
+</div>
+<!-- Comments Drawer -->
+<div id="comments-evt-4" class="hidden mt-4 border-t border-white/10 pt-4 space-y-3 cursor-default" onclick="event.stopPropagation()">
+  <div class="space-y-2 max-h-48 overflow-y-auto custom-scrollbar pr-1 comments-list">
+  </div>
+  <div class="flex gap-2 mt-2">
+    <input type="text" placeholder="Write a comment..." class="flex-grow bg-background/40 border-none text-[11px] rounded-xl px-3 py-2 text-white focus:ring-1 focus:ring-primary-container" onkeypress="handleEventCommentKeyPress(event, 'evt-4')">
+    <button onclick="postEventComment('evt-4')" class="bg-primary-container text-on-primary-container rounded-xl px-3 py-2 text-xs font-bold hover:opacity-90 active:scale-95 transition-all">Send</button>
+  </div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (FAB) -->
+<button onclick="_smoothNav('/unified_reports_tracking_hub/code.html')" class="fixed bottom-24 right-container-margin w-14 h-14 rounded-full bg-gradient-to-tr from-action-gradient-start to-action-gradient-end shadow-[0_0_20px_rgba(239,68,68,0.3)] flex items-center justify-center text-white active:scale-90 transition-transform z-40">
+<span class="material-symbols-outlined text-[32px]">campaign</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface-container border-t border-white/10 flex justify-around items-center px-4 py-2 pb-safe shadow-lg rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/netagram_unified_navigation_hub/code.html">
+<span class="material-symbols-outlined">dynamic_feed</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Feed</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all duration-200" href="/civic_intelligence_hub/code.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/unified_reports_tracking_hub/code.html">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Report</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/political_leaders/code.html">
+<span class="material-symbols-outlined">stars</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Leaders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/community_hub_unified_design/code.html">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Community</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for the FAB
+        const fab = document.querySelector('button.fixed.bottom-24');
+        fab.addEventListener('mouseenter', () => {
+            fab.style.boxShadow = '0 0 30px rgba(249, 115, 22, 0.5)';
+        });
+        fab.addEventListener('mouseleave', () => {
+            fab.style.boxShadow = '0 0 20px rgba(239, 68, 68, 0.3)';
+        });
+
+        // Toggle interaction for learn more buttons
+        const btns = document.querySelectorAll('button');
+        btns.forEach(btn => {
+            if(btn.innerText === 'Learn More') {
+                btn.onclick = () => {
+                    btn.classList.toggle('bg-primary');
+                    btn.classList.toggle('text-on-primary');
+                    btn.innerText = btn.innerText === 'Learn More' ? 'Checking...' : 'Learn More';
+                    setTimeout(() => {
+                        btn.classList.toggle('bg-primary');
+                        btn.classList.toggle('text-on-primary');
+                        btn.innerText = 'Learn More';
+                    }, 1000);
+                };
+            }
+        });
+
+        // Toggle Expandable Event Comments
+        function toggleEventComments(id, event) {
+            const commentsDiv = document.getElementById('comments-' + id);
+            commentsDiv.classList.toggle('hidden');
+        }
+
+        // Handle Enter key for event comments
+        function handleEventCommentKeyPress(e, id) {
+            if (e.key === 'Enter') {
+                postEventComment(id);
+            }
+        }
+
+        // Post a new event comment reactively
+        function postEventComment(id) {
+            const commentsDiv = document.getElementById('comments-' + id);
+            const input = commentsDiv.querySelector('input');
+            const commentText = input.value.trim();
+            if (!commentText) return;
+
+            const commentsList = commentsDiv.querySelector('.comments-list');
+            const newComment = document.createElement('div');
+            newComment.className = "text-[11px] bg-background/50 p-2.5 rounded-xl border border-white/5 new-message";
+            newComment.innerHTML = `
+                <p class="font-bold text-primary mb-1">Arjun Mehta (You)</p>
+                <p class="text-white">${commentText}</p>
+            `;
+            commentsList.appendChild(newComment);
+            commentsList.scrollTop = commentsList.scrollHeight;
+            input.value = '';
+
+            // Increment comment count
+            const countSpan = document.getElementById('count-' + id);
+            let count = parseInt(countSpan.innerText);
+            countSpan.innerText = count + 1;
+        }
+    </script>
+</body></html>

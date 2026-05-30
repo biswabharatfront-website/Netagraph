@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Netagram - Feed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "action-gradient-end": "#F97316",
+                      "primary-container": "#f97316",
+                      "slate": "#64748B",
+                      "on-primary": "#552100",
+                      "background": "#0c1321",
+                      "inverse-surface": "#dce2f6",
+                      "secondary-fixed-dim": "#ffb3ad",
+                      "error": "#ffb4ab",
+                      "on-tertiary-fixed-variant": "#004b74",
+                      "action-gradient-start": "#EF4444",
+                      "on-tertiary": "#003351",
+                      "tertiary-fixed-dim": "#93ccff",
+                      "surface-container-highest": "#2e3544",
+                      "on-tertiary-container": "#003554",
+                      "primary": "#ffb690",
+                      "inverse-on-surface": "#2a3040",
+                      "outline-variant": "#584237",
+                      "on-secondary-container": "#ffaea8",
+                      "tertiary-fixed": "#cde5ff",
+                      "tertiary": "#93ccff",
+                      "on-tertiary-fixed": "#001d32",
+                      "outline": "#a78b7d",
+                      "surface-variant": "#2e3544",
+                      "on-secondary-fixed-variant": "#930013",
+                      "surface-elevated": "#1A2232",
+                      "surface-bright": "#323949",
+                      "on-surface-variant": "#e0c0b1",
+                      "surface-dim": "#0c1321",
+                      "on-error": "#690005",
+                      "primary-fixed": "#ffdbca",
+                      "inverse-primary": "#9d4300",
+                      "on-secondary": "#68000a",
+                      "on-primary-container": "#582200",
+                      "surface-container-low": "#151b2a",
+                      "primary-fixed-dim": "#ffb690",
+                      "on-background": "#dce2f6",
+                      "on-surface": "#dce2f6",
+                      "surface-container-lowest": "#070e1c",
+                      "surface-container-high": "#232a39",
+                      "surface-container": "#19202e",
+                      "tertiary-container": "#00a2f4",
+                      "surface": "#0c1321",
+                      "on-primary-fixed": "#341100",
+                      "success": "#22C55E",
+                      "surface-tint": "#ffb690",
+                      "on-primary-fixed-variant": "#783200",
+                      "secondary-container": "#a40217",
+                      "on-error-container": "#ffdad6",
+                      "secondary": "#ffb3ad",
+                      "error-container": "#93000a",
+                      "on-secondary-fixed": "#410004",
+                      "secondary-fixed": "#ffdad7"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-md": "16px",
+                      "container-margin": "20px",
+                      "stack-sm": "8px",
+                      "stack-lg": "32px",
+                      "gutter": "16px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "display": ["Sora"],
+                      "headline-md": ["Sora"],
+                      "headline-lg-mobile": ["Sora"],
+                      "body-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-lg": ["Sora"]
+              },
+              "fontSize": {
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "display": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0c1321;
+            color: #dce2f6;
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #EF4444, #F97316);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-border {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-card {
+            background: rgba(26, 34, 50, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+        .report-fab {
+            background: linear-gradient(135deg, #EF4444 0%, #F97316 100%);
+            box-shadow: 0 10px 20px -5px rgba(249, 115, 22, 0.3);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* LIGHT MODE REAL-TIME DYNAMIC STYLING OVERRIDES */
+        body.light-mode {
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+        body.light-mode .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            color: #1e293b;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+        body.light-mode .bg-surface {
+            background-color: #e2e8f0 !important;
+            color: #1e293b !important;
+        }
+        body.light-mode .bg-surface-elevated {
+            background-color: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            color: #0f172a !important;
+        }
+        body.light-mode .text-white {
+            color: #0f172a !important;
+        }
+        body.light-mode .text-on-background {
+            color: #0f172a !important;
+        }
+        body.light-mode .text-slate {
+            color: #475569 !important;
+        }
+        body.light-mode header {
+            background-color: #ffffff !important;
+            border-bottom: 1px solid #e2e8f0 !important;
+        }
+        body.light-mode nav {
+            background-color: #ffffff !important;
+            border-top: 1px solid #e2e8f0 !important;
+        }
+    </style>
+<style>
+/* Premium page transitions */
+@keyframes pageEnter { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pageExit { to { opacity:0; transform:translateY(-16px) scale(0.98); } }
+body { animation: pageEnter 0.5s cubic-bezier(0.16,1,0.3,1) both; }
+body.page-exit { animation: pageExit 0.4s cubic-bezier(0.55,0,1,0.45) forwards; }
+</style>
+<script>
+// Theme sync script to prevent flash
+const isLightMode = localStorage.getItem('netagram_light_mode') === 'true';
+if (isLightMode) {
+  document.documentElement.classList.remove('dark');
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('light-mode');
+    document.body.classList.remove('dark');
+  });
+}
+
+// Intercept all internal navigation for smooth transitions
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a[href]');
+  if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes('#')) {
+    e.preventDefault();
+    document.body.classList.add('page-exit');
+    setTimeout(function(){ window.location.href = link.href; }, 350);
+  }
+});
+// Wrap onclick navigations
+const origLocationSet = Object.getOwnPropertyDescriptor(window, 'location');
+window._smoothNav = function(url) {
+  document.body.classList.add('page-exit');
+  setTimeout(function(){ window.location.href = url; }, 350);
+};
+</script>
+</head>
+<body class="dark overflow-x-hidden" data-mode="connect">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 border-b border-white/10 bg-background flex justify-between items-center h-16 px-container-margin"><!-- Left: Menu Icon -->
+<div class="flex items-center w-24">
+</div>
+<!-- Center: Logo -->
+<div class="flex items-center justify-center flex-1">
+<a href="/community_chat/code.html">
+<img alt="Netagraph Logo" class="h-8 w-auto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRk11kY7W0TLo1vFq60CLz9sEmvtAqbgRfqPAhXwdKI1SlqaZ50xpd2uWZv85VfVdH0CVI3Ha7HO_8gkSINk2xllQVfmiaUF2EDVEMfoly-JBFxX26Mq54Jrllt1FrraR9hLqlMG8HJ6foQfxx8OsnE3Uz9bmtZuSHn9ZNpsfr26PRn-19zmBOPIs1ddY9gloWRotY7n3l-a0sOoWcyn-3B_LR2r4FFrs_smqlsrp2B_TuclKlugaZImdM42_1iFZ_pVks4d9VA8a1"/>
+</a>
+</div>
+<!-- Right: Actions -->
+<div class="flex items-center justify-end gap-4 w-24">
+<span class="material-symbols-outlined text-slate" data-icon="notifications">notifications</span>
+<a class="w-8 h-8 rounded-full bg-surface-bright border border-white/10 flex items-center justify-center overflow-hidden active:scale-95 duration-200" href="/user_profile/code.html">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="person">person</span>
+</a>
+</div></header>
+<main class="pt-20 pb-28 px-container-margin min-h-screen max-w-2xl mx-auto">
+<!-- Dashboard Greeting -->
+<section class="mb-stack-lg">
+<h1 class="text-headline-lg-mobile font-headline-lg-mobile text-on-background">Local Feed</h1>
+<p class="text-body-md font-body-md text-slate mt-1">Real-time civic reporting in your area.</p>
+</section>
+<!-- Stats Grid (Promises Tracker Card) -->
+<section class="mb-stack-lg">
+  <div onclick="_smoothNav('/civic_intelligence_hub/code.html')" class="glass-card p-5 rounded-2xl cursor-pointer hover:border-primary/40 hover:bg-white/5 active:scale-[0.98] transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.25)] border border-white/10 group">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-4">
+      <span class="text-[11px] font-bold uppercase tracking-wider text-slate group-hover:text-primary transition-colors">Track Promises In Your Area</span>
+      <div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-success/10 border border-success/20 text-success text-[10px] font-bold tracking-wide">
+        <span class="material-symbols-outlined text-[12px] font-bold" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+        <span>LIVE</span>
+      </div>
+    </div>
+    <!-- 3-Slot Grid -->
+    <div class="grid grid-cols-3 gap-3">
+      <!-- Reports slot -->
+      <div class="bg-surface/50 rounded-xl p-3 flex flex-col items-center justify-center border border-white/5 group-hover:bg-surface/70 transition-all">
+        <span class="font-display font-bold text-xl sm:text-2xl text-white">312</span>
+        <span class="text-[10px] sm:text-xs text-slate mt-1 font-semibold">Reports</span>
+      </div>
+      <!-- Verified slot -->
+      <div class="bg-surface/50 rounded-xl p-3 flex flex-col items-center justify-center border border-white/5 group-hover:bg-surface/70 transition-all">
+        <span class="font-display font-bold text-xl sm:text-2xl text-tertiary-container" style="color: #00a2f4;">184</span>
+        <span class="text-[10px] sm:text-xs text-slate mt-1 font-semibold">Verified</span>
+      </div>
+      <!-- Delivered slot -->
+      <div class="bg-surface/50 rounded-xl p-3 flex flex-col items-center justify-center border border-white/5 group-hover:bg-surface/70 transition-all">
+        <span class="font-display font-bold text-xl sm:text-2xl text-success">47</span>
+        <span class="text-[10px] sm:text-xs text-slate mt-1 font-semibold">Delivered</span>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Feed Content -->
+<div class="flex flex-col gap-gutter">
+<!-- Feed Item 1 -->
+<article class="bg-surface-elevated card-border rounded-xl overflow-hidden active:scale-[0.98] transition-transform duration-200 cursor-pointer" onclick="window.location.href='/issue_details/code.html'">
+<div class="relative h-64 w-full">
+<img class="w-full h-full object-cover" data-alt="A gritty, high-contrast photograph of a neglected urban alleyway at dusk. A large pile of industrial and household garbage overflows from rusted metal bins. The scene is lit by a flickering, cold blue streetlamp, casting long dramatic shadows. The overall aesthetic is urgent and realistic, reflecting a professional-grade civic reporting tool with deep charcoal and vibrant orange accents in the surrounding UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlXmpRyUV6he8p95RZ6eTPL5hK2FTQB0-9SqghkyOIgOUlECtBuHfIpb0OE1UByTUeeIZKmSArMvdRxayo6yNYwuUGTbZfLlV8rPE3K6F2P0zFm8Ee4P_GLALwmLTjxZxPisV0RgopGipel_lMyCVMFmLzWcy-h9ihF-mgY8ujs0hOLGGOcd-c3uhH2btJuk_GZfRE4_TW8dmNPe2Nqk8w7-fLDvVmlumrz87DPHWYpFnbl_Kr4ODzyNsoYAkaXDpTy3bnfjsa5xTW"/>
+<div class="absolute top-4 left-4">
+<span class="bg-error-container/90 text-on-error-container px-3 py-1 rounded-full text-label-sm font-label-sm flex items-center gap-1 backdrop-blur-md">
+<span class="material-symbols-outlined text-[14px]" data-icon="report">report</span>
+                            Reported
+                        </span>
+</div>
+<div class="absolute bottom-4 left-4 flex items-center gap-2 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
+<span class="material-symbols-outlined text-white text-[18px]" data-icon="location_on">location_on</span>
+<span class="text-label-sm font-label-sm text-white">Indiranagar, Block 4</span>
+</div>
+</div>
+<div class="p-stack-md">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-headline-md font-headline-md text-on-background">Illegal Garbage Dump</h3>
+<span class="text-label-sm font-label-sm text-slate">2h ago</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant mb-4">Significant buildup of medical and plastic waste near the community park entrance. Posing health risks to children.</p>
+<div class="flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-surface-elevated bg-primary-fixed-dim"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-elevated bg-secondary-fixed-dim"></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface-elevated bg-tertiary-fixed-dim"></div>
+<div class="flex items-center justify-center w-8 h-8 rounded-full border-2 border-surface-elevated bg-surface-bright text-[10px] font-bold">+24</div>
+</div>
+<button class="flex items-center gap-2 text-primary font-label-md transition-colors hover:text-action-gradient-end">
+<span class="material-symbols-outlined" data-icon="verified" data-weight="fill" style='font-variation-settings: "FILL" 1;'>verified</span>
+                            Verify Issue
+                        </button>
+</div>
+</div>
+</article>
+<!-- Feed Item 2 -->
+<article class="bg-surface-elevated card-border rounded-xl overflow-hidden active:scale-[0.98] transition-transform duration-200 cursor-pointer" onclick="window.location.href='/issue_details/code.html'">
+<div class="relative h-64 w-full">
+<img class="w-full h-full object-cover" data-alt="A professional documentary-style photograph of a broken city streetlamp leaning precariously over a dark sidewalk. The scene is illuminated by the warm, amber glow of distant city lights and a setting sun. The atmosphere is cinematic and high-stakes, emphasizing the need for civic repair. The image uses a high-contrast color palette of deep navy and bright orange, aligned with a corporate modern utility-first aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe2tEN-JgQ81BqfMBT6fOREoPDw-bGuEAae-AO68n70LmSkiqRCmAYTnHn0fKaLn1jTf5h2TIBoIjpAtrLHky6AUTIIjj3v2t5GpVr6WmdgSciXo_QBFuuoWmRs7nXEDzBxeceDkeye4C2kX-nBS4yboDt4Ssm6bx4uKuns9hGDvFa23aODsusfyRr__wo9aN_5_ZJZOb3w-ayIk4KvCYmq6Fujp-R2gjx4v1wBrm6LlIYqIgwPsLLQXBF8DQK2kz5yVH_ykElGoJN"/>
+<div class="absolute top-4 left-4">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm font-label-sm flex items-center gap-1 backdrop-blur-md">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle">check_circle</span>
+                            Verified
+                        </span>
+</div>
+<div class="absolute bottom-4 left-4 flex items-center gap-2 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
+<span class="material-symbols-outlined text-white text-[18px]" data-icon="location_on">location_on</span>
+<span class="text-label-sm font-label-sm text-white">Koramangala, 5th Main</span>
+</div>
+</div>
+<div class="p-stack-md">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-headline-md font-headline-md text-on-background">Broken Streetlight</h3>
+<span class="text-label-sm font-label-sm text-slate">5h ago</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant mb-4">Streetlight #SR-402 has been out for 3 nights. Area is completely dark and unsafe for pedestrians.</p>
+<div class="flex items-center justify-between border-t border-white/5 pt-4">
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-slate">Verified by 56 citizens</span>
+</div>
+<button class="flex items-center gap-2 text-slate font-label-md opacity-50 cursor-not-allowed">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+                            Verified
+                        </button>
+</div>
+</div>
+</article>
+<!-- Feed Item 3 (Resolved) -->
+<article class="bg-surface-elevated/40 card-border rounded-xl overflow-hidden grayscale-[0.5] cursor-pointer" onclick="window.location.href='/issue_details/code.html'">
+<div class="relative h-64 w-full">
+<img class="w-full h-full object-cover" data-alt="A clean, wide-angle shot of a newly paved urban road with crisp white traffic markings. The lighting is bright morning sun, creating a hopeful and orderly atmosphere. The setting is a bustling but clean city street, showing the success of civic intervention. The visual style is high-contrast, professional, and corporate modern, focusing on clarity and citizen empowerment through resolved public issues." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANosh1iDykvyKoEKhGQcr15W0CS3wWslLIZZvNH89IGwm69QJyuUe_Qy0Kl1iqoMIQ_9R2-eK7ja8ZOVwGydYOj6qsSV9npuuhBHN4MPgRgXGOunvm2ccmmzJufBHJ3V87kfHsXZ3GrvezgOetXbWWVfqgen0VyhFFb_be3aDIqbYH_9ss60rLicNhxYzpGx2rhv0Y6fWJtxpBc1CzsREaABPaYwo66CNKXXx8SnqaPzq-Vsl-Betb7A7JbN_E-rXLA4wr7mnb-His"/>
+<div class="absolute inset-0 bg-success/10"></div>
+<div class="absolute top-4 left-4">
+<span class="bg-success text-on-background px-3 py-1 rounded-full text-label-sm font-label-sm flex items-center gap-1 font-bold">
+<span class="material-symbols-outlined text-[14px]" data-icon="task_alt">task_alt</span>
+                            Resolved
+                        </span>
+</div>
+<div class="absolute bottom-4 left-4 flex items-center gap-2 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10">
+<span class="material-symbols-outlined text-white text-[18px]" data-icon="location_on">location_on</span>
+<span class="text-label-sm font-label-sm text-white">Whitefield, ITPL Road</span>
+</div>
+</div>
+<div class="p-stack-md opacity-80">
+<div class="flex justify-between items-start mb-2">
+<h3 class="text-headline-md font-headline-md text-on-background line-through opacity-50">Major Pothole</h3>
+<span class="text-label-sm font-label-sm text-slate">Resolved yesterday</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant mb-4">Deep pothole repaired by BBMP contractors following 120+ verifications and automated RTI escalation.</p>
+</div>
+</article>
+</div>
+</main>
+<!-- FAB -->
+<button class="report-fab fixed bottom-24 right-container-margin w-16 h-16 rounded-full flex items-center justify-center text-white z-40 active:scale-90 transition-transform duration-200" onclick="window.location.href='/unified_reports_tracking_hub/code.html'">
+<span class="material-symbols-outlined text-[32px]" data-icon="campaign" data-weight="fill" style='font-variation-settings: "FILL" 1;'>campaign</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface-container border-t border-white/10 flex justify-around items-center px-4 py-2 pb-safe shadow-lg rounded-t-xl">
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1 active:scale-90 transition-all" href="/netagram_unified_navigation_hub/code.html">
+<span class="material-symbols-outlined">dynamic_feed</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Feed</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all duration-200" href="/civic_intelligence_hub/code.html">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/unified_reports_tracking_hub/code.html">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Report</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/political_leaders/code.html">
+<span class="material-symbols-outlined">stars</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Leaders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/community_hub_unified_design/code.html">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Community</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for feedback on verification buttons
+        document.querySelectorAll('button').forEach(btn => {
+            if(btn.innerText.includes('Verify Issue')) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent card navigation
+                    this.innerHTML = `<span class="material-symbols-outlined text-success" data-icon="check_circle">check_circle</span> Verified`;
+                    this.classList.remove('text-primary');
+                    this.classList.add('text-success');
+                    this.classList.add('opacity-80');
+                    this.disabled = true;
+
+                    // Increment Karma points gamification
+                    let karma = parseInt(localStorage.getItem('netagram_karma') || '4820');
+                    karma += 10;
+                    localStorage.setItem('netagram_karma', karma);
+
+                    // Create beautiful custom reward toast
+                    const toast = document.createElement('div');
+                    toast.className = "fixed top-5 left-1/2 transform -translate-x-1/2 bg-success text-black text-xs font-bold px-4 py-2.5 rounded-full shadow-lg z-[10000] flex items-center gap-1.5 transition-all duration-300";
+                    toast.innerHTML = `<span class="material-symbols-outlined text-sm font-bold">verified</span> Issue Verified! +10 Karma! Total: ${karma.toLocaleString()} 🌟`;
+                    document.body.appendChild(toast);
+                    setTimeout(() => {
+                        toast.style.opacity = '0';
+                        setTimeout(() => toast.remove(), 400);
+                    }, 3000);
+                });
+            }
+        });
+
+        // Simple parallax-like scroll effect for the FAB
+        window.addEventListener('scroll', () => {
+            const fab = document.querySelector('.report-fab');
+            if (window.scrollY > 100) {
+                fab.style.transform = 'scale(1)';
+            } else {
+                fab.style.transform = 'scale(0.9)';
+            }
+        });
+    </script>
+</body></html>
