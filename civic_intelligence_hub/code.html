@@ -320,6 +320,55 @@ window._smoothNav = function(url) {
     </div>
     </section>
 
+    <!-- Locality Explorer & Cross-Ward Audit Panel -->
+    <section class="px-container-margin py-stack-md border-t border-white/5">
+      <div class="bg-surface-elevated rounded-2xl p-5 border border-white/10 space-y-4">
+        <div>
+          <p class="text-[10px] text-primary font-bold uppercase tracking-wider mb-0.5">Cross-Ward Auditing</p>
+          <h3 class="font-headline-md text-headline-md-mobile text-on-surface">Explore Other Localities</h3>
+          <p class="text-[11px] text-slate mt-0.5">Audit external ward complaints and pipeline logs.</p>
+        </div>
+        
+        <!-- Search & Filters -->
+        <div class="space-y-3">
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate text-[20px]">search</span>
+            <input type="text" id="locality-search-input" placeholder="Search other localities... (e.g. Bellandur)" class="w-full h-11 bg-surface-container border border-white/10 rounded-xl pl-10 pr-4 text-xs text-on-surface placeholder:text-slate focus:border-primary/50 focus:ring-0">
+          </div>
+          
+          <div class="grid grid-cols-2 gap-2">
+            <select id="locality-category" class="h-10 bg-surface-container border border-white/10 rounded-xl text-[11px] text-slate px-3 focus:border-primary/50 focus:ring-0">
+              <option value="">All Categories</option>
+              <option value="Roads">Roads</option>
+              <option value="Water">Water</option>
+              <option value="Waste Management">Waste Management</option>
+              <option value="Electricity">Electricity</option>
+            </select>
+            <select id="locality-subcategory" class="h-10 bg-surface-container border border-white/10 rounded-xl text-[11px] text-slate px-3 focus:border-primary/50 focus:ring-0">
+              <option value="">All Sub-Categories</option>
+              <option value="Potholes">Potholes</option>
+              <option value="Water Logging">Water Logging</option>
+              <option value="Garbage Pile">Garbage Pile</option>
+              <option value="Power Outage">Power Outage</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Audit Warning / Badge (Conditional) -->
+        <div id="locality-audit-warning" class="hidden p-3 bg-warning/10 border border-warning/30 rounded-xl flex items-start gap-2.5">
+          <span class="material-symbols-outlined text-warning text-[18px] shrink-0" style="font-variation-settings: 'FILL' 1;">warning</span>
+          <p class="text-[10px] text-slate leading-relaxed">
+            <strong class="text-warning">Audit-Only Mode:</strong> You are viewing <span id="current-locality-badge" class="font-bold text-on-surface">Bellandur</span>. Upvoting and posting are disabled for non-residents to preserve consensus integrity.
+          </p>
+        </div>
+
+        <!-- Search Results Container -->
+        <div id="locality-results" class="space-y-3 mt-2 max-h-[280px] overflow-y-auto pr-1">
+          <p class="text-[11px] text-slate italic text-center py-4">Search a locality to audit external grievances...</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Civic Pipeline Action (Beta Module) -->
     <section id="civic-pipeline-action" class="px-container-margin py-stack-md">
     <div class="bg-surface-container-high rounded-2xl p-6 border border-primary/20 relative overflow-hidden">
@@ -441,60 +490,6 @@ window._smoothNav = function(url) {
     </div>
     </div>
     </div>
-    </div>
-    <div class="flex bg-surface-container-low p-1 rounded-xl border border-white/5 mb-4 mt-2">
-        <button id="tab-action-rti" class="flex-1 py-2 rounded-lg text-xs font-bold transition-all bg-primary-container text-on-primary-container active:scale-[0.98]" onclick="switchActionTab('rti')">RTI Draft</button>
-        <button id="tab-action-cpgrams" class="flex-1 py-2 rounded-lg text-xs font-bold transition-all text-slate hover:text-on-surface active:scale-[0.98]" onclick="switchActionTab('cpgrams')">CPGRAMS Draft</button>
-    </div>
-
-    <!-- RTI Content -->
-    <div id="action-content-rti" class="block">
-        <p class="font-label-sm text-slate mb-2">AUTOMATED RTI DRAFT FOR COMMUNITY FAILURES</p>
-        <div class="bg-surface-dim rounded-xl p-4 font-mono text-sm text-on-surface-variant border border-white/5 mb-6">
-            <p class="mb-2 text-primary">To: The Public Information Officer</p>
-            <p class="mb-4">Subject: Inquiry regarding unresolved structural damage at Sector 14 under Right to Information Act.</p>
-            <p class="leading-relaxed opacity-80">
-                Identification ID: <span class="text-on-surface">NTG-882-X</span><br/>
-                Location Cluster: <span class="text-on-surface">Geo-tagged 28.4595, 77.0266</span><br/>
-                Failure Type: <span class="text-on-surface">Public Infrastructure Malfunction</span><br/>
-                Days Since Report: <span class="text-on-surface">14 (Critical Threshold)</span>
-            </p>
-            <p class="mt-4 border-t border-white/10 pt-4 italic">
-                "Automated data injection complete. Ready for official submission."
-            </p>
-        </div>
-    </div>
-
-    <!-- CPGRAMS Content -->
-    <div id="action-content-cpgrams" class="hidden">
-        <p class="font-label-sm text-slate mb-2">CPGRAMS GRIEVANCE REDRESSAL DRAFT</p>
-        <div class="bg-surface-dim rounded-xl p-4 font-mono text-sm text-on-surface-variant border border-white/5 mb-6">
-            <p class="mb-2 text-primary">To: Centralized Public Grievance Redress System</p>
-            <p class="mb-4">Subject: Escalation of unaddressed civic infrastructural failure at Sector 14.</p>
-            <p class="leading-relaxed opacity-80">
-                Reference ID: <span class="text-on-surface">PG-NTG-882-X</span><br/>
-                Ministry/Dept: <span class="text-on-surface">Urban Development (Local Body)</span><br/>
-                Grievance Category: <span class="text-on-surface">Delay in taking action</span><br/>
-                Supporting Evidence: <span class="text-on-surface">Attached 3 Photos & 24 Upvotes</span>
-            </p>
-            <p class="mt-4 border-t border-white/10 pt-4 italic">
-                "Automated grievance payload assembled. Ready to dispatch."
-            </p>
-        </div>
-    </div>
-    <div class="flex flex-row gap-stack-md">
-    <button class="flex-1 flex items-center justify-center gap-2 border-1.5 border-slate/50 rounded-xl py-3 hover:bg-surface-variant transition-colors active:scale-95">
-    <span class="material-symbols-outlined text-sm">content_copy</span>
-    <span class="font-label-md">Copy</span>
-    </button>
-    <button class="flex-1 flex items-center justify-center gap-2 border-1.5 border-slate/50 rounded-xl py-3 hover:bg-surface-variant transition-colors active:scale-95">
-    <span class="material-symbols-outlined text-sm">description</span>
-    <span class="font-label-md">.txt</span>
-    </button>
-    <button class="flex-[2] flex items-center justify-center gap-2 action-gradient text-white rounded-xl py-4 glow-orange active:scale-95 transition-all">
-    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">mail</span>
-    <span class="font-label-md font-bold uppercase tracking-wider">Email Officer</span>
-    </button>
     </div>
     </div>
     </section>
@@ -656,5 +651,123 @@ window._smoothNav = function(url) {
                 grid.style.backgroundPositionY = -(scrolled * 0.1) + 'px';
             }
         });
+
+        // Cross-Ward Locality Explorer Logic
+        const externalLocalityReports = [
+            {
+                locality: "Bellandur",
+                category: "Roads",
+                subcategory: "Potholes",
+                title: "Massive crater near EcoSpace Outer Ring Road",
+                description: "Huge pothole causing vehicles to swerve abruptly on the service lane, right in front of EcoSpace gates. High risk for two-wheelers.",
+                upvotes: 412,
+                status: "inProgress",
+                time: "3h ago",
+                image: "https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?auto=format&fit=crop&q=80&w=300"
+            },
+            {
+                locality: "Bellandur",
+                category: "Water",
+                subcategory: "Water Logging",
+                title: "Sewage overflow on Outer Ring Road",
+                description: "Outer Ring Road completely flooded due to storm drain blockage near Bellandur flyover. Stagnating traffic for miles.",
+                upvotes: 289,
+                status: "pending",
+                time: "5h ago",
+                image: "https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?auto=format&fit=crop&q=80&w=300"
+            },
+            {
+                locality: "Whitefield",
+                category: "Waste Management",
+                subcategory: "Garbage Pile",
+                title: "Illegal dumping on ITPL Main Road",
+                description: "Large heap of construction debris and plastic garbage piled up on the pavement opposite Prestige Shantiniketan gate.",
+                upvotes: 187,
+                status: "verified",
+                time: "1d ago",
+                image: "https://images.unsplash.com/photo-1558431382-27e303142255?auto=format&fit=crop&q=80&w=300"
+            },
+            {
+                locality: "HSR Layout",
+                category: "Electricity",
+                subcategory: "Power Outage",
+                title: "Damaged transformer in Sector 3",
+                description: "Local transformer caught fire last night, 24 houses without electricity for over 18 hours. BWSSB working nearby.",
+                upvotes: 310,
+                status: "resolved",
+                time: "12h ago",
+                image: "https://images.unsplash.com/photo-1506546332852-c6f393836d59?auto=format&fit=crop&q=80&w=300"
+            }
+        ];
+
+        const extSearchInput = document.getElementById('locality-search-input');
+        const extCatSelect = document.getElementById('locality-category');
+        const extSubcatSelect = document.getElementById('locality-subcategory');
+        const extResultsContainer = document.getElementById('locality-results');
+        const extWarningBox = document.getElementById('locality-audit-warning');
+        const extBadgeText = document.getElementById('current-locality-badge');
+
+        function renderExternalSearch() {
+            const query = extSearchInput.value.trim().toLowerCase();
+            const cat = extCatSelect.value;
+            const subcat = extSubcatSelect.value;
+
+            if (!query && !cat && !subcat) {
+                extResultsContainer.innerHTML = '<p class="text-[11px] text-slate italic text-center py-4">Search a locality to audit external grievances...</p>';
+                extWarningBox.classList.add('hidden');
+                return;
+            }
+
+            // Filter
+            const matched = externalLocalityReports.filter(r => {
+                const matchesQuery = !query || r.locality.toLowerCase().includes(query) || r.title.toLowerCase().includes(query);
+                const matchesCat = !cat || r.category === cat;
+                const matchesSubcat = !subcat || r.subcategory === subcat;
+                return matchesQuery && matchesCat && matchesSubcat;
+            });
+
+            if (matched.length === 0) {
+                extResultsContainer.innerHTML = '<p class="text-[11px] text-slate italic text-center py-8">No external reports match your filter criteria.</p>';
+                extWarningBox.classList.add('hidden');
+                return;
+            }
+
+            // Set warning badge for first matched locality
+            const currentLocality = matched[0].locality;
+            extBadgeText.textContent = currentLocality;
+            extWarningBox.classList.remove('hidden');
+
+            // Render cards with upvoting and posting disabled
+            extResultsContainer.innerHTML = matched.map(r => `
+                <div class="bg-surface-elevated rounded-xl border border-white/5 overflow-hidden flex text-left p-3 gap-3 relative transition-all duration-300 hover:border-white/10">
+                    <img src="${r.image}" class="w-20 h-20 object-cover rounded-lg shrink-0 border border-white/5">
+                    <div class="flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-0.5">
+                                <h4 class="text-xs font-bold text-on-surface leading-tight line-clamp-1">${r.title}</h4>
+                                <span class="text-[9px] text-slate font-mono font-bold">#${Math.floor(Math.random()*9000)+1000}</span>
+                            </div>
+                            <p class="text-[10px] text-slate leading-snug line-clamp-2">${r.description}</p>
+                        </div>
+                        <div class="flex items-center justify-between mt-2.5">
+                            <div class="flex items-center gap-1.5">
+                                <span class="px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-[9px] text-slate font-bold uppercase">${r.status}</span>
+                                <span class="text-[9px] text-slate">${r.time}</span>
+                            </div>
+                            <button disabled class="flex items-center gap-1 px-2.5 py-1 bg-white/5 text-slate border border-white/5 rounded-lg text-[10px] cursor-not-allowed opacity-60 group relative" title="Audit mode: Upvoting disabled outside your residency ward">
+                                <span class="material-symbols-outlined text-[12px]">thumb_up</span>
+                                <span>${r.upvotes}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        if (extSearchInput) {
+            extSearchInput.addEventListener('input', renderExternalSearch);
+            extCatSelect.addEventListener('change', renderExternalSearch);
+            extSubcatSelect.addEventListener('change', renderExternalSearch);
+        }
     </script>
 </body></html>
