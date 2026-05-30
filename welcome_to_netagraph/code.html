@@ -126,8 +126,12 @@ tailwind.config = {
 </div>
 
 <!-- BACKGROUND -->
-<div class="absolute inset-0 z-0">
-  <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBcKo1EkkKt7q0y1WJBz0UeFvOr6kmL0jNVkr2FYS8X5uIqL9zVFV8AHT7Tbd8ANjbHcG5zCR4-TeTkoRBuV8qiBt9h45t7sCWrw03O5LZvF7-awEUUoF2YC5CWrt8KYrDNMjpa18H6nkXbW9nP7tYohu-QjXWMbK5DcmhEElaw_YLb9ERQ5hb4QjN9QxQIhMENHkqPiQUTFYAFuK3aQfwIj0RiqiCP8IDt8UlJBs22lonSlvsHz5j3_WsTPd-KLKJCLqPlpZnRD8n_');"></div>
+<div class="absolute inset-0 z-0 overflow-hidden">
+  <div class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-100" id="slide-1" style="background-image: url('https://images.unsplash.com/photo-1562979314-bee7453e911c?auto=format&fit=crop&q=80&w=1200');"></div>
+  <div class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0" id="slide-2" style="background-image: url('https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&q=80&w=1200');"></div>
+  <div class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0" id="slide-3" style="background-image: url('https://images.unsplash.com/photo-1587474260584-136574528ed5?auto=format&fit=crop&q=80&w=1200');"></div>
+  <div class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0" id="slide-4" style="background-image: url('https://images.unsplash.com/photo-1558431382-27e303142255?auto=format&fit=crop&q=80&w=1200');"></div>
+  <div class="absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0" id="slide-5" style="background-image: url('https://images.unsplash.com/photo-1572445271230-a78b5944a659?auto=format&fit=crop&q=80&w=1200');"></div>
   <div class="absolute inset-0 hero-gradient-overlay"></div>
   <!-- Floating particles -->
   <div class="particle" style="left:10%;width:4px;height:4px;animation-duration:8s;animation-delay:0s;"></div>
@@ -278,5 +282,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 600);
   }, 3000);
 });
+
+// Slideshow logic for Indian cities background
+const slides = [
+  document.getElementById('slide-1'),
+  document.getElementById('slide-2'),
+  document.getElementById('slide-3'),
+  document.getElementById('slide-4'),
+  document.getElementById('slide-5')
+];
+let currentSlideIndex = 0;
+
+function nextSlide() {
+  slides[currentSlideIndex].classList.remove('opacity-100');
+  slides[currentSlideIndex].classList.add('opacity-0');
+  currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+  slides[currentSlideIndex].classList.remove('opacity-0');
+  slides[currentSlideIndex].classList.add('opacity-100');
+}
+
+setInterval(nextSlide, 4500);
 </script>
 </body></html>
