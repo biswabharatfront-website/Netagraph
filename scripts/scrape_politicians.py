@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Netagram Civic Data Ingestion Pipeline: Representative Scraper (MyNeta, ECI, Sansad)
+Netagraph Civic Data Ingestion Pipeline: Representative Scraper (MyNeta, ECI, Sansad)
 ====================================================================================
 This script scrapes official political directories, election records, and financial/legal 
-disclosures in India to populate the Netagram database.
+disclosures in India to populate the Netagraph database.
 
 Target Sites:
 1. MyNeta.info (Association for Democratic Reforms - ADR)
@@ -36,7 +36,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] (%(name)s) : %(message)s"
 )
-logger = logging.getLogger("NetagramScraper")
+logger = logging.getLogger("NetagraphScraper")
 
 # Load environment configurations
 load_dotenv()
@@ -47,9 +47,9 @@ DISCLAIMER = "Information is compiled from public sources. Users should verify l
 
 class CivicDataScraper:
     def __init__(self):
-        # Configure User-Agent headers to respect target servers and identify Netagram audit loops
+        # Configure User-Agent headers to respect target servers and identify Netagraph audit loops
         self.headers = {
-            "User-Agent": "NetagramCivicBot/1.2 (+https://netagram.org/bot; audit@netagram.org)",
+            "User-Agent": "NetagraphCivicBot/1.2 (+https://netagraph.org/bot; audit@netagraph.org)",
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
         }
         self.session = requests.Session()

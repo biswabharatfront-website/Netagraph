@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>My Reports | Netagram</title>
+    <title>My Reports | Netagraph</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -67,7 +67,7 @@
     </style>
     <script>
     // Dynamically apply native refresh rate transition speed
-    const savedHz = localStorage.getItem('netagram_refresh_rate') || '60';
+    const savedHz = localStorage.getItem('netagraph_refresh_rate') || '60';
     if (savedHz === '120') {
         document.documentElement.style.setProperty('--speed', '150ms');
     } else if (savedHz === '90') {
@@ -220,7 +220,7 @@
 
         <!-- Navigation Bar -->
         <nav class="fixed bottom-0 left-0 w-full z-50 bg-surface-container border-t border-white/10 flex justify-around items-center px-4 py-2 pb-safe shadow-lg rounded-t-xl">
-            <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/netagram_unified_navigation_hub/code.html">
+            <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/netagraph_unified_navigation_hub/code.html">
                 <span class="material-symbols-outlined">dynamic_feed</span>
                 <span class="font-label-sm text-label-sm-mobile mt-1">Feed</span>
             </a>
@@ -246,7 +246,7 @@
     <script>
         // Load dynamic Karma
         document.addEventListener('DOMContentLoaded', () => {
-            const karma = localStorage.getItem('netagram_karma') || '4820';
+            const karma = localStorage.getItem('netagraph_karma') || '4820';
             document.getElementById('karma-display').innerText = parseInt(karma).toLocaleString() + " 🌟";
         });
 

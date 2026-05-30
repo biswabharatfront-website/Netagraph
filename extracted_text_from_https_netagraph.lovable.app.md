@@ -1,6 +1,6 @@
 N
 
-Netagram
+Netagraph
 
 Civic accountability, for India
 

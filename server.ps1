@@ -1,4 +1,4 @@
-# Self-contained native PowerShell TCP Web Server for Netagram Mobile Designs Preview
+# Self-contained native PowerShell TCP Web Server for Netagraph Mobile Designs Preview
 # Hosts static pages on localhost and Wi-Fi interface (192.168.31.185:8000), streams binary media, and performs template routing.
 
 $port = 8000
@@ -8,7 +8,7 @@ $listener = New-Object System.Net.Sockets.TcpListener($localIp, $port)
 try {
     $listener.Start()
     Write-Host "==========================================================" -ForegroundColor Green
-    Write-Host "  NETAGRAM MOBILE DESIGNS HOST IS ONLINE" -ForegroundColor Green
+    Write-Host "  NETAGRAPH MOBILE DESIGNS HOST IS ONLINE" -ForegroundColor Green
     Write-Host "  Local preview URL: http://localhost:$port/" -ForegroundColor Cyan
     Write-Host "  Network IP preview URL: http://192.168.31.185:$port/" -ForegroundColor Cyan
     Write-Host "  Open these links in your browser or scan the QR Code!" -ForegroundColor Yellow
@@ -29,7 +29,7 @@ $mappings = @{
     "SCREEN_26" = "/civic_intelligence_hub/code.html"           # Labeled: "Explore"
     "SCREEN_30" = "/select_your_ward_updated_logo/code.html"
     "SCREEN_34" = "/political_leaders/code.html"                 # Labeled: "Leaders"
-    "SCREEN_35" = "/netagram_unified_navigation_hub/code.html"  # Labeled: "Feed"
+    "SCREEN_35" = "/netagraph_unified_navigation_hub/code.html"  # Labeled: "Feed"
     "SCREEN_36" = "/user_profile/code.html"                     # Labeled: "Profile Avatar"
     "SCREEN_41" = "/community_chat/code.html"                    # Labeled: "Chat"
     "SCREEN_43" = "/user_profile/code.html"                     # Labeled: "Profile Tab"

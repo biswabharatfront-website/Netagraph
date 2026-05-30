@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Netagram | File Grievance</title>
+    <title>Netagraph | File Grievance</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -300,11 +300,11 @@ window._smoothNav = function(url) {
                 return;
             }
 
-            const isOffline = localStorage.getItem('netagram_offline') === 'true';
+            const isOffline = localStorage.getItem('netagraph_offline') === 'true';
 
             if (isOffline) {
                 // Save to local draft queue
-                let drafts = JSON.parse(localStorage.getItem('netagram_offline_drafts') || '[]');
+                let drafts = JSON.parse(localStorage.getItem('netagraph_offline_drafts') || '[]');
                 drafts.push({
                     title: title,
                     desc: desc,
@@ -313,7 +313,7 @@ window._smoothNav = function(url) {
                     time: "Just now",
                     upvotes: 1
                 });
-                localStorage.setItem('netagram_offline_drafts', JSON.stringify(drafts));
+                localStorage.setItem('netagraph_offline_drafts', JSON.stringify(drafts));
                 
                 // Show custom offline dialog
                 const successTitle = document.querySelector('#success-dialog h2');

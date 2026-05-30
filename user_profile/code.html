@@ -1,7 +1,7 @@
 <!DOCTYPE html><html class="dark" lang="en"><head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
-<title>Netagram - User Profile</title>
+<title>Netagraph - User Profile</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -151,7 +151,7 @@ window._smoothNav = function(url) {
 <!-- TopAppBar -->
 <header class="fixed top-0 left-0 w-full z-50 bg-background border-b border-white/10 flex justify-between items-center h-16 px-container-margin w-full">
 <div class="flex items-center">
-<button onclick="window.location.href='/netagram_unified_navigation_hub/code.html'" class="p-2 hover:bg-white/5 rounded-full transition-colors active:scale-95 duration-200" title="Back">
+<button onclick="window.location.href='/netagraph_unified_navigation_hub/code.html'" class="p-2 hover:bg-white/5 rounded-full transition-colors active:scale-95 duration-200" title="Back">
   <span class="material-symbols-outlined text-primary">arrow_back</span>
 </button>
 </div>
@@ -303,7 +303,7 @@ window._smoothNav = function(url) {
 </button>
 <!-- BottomNavBar -->
 <nav class="fixed bottom-0 left-0 w-full z-50 bg-surface-container border-t border-white/10 flex justify-around items-center px-4 py-2 pb-safe shadow-lg rounded-t-xl">
-<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/netagram_unified_navigation_hub/code.html">
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/netagraph_unified_navigation_hub/code.html">
 <span class="material-symbols-outlined">dynamic_feed</span>
 <span class="font-label-sm text-label-sm-mobile mt-1">Feed</span>
 </a>
@@ -327,7 +327,7 @@ window._smoothNav = function(url) {
 <script>
         // Load dynamic Karma
         document.addEventListener('DOMContentLoaded', () => {
-            const karma = parseInt(localStorage.getItem('netagram_karma') || '4820');
+            const karma = parseInt(localStorage.getItem('netagraph_karma') || '4820');
             const karmaStat = document.getElementById('karma-stat-count');
             if (karmaStat) {
                 karmaStat.innerText = karma >= 1000 ? (karma/1000).toFixed(1) + 'k' : karma;
@@ -335,7 +335,7 @@ window._smoothNav = function(url) {
             }
 
             // Check resident verification state on load
-            const isVerified = localStorage.getItem('netagram_resident_verified') === 'true';
+            const isVerified = localStorage.getItem('netagraph_resident_verified') === 'true';
             if (isVerified) {
                 const badge = document.getElementById('voter-badge');
                 if (badge) {
@@ -441,8 +441,8 @@ window._smoothNav = function(url) {
                 `;
                 
                 // Save to localStorage so it syncs across mockup pages!
-                localStorage.setItem('netagram_resident_verified', 'true');
-                localStorage.setItem('netagram_karma', '4920'); // award bonus XP
+                localStorage.setItem('netagraph_resident_verified', 'true');
+                localStorage.setItem('netagraph_karma', '4920'); // award bonus XP
                 
                 // Play dynamic toast
                 showKarmaToast(`Verified Resident Status Activated! +100 Karma XP 🎉`, 'success');
@@ -470,9 +470,9 @@ window._smoothNav = function(url) {
 
         // Real-time XP awarding logic
         function awardXP(amount, actionName) {
-            let karma = parseInt(localStorage.getItem('netagram_karma') || '4820');
+            let karma = parseInt(localStorage.getItem('netagraph_karma') || '4820');
             karma += amount;
-            localStorage.setItem('netagram_karma', karma);
+            localStorage.setItem('netagraph_karma', karma);
             
             // Instantly update background stats and drawer UI
             const karmaStat = document.getElementById('karma-stat-count');
@@ -487,7 +487,7 @@ window._smoothNav = function(url) {
 
         // Update drawer visual states
         function updateDrawerUI() {
-            const karma = parseInt(localStorage.getItem('netagram_karma') || '4820');
+            const karma = parseInt(localStorage.getItem('netagraph_karma') || '4820');
             document.getElementById('drawer-karma-balance').innerText = karma.toLocaleString() + " XP";
             
             // Tier thresholds
@@ -549,7 +549,7 @@ window._smoothNav = function(url) {
 
         // Reset points for demo debugging
         function resetKarmaDemo() {
-            localStorage.setItem('netagram_karma', '4820');
+            localStorage.setItem('netagraph_karma', '4820');
             const karmaStat = document.getElementById('karma-stat-count');
             if (karmaStat) {
                 karmaStat.innerText = '4.8k';

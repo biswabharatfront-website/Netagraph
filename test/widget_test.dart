@@ -17,11 +17,11 @@ void main() {
     await tester.pumpWidget(
       ChangeNotifierProvider(
         create: (context) => CivicState(),
-        child: const NetagramApp(),
+        child: const NetagraphApp(),
       ),
     );
 
     // Verify that welcome text is shown.
-    expect(find.text('NETAGRAM'), findsOneWidget);
+    expect(find.text('NETAGRAPH'), findsOneWidget);
   });
 }

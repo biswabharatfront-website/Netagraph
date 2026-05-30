@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Netagram | Reports Hub</title>
+    <title>Netagraph | Reports Hub</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -80,7 +80,7 @@ window._smoothNav = function(url) {
         <!-- Header -->
         <header class="w-full px-container-margin py-6 flex items-center justify-between border-b border-white/5 bg-background">
             <div class="flex items-center space-x-3">
-                <button onclick="window.location.href='/netagram_unified_navigation_hub/code.html'" class="p-2 hover:bg-surface-elevated rounded-full transition-colors" title="Back">
+                <button onclick="window.location.href='/netagraph_unified_navigation_hub/code.html'" class="p-2 hover:bg-surface-elevated rounded-full transition-colors" title="Back">
                     <span class="material-symbols-outlined text-white">arrow_back</span>
                 </button>
                 <div>
@@ -186,7 +186,7 @@ window._smoothNav = function(url) {
 
         <!-- Navigation Bar overlay -->
         <nav class="fixed bottom-0 left-0 w-full z-50 bg-surface-container border-t border-white/10 flex justify-around items-center px-4 py-2 pb-safe shadow-lg rounded-t-xl">
-<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/netagram_unified_navigation_hub/code.html">
+<a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/netagraph_unified_navigation_hub/code.html">
 <span class="material-symbols-outlined">dynamic_feed</span>
 <span class="font-label-sm text-label-sm-mobile mt-1">Feed</span>
 </a>
@@ -213,7 +213,7 @@ window._smoothNav = function(url) {
     <script>
         // Check localStorage state on page load
         document.addEventListener('DOMContentLoaded', () => {
-            const isOffline = localStorage.getItem('netagram_offline') === 'true';
+            const isOffline = localStorage.getItem('netagraph_offline') === 'true';
             document.getElementById('offline-toggle').checked = isOffline;
             updateOfflineUI(isOffline);
             renderOfflineDrafts();
@@ -223,14 +223,14 @@ window._smoothNav = function(url) {
         function toggleOfflineMode() {
             const toggle = document.getElementById('offline-toggle');
             const isOffline = toggle.checked;
-            localStorage.setItem('netagram_offline', isOffline);
+            localStorage.setItem('netagraph_offline', isOffline);
             updateOfflineUI(isOffline);
             
             if (isOffline) {
                 showToast("Simulated 2G/3G network active. Offline queue enabled.", true);
             } else {
                 // If turned off, automatically trigger sync if there are pending drafts
-                const drafts = JSON.parse(localStorage.getItem('netagram_offline_drafts') || '[]');
+                const drafts = JSON.parse(localStorage.getItem('netagraph_offline_drafts') || '[]');
                 if (drafts.length > 0) {
                     triggerManualSync();
                 } else {
@@ -261,17 +261,17 @@ window._smoothNav = function(url) {
 
         // Update offline drafts queue counter
         function updateQueueCount() {
-            const drafts = JSON.parse(localStorage.getItem('netagram_offline_drafts') || '[]');
+            const drafts = JSON.parse(localStorage.getItem('netagraph_offline_drafts') || '[]');
             document.getElementById('queue-count').textContent = drafts.length;
         }
 
         // Custom Notification Toast
         function showToast(message, isOffline = false) {
-            const existingToast = document.getElementById('netagram-toast');
+            const existingToast = document.getElementById('netagraph-toast');
             if (existingToast) existingToast.remove();
 
             const toast = document.createElement('div');
-            toast.id = 'netagram-toast';
+            toast.id = 'netagraph-toast';
             toast.className = `fixed top-5 left-1/2 transform -translate-x-1/2 px-4 py-2.5 rounded-full shadow-lg z-[10000] text-xs font-bold transition-all text-center flex items-center gap-1.5 ${
                 isOffline ? 'bg-primary-container text-white border border-white/10' : 'bg-success text-black'
             }`;
@@ -288,7 +288,7 @@ window._smoothNav = function(url) {
 
         // Force Sync local drafts to database
         function triggerManualSync() {
-            const drafts = JSON.parse(localStorage.getItem('netagram_offline_drafts') || '[]');
+            const drafts = JSON.parse(localStorage.getItem('netagraph_offline_drafts') || '[]');
             if (drafts.length === 0) {
                 showToast("No pending drafts in your offline queue.");
                 return;
@@ -298,7 +298,7 @@ window._smoothNav = function(url) {
             button.innerText = "Syncing...";
             button.disabled = true;
 
-            showToast("Syncing local drafts to Netagram central ledger...");
+            showToast("Syncing local drafts to Netagraph central ledger...");
 
             setTimeout(() => {
                 // Prepend offline drafts to the feed container
@@ -327,8 +327,8 @@ window._smoothNav = function(url) {
                 });
 
                 // Clear offline drafts cache
-                localStorage.removeItem('netagram_offline_drafts');
-                localStorage.setItem('netagram_offline', 'false');
+                localStorage.removeItem('netagraph_offline_drafts');
+                localStorage.setItem('netagraph_offline', 'false');
                 
                 // Reset toggle and UI
                 document.getElementById('offline-toggle').checked = false;
@@ -350,7 +350,7 @@ window._smoothNav = function(url) {
         // Interactive Upvote Handler
         function handleUpvote(btn, e) {
             e.stopPropagation(); // Avoid card click redirect
-            const isOffline = localStorage.getItem('netagram_offline') === 'true';
+            const isOffline = localStorage.getItem('netagraph_offline') === 'true';
             
             const span = btn.querySelector('span:last-child');
             let count = parseInt(span.innerText);
@@ -361,9 +361,9 @@ window._smoothNav = function(url) {
             btn.classList.add('bg-action-gradient-start/15', 'border-action-gradient-start/30', 'text-action-gradient-end');
 
             // Increment Karma points gamification
-            let karma = parseInt(localStorage.getItem('netagram_karma') || '4820');
+            let karma = parseInt(localStorage.getItem('netagraph_karma') || '4820');
             karma += 10;
-            localStorage.setItem('netagram_karma', karma);
+            localStorage.setItem('netagraph_karma', karma);
 
             if (isOffline) {
                 showToast(`Agree cached! +10 Karma Points! Total: ${karma.toLocaleString()} 🌟`, true);

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netagraph - Admin & Moderator Portal</title>
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Google Material Icons for consistent visual language -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Supabase JS Client library via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Custom styling stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. PREMIUM GLASSMORPHIC LOGIN CONTAINER -->
+    <div id="login-container" class="login-wrapper">
+        <div class="login-glow-bg"></div>
+        <div class="login-card">
+            <div class="brand-header">
+                <span class="material-icons brand-icon">gavel</span>
+                <h1>NETAGRAPH</h1>
+                <p class="brand-tagline">CIVIC SECURITY & MODERATION HUB</p>
+            </div>
+            
+            <div id="login-error" class="error-banner" style="display: none;">
+                <span class="material-icons">error_outline</span>
+                <span id="error-message">Invalid credentials or authorization level.</span>
+            </div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">Moderator Email</label>
+                    <div class="input-wrapper">
+                        <span class="material-icons">mail_outline</span>
+                        <input type="email" id="email" placeholder="admin@netagraph.org" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <span class="material-icons">lock_outline</span>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                    </div>
+                </div>
+                
+                <button type="submit" id="btn-login" class="btn btn-primary btn-full">
+                    <span>Secure Sign In</span>
+                    <span class="material-icons">verified_user</span>
+                </button>
+            </form>
+            
+            <div class="divider">
+                <span>OR</span>
+            </div>
+            
+            <button id="btn-bypass" class="btn btn-secondary btn-full">
+                <span>Developer Test Bypass</span>
+                <span class="material-icons">bolt</span>
+            </button>
+            
+            <p class="login-footer">Protected by secure decentralized residency consensus ledger.</p>
+        </div>
+    </div>
+
+    <!-- 2. MAIN HUB INTERFACE -->
+    <div id="dashboard-container" class="dashboard-wrapper" style="display: none;">
+        
+        <!-- SIDEBAR NAVIGATION -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <span class="material-icons brand-icon-small">gavel</span>
+                <h2>NETAGRAPH</h2>
+                <span class="badge-role">ADMIN</span>
+            </div>
+            
+            <div class="profile-widget">
+                <img id="user-avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150" alt="Avatar" class="avatar">
+                <div class="profile-info">
+                    <h4 id="user-name">Basar Sen</h4>
+                    <p id="user-role">Lead Auditor</p>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active" data-target="overview">
+                        <span class="material-icons">dashboard</span>
+                        <span>Overview</span>
+                    </li>
+                    <li class="nav-item" data-target="flags">
+                        <span class="material-icons">outlined_flag</span>
+                        <span>Suspicious Flags</span>
+                        <span id="badge-flags-count" class="badge badge-warning">0</span>
+                    </li>
+                    <li class="nav-item" data-target="grievances">
+                        <span class="material-icons">assignment</span>
+                        <span>Grievance Audits</span>
+                    </li>
+                    <li class="nav-item" data-target="politicians">
+                        <span class="material-icons">account_balance</span>
+                        <span>Politicians</span>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="btn-logout" class="btn btn-danger btn-full">
+                    <span>Log Out</span>
+                    <span class="material-icons">power_settings_new</span>
+                </button>
+            </div>
+        </aside>
+        
+        <!-- MAIN PANEL CONTENTS -->
+        <main class="main-content">
+            
+            <!-- A. OVERVIEW PANEL -->
+            <section id="panel-overview" class="dashboard-panel active">
+                <div class="panel-header">
+                    <div>
+                        <p class="panel-subtitle">CIVIC INTELLIGENCE REAL-TIME FEED</p>
+                        <h1>Command Dashboard</h1>
+                    </div>
+                    <div class="time-widget">
+                        <span class="material-icons">schedule</span>
+                        <span id="current-time">May 30, 2026</span>
+                    </div>
+                </div>
+                
+                <!-- Stat Cards Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon icon-red">
+                            <span class="material-icons">warning</span>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Pending Flags</h3>
+                            <p id="stat-pending-flags">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon icon-green">
+                            <span class="material-icons">check_circle</span>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Resolved Issues</h3>
+                            <p id="stat-resolved-reports">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon icon-blue">
+                            <span class="material-icons">assignment_turned_in</span>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Active Grievances</h3>
+                            <p id="stat-active-reports">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon icon-yellow">
+                            <span class="material-icons">star</span>
+                        </div>
+                        <div class="stat-details">
+                            <h3>MLA Accountability</h3>
+                            <p id="stat-mla-score">68.0%</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Overview Layout -->
+                <div class="overview-layout">
+                    <!-- Recent Reports Feed -->
+                    <div class="table-container glass-card">
+                        <div class="card-header">
+                            <h2>Recent Grievance Submissions</h2>
+                            <button class="btn btn-outline btn-small" onclick="switchTab('grievances')">View All</button>
+                        </div>
+                        <div class="table-scroll">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Grievance ID</th>
+                                        <th>Title</th>
+                                        <th>Category</th>
+                                        <th>Status</th>
+                                        <th>GPS/EXIF</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-recent-grievances">
+                                    <!-- Populated dynamically -->
+                                    <tr>
+                                        <td colspan="6" class="text-center">Hydrating secure consensus ledger...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Suspicious Flags Log (mini-view) -->
+                    <div class="sidebar-card glass-card">
+                        <div class="card-header">
+                            <h2>Latest Security Logs</h2>
+                        </div>
+                        <ul id="list-security-logs" class="security-logs-list">
+                            <!-- Populated dynamically -->
+                            <li class="empty-state">No security incidents flagged today.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- B. FLAGS PANEL -->
+            <section id="panel-flags" class="dashboard-panel">
+                <div class="panel-header">
+                    <div>
+                        <p class="panel-subtitle">COORDINATED INAUTHENTIC BEHAVIOR AUDITING</p>
+                        <h1>Suspicious Activity Flags</h1>
+                    </div>
+                </div>
+                
+                <div id="flags-grid" class="flags-grid">
+                    <!-- Hydrated dynamically -->
+                    <div class="empty-state-large glass-card">
+                        <span class="material-icons md-48">outlined_flag</span>
+                        <h3>Clean Security Ledger</h3>
+                        <p>No reports currently flagged for coordinated spam or text similarity overlaps.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- C. GRIEVANCE PANEL -->
+            <section id="panel-grievances" class="dashboard-panel">
+                <div class="panel-header">
+                    <div>
+                        <p class="panel-subtitle">MUNICIPAL TICKET DISPATCH & VERIFICATION</p>
+                        <h1>Civic Grievance Audits</h1>
+                    </div>
+                </div>
+                
+                <div class="filter-bar glass-card">
+                    <div class="search-input">
+                        <span class="material-icons">search</span>
+                        <input type="text" id="grievance-search" placeholder="Search title, description, ID...">
+                    </div>
+                    <div class="filters-row">
+                        <select id="filter-category">
+                            <option value="All">All Categories</option>
+                            <option value="Roads">Roads</option>
+                            <option value="Water">Water</option>
+                            <option value="Waste Management">Waste Management</option>
+                            <option value="Electricity">Electricity</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <select id="filter-status">
+                            <option value="All">All Statuses</option>
+                            <option value="pending">Pending</option>
+                            <option value="verified">Verified</option>
+                            <option value="inProgress">In Progress</option>
+                            <option value="resolved">Resolved</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="table-container glass-card">
+                    <div class="table-scroll">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Details</th>
+                                    <th>Category</th>
+                                    <th>Submitted</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-all-grievances">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- D. POLITICIANS PANEL -->
+            <section id="panel-politicians" class="dashboard-panel">
+                <div class="panel-header">
+                    <div>
+                        <p class="panel-subtitle">MLA & COUNCILLOR ACCOUNTABILITY MATRIX</p>
+                        <h1>Political Leaders & Promises</h1>
+                    </div>
+                </div>
+                
+                <div id="politicians-grid" class="politicians-grid">
+                    <!-- Populated dynamically -->
+                </div>
+            </section>
+            
+        </main>
+    </div>
+
+    <!-- 3. INTERACTIVE DISPATCH & EDIT DRAWERS (MODALS) -->
+    
+    <!-- Grievance Audit Drawer -->
+    <div id="drawer-audit" class="drawer-wrapper">
+        <div class="drawer-overlay" onclick="closeDrawer('drawer-audit')"></div>
+        <div class="drawer-content glass-card">
+            <div class="drawer-header">
+                <h2>Grievance Verification Audit</h2>
+                <button class="btn-close" onclick="closeDrawer('drawer-audit')">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            
+            <div class="drawer-scroll">
+                <div class="audit-img-container">
+                    <img id="audit-report-img" src="" alt="Reported Image">
+                </div>
+                
+                <div class="audit-section">
+                    <h3 id="audit-report-title">Road surface completely ruined</h3>
+                    <p id="audit-report-desc" class="audit-desc">Crater size potholes...</p>
+                </div>
+                
+                <div class="audit-meta-grid">
+                    <div class="meta-item">
+                        <span class="meta-label">Category</span>
+                        <span id="audit-report-cat" class="meta-val">Roads</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Reporter</span>
+                        <span id="audit-report-user" class="meta-val">Ananya Hegde</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Date Submitted</span>
+                        <span id="audit-report-date" class="meta-val">May 29, 2026</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Location</span>
+                        <span id="audit-report-loc" class="meta-val">Varthur petrol pump</span>
+                    </div>
+                </div>
+                
+                <!-- LEDGER AUTH VERIFICATION FLAGS -->
+                <div class="ledger-box">
+                    <h4>Ledger Stamped Verification</h4>
+                    <div class="ledger-ticks">
+                        <div class="tick-item">
+                            <span id="tick-gps" class="material-icons tick-green">check_circle</span>
+                            <span>GPS coordinate match</span>
+                        </div>
+                        <div class="tick-item">
+                            <span id="tick-exif" class="material-icons tick-green">check_circle</span>
+                            <span>EXIF metadata match</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- RESOLUTION MODERATION DISPATCH FORM -->
+                <form id="audit-dispatch-form" class="audit-form">
+                    <input type="hidden" id="audit-report-id">
+                    
+                    <div class="form-group">
+                        <label for="audit-status">Resolution Status</label>
+                        <select id="audit-status">
+                            <option value="pending">Pending Review</option>
+                            <option value="verified">Verified Consensus</option>
+                            <option value="inProgress">Assigned & In Progress</option>
+                            <option value="resolved">Resolved & Stamped</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="audit-dept">Assign Municipal Department</label>
+                        <input type="text" id="audit-dept" placeholder="PWD Roads division, BWSSB Solid Waste, BBMP...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="audit-note">Official Department Note</label>
+                        <textarea id="audit-note" placeholder="Write verification logs or official notes regarding repair timelines..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span>Dispatch Updates</span>
+                        <span class="material-icons">send</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Politician Performance Scorecard Edit Drawer -->
+    <div id="drawer-politician" class="drawer-wrapper">
+        <div class="drawer-overlay" onclick="closeDrawer('drawer-politician')"></div>
+        <div class="drawer-content glass-card">
+            <div class="drawer-header">
+                <h2>Leader Performance Scorecard</h2>
+                <button class="btn-close" onclick="closeDrawer('drawer-politician')">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            
+            <div class="drawer-scroll">
+                <div class="politician-header-card">
+                    <img id="score-leader-img" src="" alt="Politician" class="leader-avatar-medium">
+                    <div>
+                        <h3 id="score-leader-name">Rajesh Varma</h3>
+                        <p id="score-leader-pos">MLA (Mahadevapura)</p>
+                    </div>
+                </div>
+                
+                <form id="scorecard-edit-form" class="audit-form">
+                    <input type="hidden" id="score-leader-id">
+                    
+                    <div class="form-group">
+                        <label for="score-accountability">Accountability Score (0-100%)</label>
+                        <input type="number" id="score-accountability" min="0" max="100" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="score-promises">Promises Kept Rate (0-100%)</label>
+                        <input type="number" id="score-promises" min="0" max="100" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="score-response">Response Rate (0-100%)</label>
+                        <input type="number" id="score-response" min="0" max="100" required>
+                    </div>
+                    
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label for="score-total">Total Reports</label>
+                            <input type="number" id="score-total" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="score-resolved">Resolved Reports</label>
+                            <input type="number" id="score-resolved" min="0" required>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span>Save Scorecard changes</span>
+                        <span class="material-icons">save</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load interactivity scripting after DOM structure is initialized -->
+    <script src="app.js"></script>
+</body>
+</html>

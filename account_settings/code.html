@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Account Settings | Netagram</title>
+    <title>Account Settings | Netagraph</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -124,7 +124,7 @@
     </style>
     <script>
     // Dynamically apply native refresh rate transition speed
-    const savedHz = localStorage.getItem('netagram_refresh_rate') || '60';
+    const savedHz = localStorage.getItem('netagraph_refresh_rate') || '60';
     if (savedHz === '120') {
         document.documentElement.style.setProperty('--speed', '150ms');
     } else if (savedHz === '90') {
@@ -595,7 +595,7 @@
                     <button onclick="alert('App Store redirection simulated!')" class="h-11 bg-surface hover:bg-surface-elevated border border-white/5 rounded-xl text-white flex items-center justify-center gap-1.5">
                         <span class="material-symbols-outlined text-sm text-primary">star</span> Rate App
                     </button>
-                    <button onclick="alert('Copied app referral link: netagram.app/download')" class="h-11 bg-surface hover:bg-surface-elevated border border-white/5 rounded-xl text-white flex items-center justify-center gap-1.5">
+                    <button onclick="alert('Copied app referral link: netagraph.app/download')" class="h-11 bg-surface hover:bg-surface-elevated border border-white/5 rounded-xl text-white flex items-center justify-center gap-1.5">
                         <span class="material-symbols-outlined text-sm text-primary">share</span> Share Neta App
                     </button>
                 </div>
@@ -629,7 +629,7 @@
 
         <!-- Bottom Navigation Bar -->
         <nav class="fixed bottom-0 left-0 w-full z-50 bg-surface-container border-t border-white/10 flex justify-around items-center px-4 py-2 pb-safe shadow-lg rounded-t-xl transition-colors duration-300">
-            <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/netagram_unified_navigation_hub/code.html">
+            <a class="flex flex-col items-center justify-center text-slate hover:text-primary transition-all" href="/netagraph_unified_navigation_hub/code.html">
                 <span class="material-symbols-outlined">dynamic_feed</span>
                 <span class="font-label-sm text-label-sm-mobile mt-1">Feed</span>
             </a>
@@ -656,11 +656,11 @@
         // Init States
         document.addEventListener('DOMContentLoaded', () => {
             // HZ Selector Button Highlights
-            const rate = localStorage.getItem('netagram_refresh_rate') || '60';
+            const rate = localStorage.getItem('netagraph_refresh_rate') || '60';
             setButtonActive(rate);
 
             // Set dynamic theme status on load
-            const isLight = localStorage.getItem('netagram_light_mode') === 'true';
+            const isLight = localStorage.getItem('netagraph_light_mode') === 'true';
             document.getElementById('theme-toggle').checked = isLight;
             if (isLight) {
                 document.body.classList.add('light-mode');
@@ -671,7 +671,7 @@
 
         // Set Native Refresh Rate
         function setRefreshRate(rate) {
-            localStorage.setItem('netagram_refresh_rate', rate);
+            localStorage.setItem('netagraph_refresh_rate', rate);
             setButtonActive(rate);
             
             // Interactively modify CSS transitions instantly
@@ -717,7 +717,7 @@
         function toggleLightMode() {
             const toggle = document.getElementById('theme-toggle');
             const isLight = toggle.checked;
-            localStorage.setItem('netagram_light_mode', isLight);
+            localStorage.setItem('netagraph_light_mode', isLight);
 
             const backIcon = document.getElementById('header-back-icon');
             if (isLight) {
@@ -823,13 +823,13 @@
                 showToast('Scheduling account database record deletions (DPDP/GDPR compliant)...', 'error');
                 setTimeout(() => {
                     localStorage.clear();
-                    window.location.href = '/netagram_unified_navigation_hub/code.html';
+                    window.location.href = '/netagraph_unified_navigation_hub/code.html';
                 }, 2000);
             }
         }
 
         function applyCivicVerifier() {
-            const karma = parseInt(localStorage.getItem('netagram_karma') || '4820');
+            const karma = parseInt(localStorage.getItem('netagraph_karma') || '4820');
             if (karma < 5000) {
                 alert(`APPLICATION DENIED: \n\nCivic verifier eligibility requires 5,000+ Karma XP. Your current balance is ${karma.toLocaleString()} XP. Please verify more local potholes or cleanups to reach Tier 5!`);
             } else {
@@ -859,15 +859,15 @@
 
         // Clear Local Cache
         function clearLocalCache() {
-            localStorage.removeItem('netagram_offline_drafts');
+            localStorage.removeItem('netagraph_offline_drafts');
             showToast('Local application cache cleared!', 'success');
         }
 
         // Factory Reset Demo
         function resetAppDemo() {
             localStorage.clear();
-            localStorage.setItem('netagram_karma', '4820');
-            localStorage.setItem('netagram_refresh_rate', '60');
+            localStorage.setItem('netagraph_karma', '4820');
+            localStorage.setItem('netagraph_refresh_rate', '60');
             setRefreshRate('60');
             document.getElementById('theme-toggle').checked = false;
             document.body.classList.remove('light-mode');
