@@ -130,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(width: 12),
                   Text(
-                    'Netagram',
+                    'Netagraph',
                     style: GoogleFonts.sora(
                       fontSize: 18,
                       fontWeight: FontWeight.w800,

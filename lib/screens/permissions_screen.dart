@@ -88,7 +88,7 @@ class _PermissionsScreenState extends State<PermissionsScreen> {
               const SizedBox(height: 10),
               
               Text(
-                'Netagram is a decentralized reporting application. Your information is securely stored locally and only transmitted when you choose to log a verified grievance.',
+                'Netagraph flutter app is a decentralized reporting application. Your information is securely stored locally and only transmitted when you choose to log a verified grievance.',
                 style: GoogleFonts.inter(
                   fontSize: 15,
                   height: 1.5,

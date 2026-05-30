@@ -108,7 +108,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
               const SizedBox(height: 48),
               
               Text(
-                'Syncing Netagram Hub',
+                'Syncing Netagraph Hub',
                 style: GoogleFonts.sora(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,

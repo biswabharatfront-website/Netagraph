@@ -17,7 +17,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     OnboardingData(
       icon: Icons.verified_user_outlined,
       title: "Verifiable Evidence",
-      description: "No more rumors or claims. Netagram runs on geo-stamped photos, OTP-verified citizen signatures, and expert volunteer audits to ensure every complaint is bulletproof.",
+      description: "No more rumors or claims. Netagraph runs on geo-stamped photos, OTP-verified citizen signatures, and expert volunteer audits to ensure every complaint is bulletproof.",
       image: "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&q=80&w=600",
     ),
     OnboardingData(
@@ -29,7 +29,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     OnboardingData(
       icon: Icons.auto_awesome_outlined,
       title: "Collective Escalation",
-      description: "If an issue remains unresolved, Netagram automatically escalates it by filing public RTI requests and registering complaints directly on the official central CPGRAMS portal.",
+      description: "If an issue remains unresolved, Netagraph automatically escalates it by filing public RTI requests and registering complaints directly on the official central CPGRAMS portal.",
       image: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&q=80&w=600",
     ),
   ];

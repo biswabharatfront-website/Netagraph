@@ -47,9 +47,9 @@ class WelcomeScreen extends StatelessWidget {
                         onPressed: () {},
                         icon: const Icon(Icons.menu, color: VanguardTheme.onSurface),
                       ),
-                      // Netagram Title in Sora Font
+                      // Netagraph Title in Sora Font
                       Text(
-                        'NETAGRAM',
+                        'NETAGRAPH',
                         style: GoogleFonts.sora(
                           fontSize: 22,
                           fontWeight: FontWeight.w800,

@@ -28,23 +28,27 @@ import 'screens/events_screen.dart';
 import 'screens/add_announcement.dart';
 import 'screens/add_discussion.dart';
 import 'screens/community_chat_screen.dart';
+import 'config/supabase_config.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SupabaseConfig.initialize();
+  
   runApp(
     ChangeNotifierProvider(
       create: (context) => CivicState(),
-      child: const NetagramApp(),
+      child: const NetagraphApp(),
     ),
   );
 }
 
-class NetagramApp extends StatelessWidget {
-  const NetagramApp({super.key});
+class NetagraphApp extends StatelessWidget {
+  const NetagraphApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Netagram - Citizen Voice Portal',
+      title: 'Netagraph - Citizen Voice Portal',
       theme: VanguardTheme.darkTheme,
       debugShowCheckedModeBanner: false,
       initialRoute: '/',

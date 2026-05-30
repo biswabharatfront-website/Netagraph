@@ -510,7 +510,7 @@ class _IssueDetailsScreenState extends State<IssueDetailsScreen> {
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  'At 250 escalates, Netagram auto-triggers CPGRAMS dispatch.',
+                                  'At 250 escalates, Netagraph auto-triggers CPGRAMS dispatch.',
                                   style: GoogleFonts.inter(fontSize: 11, color: VanguardTheme.slate),
                                 ),
                               ],

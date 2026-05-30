@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:intl/intl.dart';
+import '../services/supabase_service.dart';
 
 // User Model
 class CivicUser {
@@ -448,6 +451,48 @@ class CivicEvent {
 
 // Core App State Management Provider
 class CivicState extends ChangeNotifier {
+  CivicState() {
+    _syncSupabase();
+  }
+
+  Future<void> _syncSupabase() async {
+    final userProfile = await SupabaseService.initializeSession();
+    if (userProfile != null) {
+      currentUser = userProfile;
+      notifyListeners();
+    }
+    await syncData();
+  }
+
+  Future<void> syncData() async {
+    final fetchedPoliticians = await SupabaseService.fetchPoliticians();
+    if (fetchedPoliticians.isNotEmpty) {
+      politicians.clear();
+      politicians.addAll(fetchedPoliticians);
+    }
+    final fetchedIssues = await SupabaseService.fetchIssues();
+    if (fetchedIssues.isNotEmpty) {
+      issues.clear();
+      issues.addAll(fetchedIssues);
+    }
+    final fetchedDiscussions = await SupabaseService.fetchDiscussions();
+    if (fetchedDiscussions.isNotEmpty) {
+      discussions.clear();
+      discussions.addAll(fetchedDiscussions);
+    }
+    final fetchedAnnouncements = await SupabaseService.fetchAnnouncements();
+    if (fetchedAnnouncements.isNotEmpty) {
+      announcements.clear();
+      announcements.addAll(fetchedAnnouncements);
+    }
+    final fetchedEvents = await SupabaseService.fetchEvents();
+    if (fetchedEvents.isNotEmpty) {
+      events.clear();
+      events.addAll(fetchedEvents);
+    }
+    notifyListeners();
+  }
+
   // Current user configuration
   CivicUser currentUser = CivicUser(
     id: "user_007",
@@ -1114,7 +1159,7 @@ class CivicState extends ChangeNotifier {
     CommunityDiscussion(
       id: "disc_001",
       title: "Monsoon Preparedness: How prepared is Varthur?",
-      content: "With heavy pre-monsoon showers causing localized flooding already, let's discuss our actions. We should form a resident volunteer grid to keep check of storm-water drain clogs and alert BBMP directly using our Netagram dashboards.",
+      content: "With heavy pre-monsoon showers causing localized flooding already, let's discuss our actions. We should form a resident volunteer grid to keep check of storm-water drain clogs and alert BBMP directly using our Netagraph dashboards.",
       authorName: "Devanand K.",
       authorRole: "Volunteer",
       timeAgo: "4 hours ago",
@@ -1165,7 +1210,7 @@ class CivicState extends ChangeNotifier {
     CivicEvent(
       id: "event_001",
       title: "Ward 142 Open Grievance Assembly",
-      description: "A direct face-to-face townhall session where MLA Rajesh Varma and BBMP ward officers will address citizen complaints registered on Netagram. Submit your top questions before RSVPing.",
+      description: "A direct face-to-face townhall session where MLA Rajesh Varma and BBMP ward officers will address citizen complaints registered on Netagraph. Submit your top questions before RSVPing.",
       dateText: "June 2, 2026",
       timeText: "10:00 AM - 1:00 PM",
       locationText: "Varthur Ward Office Community Hall",
@@ -1208,13 +1253,13 @@ class CivicState extends ChangeNotifier {
   }
 
   // Reporting interactive operations
-  void addIssue({
+  Future<void> addIssue({
     required String title,
     required String description,
     required String category,
     required String locationName,
     required String imageFilePath,
-  }) {
+  }) async {
     // 1. Rate Limiting Check
     if (getHourlySubmissionCount() >= 3) {
       suspiciousFlags.insert(0, SuspiciousActivityFlag(
@@ -1230,101 +1275,58 @@ class CivicState extends ChangeNotifier {
     }
     _submissionTimestamps.add(DateTime.now());
 
-    final issueId = "issue_${DateTime.now().millisecondsSinceEpoch}";
-    final mockIpHash = "f5a709b110de7c68832a8ba76eef5a0928ba7f96cfb2ba73ee6f1c7d2c3be992"; // Simulated SHA-256 IP hash
-    
-    // EXIF metadata parsing mockup
-    final newIssue = CivicIssue(
-      id: issueId,
+    final success = await SupabaseService.addIssue(
       title: title,
       description: description,
       category: category,
-      latitude: 12.9420, // Mock current ward center
-      longitude: 77.7440,
       locationName: locationName,
-      imageUrl: imageFilePath.isNotEmpty ? imageFilePath : "https://lh3.googleusercontent.com/aida-public/AB6AXuBcKo1EkkKt7q0y1WJBz0UeFvOr6kmL0jNVkr2FYS8X5uIqL9zVFV8AHT7Tbd8ANjbHcG5zCR4-TeTkoRBuV8qiBt9h45t7sCWrw03O5LZvF7-awEUUoF2YC5CWrt8KYrDNMjpa18H6nkXbW9nP7tYohu-QjXWMbK5DcmhEElaw_YLb9ERQ5hb4QjN9QxQIhMENHkqPiQUTFYAFuK3aQfwIj0RiqiCP8IDt8UlJBs22lonSlvsHz5j3_WsTPd-KLKJCLqPlpZnRD8n_",
+      imageFilePath: imageFilePath,
       reporterName: currentUser.name,
-      timeAgo: "Just now",
-      dateFiled: DateTime.now(),
-      status: IssueStatus.pending,
-      upvotes: 1,
-      comments: [],
-      timelineLogs: [
-        "Reported by ${currentUser.name} — Just now",
-        "GPS Verification Success: Ward 142 Boundary match verified.",
-        "EXIF Verification Success: Verified camera OnePlus 11 5G geostamp.",
-        "Pending civic OTP & community consensus."
-      ],
-      ipAddressHash: mockIpHash,
-      deviceFingerprint: "device_fingerprint_7f8ba39a",
-      locationArea: "Ward 142 - Varthur",
-      gpsVerified: true,
-      exifVerified: true,
-      exifCamera: "OnePlus 11 5G",
-      exifTimestamp: DateTime.now().toIso8601String(),
+      userId: currentUser.id,
     );
 
-    issues.insert(0, newIssue);
+    if (success) {
+      await _syncSupabase();
+    } else {
+      // Fallback locally in memory if database insert fails (e.g. offline)
+      final issueId = "issue_${DateTime.now().millisecondsSinceEpoch}";
+      final mockIpHash = "f5a709b110de7c68832a8ba76eef5a0928ba7f96cfb2ba73ee6f1c7d2c3be992";
+      final newIssue = CivicIssue(
+        id: issueId,
+        title: title,
+        description: description,
+        category: category,
+        latitude: 12.9420,
+        longitude: 77.7440,
+        locationName: locationName,
+        imageUrl: imageFilePath.isNotEmpty ? imageFilePath : "https://images.unsplash.com/photo-1597223557154-721c1cecc4b0?auto=format&fit=crop&q=80&w=400",
+        reporterName: currentUser.name,
+        timeAgo: "Just now",
+        dateFiled: DateTime.now(),
+        status: IssueStatus.pending,
+        upvotes: 1,
+        comments: [],
+        timelineLogs: [
+          "Reported by ${currentUser.name} — Just now",
+          "GPS Verification Success: Ward 142 Boundary match verified.",
+          "EXIF Verification Success: Verified camera OnePlus 11 5G geostamp.",
+          "Pending civic OTP & community consensus."
+        ],
+        ipAddressHash: mockIpHash,
+        deviceFingerprint: "device_fingerprint_7f8ba39a",
+        locationArea: "Ward 142 - Varthur",
+        gpsVerified: true,
+        exifVerified: true,
+        exifCamera: "OnePlus 11 5G",
+        exifTimestamp: DateTime.now().toIso8601String(),
+      );
 
-    // Simulated Server Function: detect_suspicious_activity(...)
-    // Check C: Text Similarity / Duplicate (Category and word overlaps)
-    final duplicateCount = issues.where((e) =>
-        e.id != issueId &&
-        e.category == category &&
-        (e.title.toLowerCase().contains(title.toLowerCase()) || 
-         title.toLowerCase().contains(e.title.toLowerCase()))
-    ).length;
-
-    if (duplicateCount > 0) {
-      suspiciousFlags.insert(0, SuspiciousActivityFlag(
-        id: "flag_auto_${DateTime.now().millisecondsSinceEpoch}",
-        reportId: issueId,
-        flagType: 'text_similarity',
-        reason: 'Text Similarity Alert. Found recent duplicate report matching title/description with >80% similarity threshold.',
-        severity: 1,
-        notes: 'System Rule trigger simulation.',
-        createdAt: DateTime.now(),
-      ));
+      issues.insert(0, newIssue);
+      notifyListeners();
     }
-
-    // Check A: IP range burst
-    final ipCount = issues.where((e) => e.ipAddressHash == mockIpHash).length;
-    if (ipCount > 5) {
-      suspiciousFlags.insert(0, SuspiciousActivityFlag(
-        id: "flag_auto_${DateTime.now().millisecondsSinceEpoch}",
-        reportId: issueId,
-        flagType: 'ip_burst',
-        reason: 'Coordinated IP Burst detected. $ipCount reports submitted from the same hashed IP in the last 2 hours.',
-        severity: 3,
-        notes: 'System Rule trigger simulation.',
-        createdAt: DateTime.now(),
-      ));
-    }
-    
-    // Increment User Contribution count
-    currentUser = CivicUser(
-      id: currentUser.id,
-      name: currentUser.name,
-      phone: currentUser.phone,
-      avatarUrl: currentUser.avatarUrl,
-      wardName: currentUser.wardName,
-      locationText: currentUser.locationText,
-      reportsFiled: currentUser.reportsFiled + 1,
-      contributionsCount: currentUser.contributionsCount + 1,
-      activeScore: currentUser.activeScore + 50, // 50 points per report!
-      badges: currentUser.badges,
-      reputationScore: currentUser.reputationScore,
-      reputationLevel: currentUser.reputationLevel,
-      isResidentVerified: currentUser.isResidentVerified,
-      residentVerificationStatus: currentUser.residentVerificationStatus,
-      uploadedDocType: currentUser.uploadedDocType,
-      uploadedDocUrl: currentUser.uploadedDocUrl,
-    );
-
-    notifyListeners();
   }
 
-  void toggleUpvoteIssue(String issueId) {
+  Future<void> toggleUpvoteIssue(String issueId) async {
     // 2. Anti-Spam Upvote Monitor / CAPTCHA
     final now = DateTime.now();
     if (_lastUpvoteTime != null && now.difference(_lastUpvoteTime!).inSeconds < 2) {
@@ -1343,203 +1345,92 @@ class CivicState extends ChangeNotifier {
     if (index != -1) {
       final issue = issues[index];
       
-      // 3. Resident Voting Power multiplier (3x weight!)
-      final int voteWeight = currentUser.isResidentVerified ? 3 : 1;
-
-      if (issue.isUpvoted) {
-        issue.upvotes = math.max(0, issue.upvotes - voteWeight);
-        issue.isUpvoted = false;
-      } else {
-        issue.upvotes += voteWeight;
-        issue.isUpvoted = true;
-
-        // 4. Brigading / Coordinated Inauthentic Behavior (CIB) detection
-        if (issue.upvotes > 20) {
-          suspiciousFlags.insert(0, SuspiciousActivityFlag(
-            id: "flag_cib_${DateTime.now().millisecondsSinceEpoch}",
-            reportId: issueId,
-            flagType: 'coordinated',
-            reason: 'Brigading Alert: Coordinated Inauthentic Behavior (CIB) upvote burst detected. Spurt exceeds 15 upvotes per minute.',
-            severity: 3,
-            notes: 'Automated astroturfing burst detection rules triggered.',
-            createdAt: now,
-          ));
-        }
-        
-        // Award user civic points
-        currentUser = CivicUser(
-          id: currentUser.id,
-          name: currentUser.name,
-          phone: currentUser.phone,
-          avatarUrl: currentUser.avatarUrl,
-          wardName: currentUser.wardName,
-          locationText: currentUser.locationText,
-          reportsFiled: currentUser.reportsFiled,
-          contributionsCount: currentUser.contributionsCount + 1,
-          activeScore: currentUser.activeScore + 5, // 5 points per escalation!
-          badges: currentUser.badges,
-          reputationScore: currentUser.reputationScore,
-          reputationLevel: currentUser.reputationLevel,
-          isResidentVerified: currentUser.isResidentVerified,
-          residentVerificationStatus: currentUser.residentVerificationStatus,
-          uploadedDocType: currentUser.uploadedDocType,
-          uploadedDocUrl: currentUser.uploadedDocUrl,
-        );
-      }
-      notifyListeners();
+      // Perform database toggle
+      await SupabaseService.toggleUpvoteIssue(issue, currentUser);
+      
+      // Refresh database records
+      await _syncSupabase();
     }
   }
 
-  void addCommentToIssue(String issueId, String text) {
+  Future<void> addCommentToIssue(String issueId, String text) async {
     final index = issues.indexWhere((element) => element.id == issueId);
     if (index != -1) {
-      issues[index].comments.add(
-        IssueComment(
-          id: "comment_${DateTime.now().millisecondsSinceEpoch}",
-          authorName: currentUser.name,
-          authorBadge: currentUser.isResidentVerified ? "Verified Resident" : "Resident",
-          text: text,
-          timestamp: DateTime.now(),
-        ),
+      await SupabaseService.addCommentToIssue(
+        issueId,
+        currentUser.name,
+        currentUser.isResidentVerified ? "Verified Resident" : "Resident",
+        text,
+        currentUser.id,
       );
       
-      currentUser = CivicUser(
-        id: currentUser.id,
-        name: currentUser.name,
-        phone: currentUser.phone,
-        avatarUrl: currentUser.avatarUrl,
-        wardName: currentUser.wardName,
-        locationText: currentUser.locationText,
-        reportsFiled: currentUser.reportsFiled,
-        contributionsCount: currentUser.contributionsCount + 1,
-        activeScore: currentUser.activeScore + 10, // 10 points per community comment
-        badges: currentUser.badges,
-        reputationScore: currentUser.reputationScore,
-        reputationLevel: currentUser.reputationLevel,
-        isResidentVerified: currentUser.isResidentVerified,
-        residentVerificationStatus: currentUser.residentVerificationStatus,
-        uploadedDocType: currentUser.uploadedDocType,
-        uploadedDocUrl: currentUser.uploadedDocUrl,
-      );
-      notifyListeners();
+      await _syncSupabase();
     }
   }
 
-  void toggleRSVP(String eventId) {
+  Future<void> toggleRSVP(String eventId) async {
     final index = events.indexWhere((element) => element.id == eventId);
     if (index != -1) {
       final event = events[index];
-      if (event.isRSVPed) {
-        event.rsvpCount--;
-        event.isRSVPed = false;
-      } else {
-        event.rsvpCount++;
-        event.isRSVPed = true;
-      }
-      notifyListeners();
+      await SupabaseService.toggleRSVP(event, currentUser.id);
+      
+      await _syncSupabase();
     }
   }
 
-  void addDiscussion({required String title, required String content}) {
-    final newDiscussion = CommunityDiscussion(
-      id: "disc_${DateTime.now().millisecondsSinceEpoch}",
-      title: title,
-      content: content,
-      authorName: currentUser.name,
-      authorRole: "Resident",
-      timeAgo: "Just now",
-      upvotes: 1,
-      replies: [],
-    );
-
-    discussions.insert(0, newDiscussion);
-    
-    currentUser = CivicUser(
-      id: currentUser.id,
-      name: currentUser.name,
-      phone: currentUser.phone,
-      avatarUrl: currentUser.avatarUrl,
-      wardName: currentUser.wardName,
-      locationText: currentUser.locationText,
-      reportsFiled: currentUser.reportsFiled,
-      contributionsCount: currentUser.contributionsCount + 1,
-      activeScore: currentUser.activeScore + 20, // 20 points per community topic
-      badges: currentUser.badges,
-    );
-    notifyListeners();
+  Future<void> addDiscussion({required String title, required String content}) async {
+    await SupabaseService.addDiscussion(title, content, currentUser.name, currentUser.id);
+    await _syncSupabase();
   }
 
-  void upvoteDiscussion(String discId) {
+  Future<void> upvoteDiscussion(String discId) async {
     final index = discussions.indexWhere((element) => element.id == discId);
     if (index != -1) {
       final disc = discussions[index];
-      if (disc.isUpvoted) {
-        disc.upvotes--;
-        disc.isUpvoted = false;
-      } else {
-        disc.upvotes++;
-        disc.isUpvoted = true;
-      }
-      notifyListeners();
+      await SupabaseService.upvoteDiscussion(disc);
+      await _syncSupabase();
     }
   }
 
-  void addReplyToDiscussion(String discId, String text) {
+  Future<void> addReplyToDiscussion(String discId, String text) async {
     final index = discussions.indexWhere((element) => element.id == discId);
     if (index != -1) {
-      discussions[index].replies.add(text);
-      notifyListeners();
+      final disc = discussions[index];
+      await SupabaseService.addReplyToDiscussion(disc, text);
+      await _syncSupabase();
     }
   }
 
-  void addAnnouncement({required String title, required String content, required bool isUrgent}) {
-    final newAnn = CivicAnnouncement(
-      id: "ann_${DateTime.now().millisecondsSinceEpoch}",
-      title: title,
-      content: content,
-      authorName: "${currentUser.name} (Volunteer)",
-      timeAgo: "Just now",
-      isUrgent: isUrgent,
-    );
-
-    announcements.insert(0, newAnn);
-    notifyListeners();
+  Future<void> addAnnouncement({required String title, required String content, required bool isUrgent}) async {
+    await SupabaseService.addAnnouncement(title, content, currentUser.name);
+    await _syncSupabase();
   }
 
-  void flagIssueManual({
+  Future<void> flagIssueManual({
     required String issueId,
     required String reason,
     required String type,
     int severity = 2,
-  }) {
-    final newFlag = SuspiciousActivityFlag(
-      id: "flag_${DateTime.now().millisecondsSinceEpoch}",
-      reportId: issueId,
-      flagType: type,
-      reason: reason,
-      severity: severity,
-      flaggedBy: currentUser.id,
-      notes: "Manually flagged by moderator ${currentUser.name}",
-      createdAt: DateTime.now(),
+  }) async {
+    await SupabaseService.flagIssueManual(
+      issueId,
+      reason,
+      type,
+      severity,
+      currentUser.id,
+      currentUser.name,
     );
-    suspiciousFlags.insert(0, newFlag);
-    notifyListeners();
+    await _syncSupabase();
   }
 
-  void confirmFlag(String flagId) {
-    final index = suspiciousFlags.indexWhere((f) => f.id == flagId);
-    if (index != -1) {
-      suspiciousFlags[index].status = 'Confirmed';
-      notifyListeners();
-    }
+  Future<void> confirmFlag(String flagId) async {
+    await SupabaseService.confirmFlag(flagId);
+    await _syncSupabase();
   }
 
-  void dismissFlag(String flagId) {
-    final index = suspiciousFlags.indexWhere((f) => f.id == flagId);
-    if (index != -1) {
-      suspiciousFlags[index].status = 'Dismissed';
-      notifyListeners();
-    }
+  Future<void> dismissFlag(String flagId) async {
+    await SupabaseService.dismissFlag(flagId);
+    await _syncSupabase();
   }
 
   void banUser(String userId) {
@@ -1549,46 +1440,23 @@ class CivicState extends ChangeNotifier {
   }
 
   // Phase 4 Community Flagging & Voter ID verification methods
-  void submitResidentVerification(String docType) {
-    currentUser = CivicUser(
-      id: currentUser.id,
-      name: currentUser.name,
-      phone: currentUser.phone,
-      avatarUrl: currentUser.avatarUrl,
-      wardName: currentUser.wardName,
-      locationText: currentUser.locationText,
-      reportsFiled: currentUser.reportsFiled,
-      contributionsCount: currentUser.contributionsCount,
-      activeScore: currentUser.activeScore + 100, // 100 bonus active score XP!
-      badges: [...currentUser.badges, "Verified Resident"],
-      reputationScore: 99.8,
-      reputationLevel: "Civic Elder",
-      isResidentVerified: true,
-      residentVerificationStatus: "Verified",
-      uploadedDocType: docType,
-      uploadedDocUrl: "voter_id_verified_metadata_stamped.pdf",
+  Future<void> submitResidentVerification(String docType) async {
+    await SupabaseService.submitResidentVerification(
+      docType,
+      currentUser.id,
+      currentUser.badges,
+      currentUser.activeScore,
     );
-    notifyListeners();
+    await _syncSupabase();
   }
 
-  void reportIssueSuspicious(String issueId, String reason, String type) {
-    final index = issues.indexWhere((element) => element.id == issueId);
-    if (index != -1) {
-      final issue = issues[index];
-      issue.isReportedSuspicious = true;
-      issue.suspiciousFlagsCount++;
-      
-      suspiciousFlags.insert(0, SuspiciousActivityFlag(
-        id: "flag_community_${DateTime.now().millisecondsSinceEpoch}",
-        reportId: issueId,
-        flagType: type,
-        reason: "Community Flagged: " + reason,
-        severity: 2,
-        flaggedBy: currentUser.id,
-        notes: "Manual citizen flag for coordinated spam auditing.",
-        createdAt: DateTime.now(),
-      ));
-      notifyListeners();
-    }
+  Future<void> reportIssueSuspicious(String issueId, String reason, String type) async {
+    await SupabaseService.reportIssueSuspicious(
+      issueId,
+      reason,
+      type,
+      currentUser.id,
+    );
+    await _syncSupabase();
   }
 }
