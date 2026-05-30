@@ -419,67 +419,144 @@ window._smoothNav = function(url) {
     <span class="material-symbols-outlined text-sm">content_copy</span>
     <span class="font-label-md">Copy</span>
     </button>
-    <button class="flex-1 flex items-center justify-center gap-2 border-1.5 border-slate/50 rounded-xl py-3 hover:bg-surface-variant transition-colors active:scale-95">
-    <span class="material-symbols-outlined text-sm">description</span>
-    <span class="font-label-md">.txt</span>
-    </button>
-    <button class="flex-[2] flex items-center justify-center gap-2 action-gradient text-white rounded-xl py-4 glow-orange active:scale-95 transition-all">
-    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">mail</span>
-    <div class="flex bg-surface-container-low p-1 rounded-xl border border-white/5 mb-4 mt-2">
-        <button id="tab-action-rti" class="flex-1 py-2 rounded-lg text-xs font-bold transition-all bg-primary-container text-on-primary-container active:scale-[0.98]" onclick="switchActionTab('rti')">RTI Draft</button>
-        <button id="tab-action-cpgrams" class="flex-1 py-2 rounded-lg text-xs font-bold transition-all text-slate hover:text-on-surface active:scale-[0.98]" onclick="switchActionTab('cpgrams')">CPGRAMS Draft</button>
-    </div>
-
-    <!-- RTI Content -->
-    <div id="action-content-rti" class="block">
-        <p class="font-label-sm text-slate mb-2">AUTOMATED RTI DRAFT FOR COMMUNITY FAILURES</p>
-        <div class="bg-surface-dim rounded-xl p-4 font-mono text-sm text-on-surface-variant border border-white/5 mb-6">
-            <p class="mb-2 text-primary">To: The Public Information Officer</p>
-            <p class="mb-4">Subject: Inquiry regarding unresolved structural damage at Sector 14 under Right to Information Act.</p>
-            <p class="leading-relaxed opacity-80">
-                Identification ID: <span class="text-on-surface">NTG-882-X</span><br/>
-                Location Cluster: <span class="text-on-surface">Geo-tagged 28.4595, 77.0266</span><br/>
-                Failure Type: <span class="text-on-surface">Public Infrastructure Malfunction</span><br/>
-                Days Since Report: <span class="text-on-surface">14 (Critical Threshold)</span>
-            </p>
-            <p class="mt-4 border-t border-white/10 pt-4 italic">
-                "Automated data injection complete. Ready for official submission."
-            </p>
+      <div class="bg-gradient-to-br from-surface-elevated to-surface-container border border-white/10 rounded-2xl p-6 relative overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.5)] transition-all duration-300 hover:border-primary/20">
+        <!-- Sleek Beta Badge -->
+        <div class="absolute top-0 right-0 px-4 py-1 bg-gradient-to-r from-orange-500 to-red-500 text-white font-display text-[9px] font-extrabold uppercase tracking-widest rounded-bl-xl shadow-lg">BETA</div>
+        
+        <div class="mb-5">
+          <p class="text-[10px] text-primary-container font-bold uppercase tracking-wider mb-0.5">Municipal Ledger Sync</p>
+          <h3 class="font-headline-md text-headline-md-mobile text-on-surface">Civic Pipeline Action</h3>
+          <p class="text-[11px] text-slate mt-0.5">Automated payload compiler for unresolved civic infrastructure bottlenecks.</p>
         </div>
-    </div>
-
-    <!-- CPGRAMS Content -->
-    <div id="action-content-cpgrams" class="hidden">
-        <p class="font-label-sm text-slate mb-2">CPGRAMS GRIEVANCE REDRESSAL DRAFT</p>
-        <div class="bg-surface-dim rounded-xl p-4 font-mono text-sm text-on-surface-variant border border-white/5 mb-6">
-            <p class="mb-2 text-primary">To: Centralized Public Grievance Redress System</p>
-            <p class="mb-4">Subject: Escalation of unaddressed civic infrastructural failure at Sector 14.</p>
-            <p class="leading-relaxed opacity-80">
-                Reference ID: <span class="text-on-surface">PG-NTG-882-X</span><br/>
-                Ministry/Dept: <span class="text-on-surface">Urban Development (Local Body)</span><br/>
-                Grievance Category: <span class="text-on-surface">Delay in taking action</span><br/>
-                Supporting Evidence: <span class="text-on-surface">Attached 3 Photos & 24 Upvotes</span>
-            </p>
-            <p class="mt-4 border-t border-white/10 pt-4 italic">
-                "Automated grievance payload assembled. Ready to dispatch."
-            </p>
+        
+        <!-- Premium Glass Segment Tabs -->
+        <div class="flex bg-surface-container-lowest/80 p-1 rounded-xl border border-white/5 mb-5 relative">
+          <button id="tab-action-rti" class="flex-1 py-2.5 rounded-lg text-xs font-bold transition-all duration-300 bg-primary-container text-on-primary-container shadow-md active:scale-95" onclick="switchActionTab('rti')">
+            <span class="flex items-center justify-center gap-1.5">
+              <span class="material-symbols-outlined text-[14px]">gavel</span>
+              RTI Draft
+            </span>
+          </button>
+          <button id="tab-action-cpgrams" class="flex-1 py-2.5 rounded-lg text-xs font-bold transition-all duration-300 text-slate hover:text-on-surface active:scale-95" onclick="switchActionTab('cpgrams')">
+            <span class="flex items-center justify-center gap-1.5">
+              <span class="material-symbols-outlined text-[14px]">assured_workload</span>
+              CPGRAMS Draft
+            </span>
+          </button>
         </div>
-    </div>
-    <div class="flex flex-row gap-stack-md">
-    <button class="flex-1 flex items-center justify-center gap-2 border-1.5 border-slate/50 rounded-xl py-3 hover:bg-surface-variant transition-colors active:scale-95">
-    <span class="material-symbols-outlined text-sm">content_copy</span>
-    <span class="font-label-md">Copy</span>
-    </button>
-    <button class="flex-1 flex items-center justify-center gap-2 border-1.5 border-slate/50 rounded-xl py-3 hover:bg-surface-variant transition-colors active:scale-95">
-    <span class="material-symbols-outlined text-sm">description</span>
-    <span class="font-label-md">.txt</span>
-    </button>
-    <button class="flex-[2] flex items-center justify-center gap-2 action-gradient text-white rounded-xl py-4 glow-orange active:scale-95 transition-all">
-    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">mail</span>
-    <span class="font-label-md font-bold uppercase tracking-wider">Email Officer</span>
-    </button>
-    </div>
-    </div>
+
+        <!-- Simulated Document Viewer (Sleek Glass Card) -->
+        <div class="bg-surface-container-low/60 rounded-xl p-5 border border-white/5 mb-6 relative overflow-hidden backdrop-blur-md">
+          <!-- Subtle document stamp watermark in background -->
+          <div class="absolute top-4 right-4 opacity-10 pointer-events-none">
+            <span class="material-symbols-outlined text-[96px] text-primary">description</span>
+          </div>
+
+          <!-- RTI Content -->
+          <div id="action-content-rti" class="block space-y-4 font-body-md">
+            <div class="flex justify-between items-center border-b border-white/5 pb-2">
+              <p class="text-[10px] text-slate font-bold uppercase tracking-widest">Official RTI Inquiry Payload</p>
+              <span class="text-[10px] text-primary-container font-bold font-mono">Payload Stamped</span>
+            </div>
+            
+            <div class="space-y-3 font-mono text-xs text-on-surface-variant leading-relaxed">
+              <div class="flex flex-col gap-0.5">
+                <span class="text-[9px] text-slate uppercase">Recipient:</span>
+                <span class="text-on-surface font-semibold">The Public Information Officer (PIO)</span>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <span class="text-[9px] text-slate uppercase">Subject:</span>
+                <span class="text-on-surface font-medium">Inquiry regarding unresolved structural damage at Sector 14 under Right to Information Act.</span>
+              </div>
+              <div class="grid grid-cols-2 gap-y-2 gap-x-4 pt-2 border-t border-white/5">
+                <div class="flex flex-col gap-0.5">
+                  <span class="text-[9px] text-slate uppercase">Ledger ID:</span>
+                  <span class="text-on-surface font-mono">NTG-882-X</span>
+                </div>
+                <div class="flex flex-col gap-0.5">
+                  <span class="text-[9px] text-slate uppercase">Locality:</span>
+                  <span class="text-on-surface font-mono">Ward 142 - Varthur</span>
+                </div>
+                <div class="flex flex-col gap-0.5">
+                  <span class="text-[9px] text-slate uppercase">Failure Category:</span>
+                  <span class="text-on-surface">Infrastructure</span>
+                </div>
+                <div class="flex flex-col gap-0.5">
+                  <span class="text-[9px] text-slate uppercase">Days Unresolved:</span>
+                  <span class="text-error font-bold font-mono">14 Days</span>
+                </div>
+              </div>
+            </div>
+            <div class="border-t border-white/5 pt-3 mt-1 flex items-center justify-between text-[10px] text-slate italic">
+              <span>* Prepared via decentralized resident consensus</span>
+              <span class="text-success font-bold flex items-center gap-1">
+                <span class="h-1.5 w-1.5 bg-success rounded-full animate-pulse"></span>
+                Ready
+              </span>
+            </div>
+          </div>
+
+          <!-- CPGRAMS Content -->
+          <div id="action-content-cpgrams" class="hidden space-y-4 font-body-md">
+            <div class="flex justify-between items-center border-b border-white/5 pb-2">
+              <p class="text-[10px] text-slate font-bold uppercase tracking-widest">CPGRAMS Redressal Payload</p>
+              <span class="text-[10px] text-primary-container font-bold font-mono">Grievance Mapped</span>
+            </div>
+            
+            <div class="space-y-3 font-mono text-xs text-on-surface-variant leading-relaxed">
+              <div class="flex flex-col gap-0.5">
+                <span class="text-[9px] text-slate uppercase">Recipient Ministry:</span>
+                <span class="text-on-surface font-semibold">Ministry of Housing and Urban Affairs</span>
+              </div>
+              <div class="flex flex-col gap-0.5">
+                <span class="text-[9px] text-slate uppercase">Subject:</span>
+                <span class="text-on-surface font-medium">Escalation of unaddressed civic infrastructural failure at Sector 14.</span>
+              </div>
+              <div class="grid grid-cols-2 gap-y-2 gap-x-4 pt-2 border-t border-white/5">
+                <div class="flex flex-col gap-0.5">
+                  <span class="text-[9px] text-slate uppercase">Reference ID:</span>
+                  <span class="text-on-surface font-mono">PG-NTG-882-X</span>
+                </div>
+                <div class="flex flex-col gap-0.5">
+                  <span class="text-[9px] text-slate uppercase">Assigned Dept:</span>
+                  <span class="text-on-surface">Urban Development (BBMP)</span>
+                </div>
+                <div class="flex flex-col gap-0.5">
+                  <span class="text-[9px] text-slate uppercase">Grievance Category:</span>
+                  <span class="text-on-surface">Delay in taking action</span>
+                </div>
+                <div class="flex flex-col gap-0.5">
+                  <span class="text-[9px] text-slate uppercase">Consensus Verification:</span>
+                  <span class="text-success font-bold font-mono">24 Resident Signatures</span>
+                </div>
+              </div>
+            </div>
+            <div class="border-t border-white/5 pt-3 mt-1 flex items-center justify-between text-[10px] text-slate italic">
+              <span>* Prepared via decentralized resident consensus</span>
+              <span class="text-success font-bold flex items-center gap-1">
+                <span class="h-1.5 w-1.5 bg-success rounded-full animate-pulse"></span>
+                Ready
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Premium Glass Actions Bar -->
+        <div class="flex flex-row gap-3">
+          <button class="flex-1 flex items-center justify-center gap-2 border border-white/10 rounded-xl py-3 text-on-surface hover:bg-white/5 hover:border-white/20 transition-all duration-300 active:scale-95">
+            <span class="material-symbols-outlined text-[18px]">content_copy</span>
+            <span class="text-xs font-semibold">Copy Draft</span>
+          </button>
+          <button class="flex-1 flex items-center justify-center gap-2 border border-white/10 rounded-xl py-3 text-on-surface hover:bg-white/5 hover:border-white/20 transition-all duration-300 active:scale-95">
+            <span class="material-symbols-outlined text-[18px]">download</span>
+            <span class="text-xs font-semibold">Export TXT</span>
+          </button>
+          <button class="flex-[1.5] flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl py-3.5 shadow-[0_4px_20px_rgba(249,115,22,0.4)] hover:shadow-[0_6px_28px_rgba(249,115,22,0.5)] hover:scale-[1.02] active:scale-95 transition-all duration-300 font-display">
+            <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">mail</span>
+            <span class="text-xs font-extrabold uppercase tracking-wider">Email Officer</span>
+          </button>
+        </div>
+      </div>
     </section>
 
     <!-- Pinned Reports Feed -->
@@ -648,13 +725,13 @@ window._smoothNav = function(url) {
             if (tab === 'rti') {
                 rtiContent.classList.remove('hidden');
                 cpgramsContent.classList.add('hidden');
-                tabRti.className = "flex-1 py-2 rounded-lg text-xs font-bold transition-all bg-primary-container text-on-primary-container active:scale-[0.98]";
-                tabCpgrams.className = "flex-1 py-2 rounded-lg text-xs font-bold transition-all text-slate hover:text-on-surface active:scale-[0.98]";
+                tabRti.className = "flex-1 py-2.5 rounded-lg text-xs font-bold transition-all duration-300 bg-primary-container text-on-primary-container shadow-md active:scale-95";
+                tabCpgrams.className = "flex-1 py-2.5 rounded-lg text-xs font-bold transition-all duration-300 text-slate hover:text-on-surface active:scale-95";
             } else {
                 rtiContent.classList.add('hidden');
                 cpgramsContent.classList.remove('hidden');
-                tabRti.className = "flex-1 py-2 rounded-lg text-xs font-bold transition-all text-slate hover:text-on-surface active:scale-[0.98]";
-                tabCpgrams.className = "flex-1 py-2 rounded-lg text-xs font-bold transition-all bg-primary-container text-on-primary-container active:scale-[0.98]";
+                tabRti.className = "flex-1 py-2.5 rounded-lg text-xs font-bold transition-all duration-300 text-slate hover:text-on-surface active:scale-95";
+                tabCpgrams.className = "flex-1 py-2.5 rounded-lg text-xs font-bold transition-all duration-300 bg-primary-container text-on-primary-container shadow-md active:scale-95";
             }
         }
 
