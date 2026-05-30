@@ -425,23 +425,75 @@ window._smoothNav = function(url) {
     </button>
     <button class="flex-[2] flex items-center justify-center gap-2 action-gradient text-white rounded-xl py-4 glow-orange active:scale-95 transition-all">
     <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">mail</span>
+    <div class="flex bg-surface-container-low p-1 rounded-xl border border-white/5 mb-4 mt-2">
+        <button id="tab-action-rti" class="flex-1 py-2 rounded-lg text-xs font-bold transition-all bg-primary-container text-on-primary-container active:scale-[0.98]" onclick="switchActionTab('rti')">RTI Draft</button>
+        <button id="tab-action-cpgrams" class="flex-1 py-2 rounded-lg text-xs font-bold transition-all text-slate hover:text-on-surface active:scale-[0.98]" onclick="switchActionTab('cpgrams')">CPGRAMS Draft</button>
+    </div>
+
+    <!-- RTI Content -->
+    <div id="action-content-rti" class="block">
+        <p class="font-label-sm text-slate mb-2">AUTOMATED RTI DRAFT FOR COMMUNITY FAILURES</p>
+        <div class="bg-surface-dim rounded-xl p-4 font-mono text-sm text-on-surface-variant border border-white/5 mb-6">
+            <p class="mb-2 text-primary">To: The Public Information Officer</p>
+            <p class="mb-4">Subject: Inquiry regarding unresolved structural damage at Sector 14 under Right to Information Act.</p>
+            <p class="leading-relaxed opacity-80">
+                Identification ID: <span class="text-on-surface">NTG-882-X</span><br/>
+                Location Cluster: <span class="text-on-surface">Geo-tagged 28.4595, 77.0266</span><br/>
+                Failure Type: <span class="text-on-surface">Public Infrastructure Malfunction</span><br/>
+                Days Since Report: <span class="text-on-surface">14 (Critical Threshold)</span>
+            </p>
+            <p class="mt-4 border-t border-white/10 pt-4 italic">
+                "Automated data injection complete. Ready for official submission."
+            </p>
+        </div>
+    </div>
+
+    <!-- CPGRAMS Content -->
+    <div id="action-content-cpgrams" class="hidden">
+        <p class="font-label-sm text-slate mb-2">CPGRAMS GRIEVANCE REDRESSAL DRAFT</p>
+        <div class="bg-surface-dim rounded-xl p-4 font-mono text-sm text-on-surface-variant border border-white/5 mb-6">
+            <p class="mb-2 text-primary">To: Centralized Public Grievance Redress System</p>
+            <p class="mb-4">Subject: Escalation of unaddressed civic infrastructural failure at Sector 14.</p>
+            <p class="leading-relaxed opacity-80">
+                Reference ID: <span class="text-on-surface">PG-NTG-882-X</span><br/>
+                Ministry/Dept: <span class="text-on-surface">Urban Development (Local Body)</span><br/>
+                Grievance Category: <span class="text-on-surface">Delay in taking action</span><br/>
+                Supporting Evidence: <span class="text-on-surface">Attached 3 Photos & 24 Upvotes</span>
+            </p>
+            <p class="mt-4 border-t border-white/10 pt-4 italic">
+                "Automated grievance payload assembled. Ready to dispatch."
+            </p>
+        </div>
+    </div>
+    <div class="flex flex-row gap-stack-md">
+    <button class="flex-1 flex items-center justify-center gap-2 border-1.5 border-slate/50 rounded-xl py-3 hover:bg-surface-variant transition-colors active:scale-95">
+    <span class="material-symbols-outlined text-sm">content_copy</span>
+    <span class="font-label-md">Copy</span>
+    </button>
+    <button class="flex-1 flex items-center justify-center gap-2 border-1.5 border-slate/50 rounded-xl py-3 hover:bg-surface-variant transition-colors active:scale-95">
+    <span class="material-symbols-outlined text-sm">description</span>
+    <span class="font-label-md">.txt</span>
+    </button>
+    <button class="flex-[2] flex items-center justify-center gap-2 action-gradient text-white rounded-xl py-4 glow-orange active:scale-95 transition-all">
+    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">mail</span>
     <span class="font-label-md font-bold uppercase tracking-wider">Email Officer</span>
     </button>
     </div>
     </div>
     </section>
+
     <!-- Pinned Reports Feed -->
-    <section class="px-container-margin py-stack-sm mb-12">
+    <section class="px-container-margin py-stack-sm mb-6">
     <div class="flex items-center justify-between mb-4">
     <h3 class="font-headline-md text-headline-md-mobile text-on-surface">Most Upvoted Report (Pinned)</h3>
-    <button class="text-primary font-label-md">View All</button>
+    <button onclick="window.location.href='/unified_reports_tracking_hub/code.html'" class="text-primary font-label-md">View All</button>
     </div>
     <div class="flex flex-col gap-gutter">
     <!-- Report Card 1 -->
-    <div class="bg-surface-elevated rounded-2xl border border-white/10 overflow-hidden group">
+    <div class="bg-surface-elevated rounded-2xl border border-white/10 overflow-hidden group hover:border-primary/30 transition-all duration-300">
     <div class="flex">
     <div class="w-32 h-32 relative flex-shrink-0">
-    <img alt="Report Image" class="w-full h-full object-cover" data-alt="A gritty close-up photograph of a deep structural fissure running through a concrete municipal bridge. The image captures the texture of weathered cement and rusted rebar, set against a backdrop of industrial gray skies. The lighting is harsh and high-contrast, emphasizing the urgency and danger of the situation. The overall aesthetic is professional, clinical, and urgent, reflecting a serious civic reporting context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJP_D1pIuLOWUF3iARP5qWoV4VJz6cDCW4ETRV2b1D8tkN1buXNvt15ESUnXfYCxEY_fZJpHgs-AEZNICp8ge7fqWF0E5Mdr3PGfzFBG0iBT5s8VksHe3XtO7uwL2h8UlDU7CkqdfdFJTAKZjoYw_2yQxcWTMdaU1FyttILTC52UMXtHM5XXAqx498Nnblotjfo74xtYbi2hGDLfD-hQqawm58ibqA7Es0_Nksn71xAjGXALwrbwXc-K0DI3sYU5m-0w_OKLCXWg-r"/>
+    <img alt="Report Image" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJP_D1pIuLOWUF3iARP5qWoV4VJz6cDCW4ETRV2b1D8tkN1buXNvt15ESUnXfYCxEY_fZJpHgs-AEZNICp8ge7fqWF0E5Mdr3PGfzFBG0iBT5s8VksHe3XtO7uwL2h8UlDU7CkqdfdFJTAKZjoYw_2yQxcWTMdaU1FyttILTC52UMXtHM5XXAqx498Nnblotjfo74xtYbi2hGDLfD-hQqawm58ibqA7Es0_Nksn71xAjGXALwrbwXc-K0DI3sYU5m-0w_OKLCXWg-r"/>
     <div class="absolute top-2 left-2 bg-error text-on-error px-2 py-0.5 rounded font-label-sm text-[10px] font-bold">URGENT</div>
     </div>
     <div class="p-4 flex-1 flex flex-col justify-between">
@@ -457,7 +509,7 @@ window._smoothNav = function(url) {
     <span class="px-2 py-0.5 bg-primary/10 text-primary border border-primary/20 rounded font-label-sm text-[10px] uppercase">Pending</span>
     <span class="text-slate text-[10px]">2h ago</span>
     </div>
-    <button class="text-primary">
+    <button onclick="window.location.href='/issue_details/code.html'" class="text-primary hover:translate-x-1 transition-transform">
     <span class="material-symbols-outlined text-lg">arrow_forward</span>
     </button>
     </div>
@@ -465,10 +517,10 @@ window._smoothNav = function(url) {
     </div>
     </div>
     <!-- Report Card 2 -->
-    <div class="bg-surface-elevated rounded-2xl border border-white/10 overflow-hidden group">
+    <div class="bg-surface-elevated rounded-2xl border border-white/10 overflow-hidden group hover:border-primary/30 transition-all duration-300">
     <div class="flex">
     <div class="w-32 h-32 relative flex-shrink-0">
-    <img alt="Report Image" class="w-full h-full object-cover" data-alt="A photograph of a large, water-filled pothole in the middle of a busy city asphalt road at dusk. The water reflects the vibrant orange and red lights of passing traffic. The image is framed from a low angle, highlighting the depth and hazard of the infrastructure failure. The surrounding environment is dark and moody, punctuated by high-contrast neon glows and automotive lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALNJOPzUGPd5E-cFR5fxQZc1kmeeqZ_prXSMqUixcpAGdTQ_TlGyZAV2F6VFu2YZGdmrNYSflSZrGyn-a4uTEDoaDENq15LYlHFwjz4GTv8a_pFeV5NJA_iFiaa-jSbwfKHaFcZwRsUGR26iZZ4tHt6eWQ5qyEZwbKQD8Zs_rpkvwSoVj-0Wc4CuWPEgJs8wEfqDtp2x50ySrBWahmS5ZLd81GkHq6_US9XdXzV8--1Vd577CGhn20vA6ZhM1vNQpKeXaaBo6oHWFU"/>
+    <img alt="Report Image" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALNJOPzUGPd5E-cFR5fxQZc1kmeeqZ_prXSMqUixcpAGdTQ_TlGyZAV2F6VFu2YZGdmrNYSflSZrGyn-a4uTEDoaDENq15LYlHFwjz4GTv8a_pFeV5NJA_iFiaa-jSbwfKHaFcZwRsUGR26iZZ4tHt6eWQ5qyEZwbKQD8Zs_rpkvwSoVj-0Wc4CuWPEgJs8wEfqDtp2x50ySrBWahmS5ZLd81GkHq6_US9XdXzV8--1Vd577CGhn20vA6ZhM1vNQpKeXaaBo6oHWFU"/>
     <div class="absolute top-2 left-2 bg-success text-on-primary px-2 py-0.5 rounded font-label-sm text-[10px] font-bold">VERIFIED</div>
     </div>
     <div class="p-4 flex-1 flex flex-col justify-between">
@@ -484,43 +536,43 @@ window._smoothNav = function(url) {
     <span class="px-2 py-0.5 bg-success/10 text-success border border-success/20 rounded font-label-sm text-[10px] uppercase">Verified</span>
     <span class="text-slate text-[10px]">5h ago</span>
     </div>
-    <button class="text-primary">
+    <button onclick="window.location.href='/issue_details/code.html'" class="text-primary hover:translate-x-1 transition-transform">
     <span class="material-symbols-outlined text-lg">arrow_forward</span>
     </button>
-    </div>
     </div>
     </div>
     </div>
     </div>
     </section>
-    <!-- Pinned Reports Feed -->
+
+    <!-- Most Recent Posts Feed -->
     <section class="px-container-margin py-stack-sm mb-12">
     <div class="flex items-center justify-between mb-4">
-    <h3 class="font-headline-md text-headline-md-mobile text-on-surface">Most Upvoted Report (Pinned)</h3>
-    <button class="text-primary font-label-md">View All</button>
+    <h3 class="font-headline-md text-headline-md-mobile text-on-surface">Most Recent Posts</h3>
+    <button onclick="window.location.href='/unified_reports_tracking_hub/code.html'" class="text-primary font-label-md">View All</button>
     </div>
     <div class="flex flex-col gap-gutter">
     <!-- Report Card 1 -->
-    <div class="bg-surface-elevated rounded-2xl border border-white/10 overflow-hidden group">
+    <div class="bg-surface-elevated rounded-2xl border border-white/10 overflow-hidden group hover:border-primary/30 transition-all duration-300">
     <div class="flex">
     <div class="w-32 h-32 relative flex-shrink-0">
-    <img alt="Report Image" class="w-full h-full object-cover" data-alt="A gritty close-up photograph of a deep structural fissure running through a concrete municipal bridge. The image captures the texture of weathered cement and rusted rebar, set against a backdrop of industrial gray skies. The lighting is harsh and high-contrast, emphasizing the urgency and danger of the situation. The overall aesthetic is professional, clinical, and urgent, reflecting a serious civic reporting context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJP_D1pIuLOWUF3iARP5qWoV4VJz6cDCW4ETRV2b1D8tkN1buXNvt15ESUnXfYCxEY_fZJpHgs-AEZNICp8ge7fqWF0E5Mdr3PGfzFBG0iBT5s8VksHe3XtO7uwL2h8UlDU7CkqdfdFJTAKZjoYw_2yQxcWTMdaU1FyttILTC52UMXtHM5XXAqx498Nnblotjfo74xtYbi2hGDLfD-hQqawm58ibqA7Es0_Nksn71xAjGXALwrbwXc-K0DI3sYU5m-0w_OKLCXWg-r"/>
-    <div class="absolute top-2 left-2 bg-error text-on-error px-2 py-0.5 rounded font-label-sm text-[10px] font-bold">URGENT</div>
+    <img alt="Report Image" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?auto=format&fit=crop&q=80&w=300"/>
+    <div class="absolute top-2 left-2 bg-warning text-on-secondary px-2 py-0.5 rounded font-label-sm text-[10px] font-bold">NEW</div>
     </div>
     <div class="p-4 flex-1 flex flex-col justify-between">
     <div>
     <div class="flex justify-between items-start mb-1">
-    <h4 class="font-label-md text-on-surface leading-tight">Structural Crack - Bypass 4</h4>
-    <span class="text-primary font-label-sm">#8821</span>
+    <h4 class="font-label-md text-on-surface leading-tight">Garbage Pile - Park Gate</h4>
+    <span class="text-primary font-label-sm">#8904</span>
     </div>
-    <p class="text-slate text-[13px] line-clamp-2">Main artery bridge showing 4-inch separation on pier foundation. Poses safety risk.</p>
+    <p class="text-slate text-[13px] line-clamp-2">Huge piles of solid plastic and organic waste accumulated right in front of the primary park entrance gate.</p>
     </div>
     <div class="flex items-center justify-between mt-2">
     <div class="flex items-center gap-2">
-    <span class="px-2 py-0.5 bg-primary/10 text-primary border border-primary/20 rounded font-label-sm text-[10px] uppercase">Pending</span>
-    <span class="text-slate text-[10px]">2h ago</span>
+    <span class="px-2 py-0.5 bg-warning/10 text-warning border border-warning/20 rounded font-label-sm text-[10px] uppercase">Pending</span>
+    <span class="text-slate text-[10px]">15m ago</span>
     </div>
-    <button class="text-primary">
+    <button onclick="window.location.href='/issue_details/code.html'" class="text-primary hover:translate-x-1 transition-transform">
     <span class="material-symbols-outlined text-lg">arrow_forward</span>
     </button>
     </div>
@@ -528,29 +580,28 @@ window._smoothNav = function(url) {
     </div>
     </div>
     <!-- Report Card 2 -->
-    <div class="bg-surface-elevated rounded-2xl border border-white/10 overflow-hidden group">
+    <div class="bg-surface-elevated rounded-2xl border border-white/10 overflow-hidden group hover:border-primary/30 transition-all duration-300">
     <div class="flex">
     <div class="w-32 h-32 relative flex-shrink-0">
-    <img alt="Report Image" class="w-full h-full object-cover" data-alt="A photograph of a large, water-filled pothole in the middle of a busy city asphalt road at dusk. The water reflects the vibrant orange and red lights of passing traffic. The image is framed from a low angle, highlighting the depth and hazard of the infrastructure failure. The surrounding environment is dark and moody, punctuated by high-contrast neon glows and automotive lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALNJOPzUGPd5E-cFR5fxQZc1kmeeqZ_prXSMqUixcpAGdTQ_TlGyZAV2F6VFu2YZGdmrNYSflSZrGyn-a4uTEDoaDENq15LYlHFwjz4GTv8a_pFeV5NJA_iFiaa-jSbwfKHaFcZwRsUGR26iZZ4tHt6eWQ5qyEZwbKQD8Zs_rpkvwSoVj-0Wc4CuWPEgJs8wEfqDtp2x50ySrBWahmS5ZLd81GkHq6_US9XdXzV8--1Vd577CGhn20vA6ZhM1vNQpKeXaaBo6oHWFU"/>
-    <div class="absolute top-2 left-2 bg-success text-on-primary px-2 py-0.5 rounded font-label-sm text-[10px] font-bold">VERIFIED</div>
+    <img alt="Report Image" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1506546332852-c6f393836d59?auto=format&fit=crop&q=80&w=300"/>
+    <div class="absolute top-2 left-2 bg-warning text-on-secondary px-2 py-0.5 rounded font-label-sm text-[10px] font-bold">NEW</div>
     </div>
     <div class="p-4 flex-1 flex flex-col justify-between">
     <div>
     <div class="flex justify-between items-start mb-1">
-    <h4 class="font-label-md text-on-surface leading-tight">Large Pothole - MG Road</h4>
-    <span class="text-primary font-label-sm">#8795</span>
+    <h4 class="font-label-md text-on-surface leading-tight">Broken Streetlight - 4th Cross</h4>
+    <span class="text-primary font-label-sm">#8890</span>
     </div>
-    <p class="text-slate text-[13px] line-clamp-2">Hazardous depression causing vehicle damage. Verification team confirmed measurements.</p>
+    <p class="text-slate text-[13px] line-clamp-2">Two light poles near the Vinayaka temple are completely blacked out, causing safety issues after dark.</p>
     </div>
     <div class="flex items-center justify-between mt-2">
     <div class="flex items-center gap-2">
-    <span class="px-2 py-0.5 bg-success/10 text-success border border-success/20 rounded font-label-sm text-[10px] uppercase">Verified</span>
-    <span class="text-slate text-[10px]">5h ago</span>
+    <span class="px-2 py-0.5 bg-warning/10 text-warning border border-warning/20 rounded font-label-sm text-[10px] uppercase">Pending</span>
+    <span class="text-slate text-[10px]">1h ago</span>
     </div>
-    <button class="text-primary">
+    <button onclick="window.location.href='/issue_details/code.html'" class="text-primary hover:translate-x-1 transition-transform">
     <span class="material-symbols-outlined text-lg">arrow_forward</span>
     </button>
-    </div>
     </div>
     </div>
     </div>
